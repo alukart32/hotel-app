@@ -1,0 +1,12 @@
+databaseChangeLog:
+    -   preConditions:
+            -   dbms:
+                    type: postgresql
+    -   changeSet:
+            id           : 1
+            author       : your name
+            comment      : Create users table
+            changes      :
+                -   sqlFile:
+                        path                   : changesets/SC-001.sql
+                        relativeToChangelogFile: true

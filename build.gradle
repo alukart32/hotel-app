@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+}
+
+allprojects {
+    ext {
+        springboot_ver = "2.1.6.RELEASE"
+    }
+    version '1.0-SNAPSHOT'
+    group 'ru.relex'
+
+    sourceCompatibility = JavaVersion.VERSION_11
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: "java-library"
+}
+
+subprojects.each { proj ->
+    if (proj.name != "commons") {
+        proj.dependencies {
+           // implementation project(":commons")
+        }
+    }
+}
+
+
+dependencies {
+    implementation project(":ServicesModule")
+    implementation "org.springframework.boot:spring-boot-starter-web:$springboot_ver"
+    //testCompile group: 'junit', name: 'junit', version: '4.12'
+}
