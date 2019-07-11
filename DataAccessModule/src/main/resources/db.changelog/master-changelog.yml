@@ -8,5 +8,5 @@ databaseChangeLog:
             comment      : Create users table
             changes      :
                 -   sqlFile:
-                        path                   : changesets/SC-001.sql
+                        path                   : changesets/H-001.sql
                         relativeToChangelogFile: true
