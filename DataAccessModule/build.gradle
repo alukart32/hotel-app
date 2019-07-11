@@ -1,6 +1,6 @@
 dependencies {
 
-//    implementation project(":commons")
+    implementation project(":CommonsModule")
 
     //SPRING
     implementation "org.springframework.data:spring-data-commons:2.1.9.RELEASE"
@@ -12,8 +12,7 @@ dependencies {
 
     //Mybatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
-
-
+    
     //Driver
     runtimeOnly "org.postgresql:postgresql:42.2.6"
 }

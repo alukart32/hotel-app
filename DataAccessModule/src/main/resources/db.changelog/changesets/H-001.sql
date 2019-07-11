@@ -1,9 +1,9 @@
-CREATE TABLE "authorities" (
+CREATE TABLE inprog.authorities (
   "authority_id" SERIAL PRIMARY KEY,
   "name" varchar(16) UNIQUE
 );
 
-CREATE TABLE "users" (
+CREATE TABLE inprog.users (
   "user_id" SERIAL PRIMARY KEY,
   "authority_id" integer,
   "login" varchar(32) UNIQUE,
@@ -15,7 +15,7 @@ CREATE TABLE "users" (
   "email" varchar(32) UNIQUE
 );
 
-CREATE TABLE "rooms" (
+CREATE TABLE inprog.rooms (
   "room_id" SERIAL PRIMARY KEY,
   "number" integer,
   "floor" integer,
@@ -24,26 +24,26 @@ CREATE TABLE "rooms" (
   "type_id" integer
 );
 
-CREATE TABLE "categories" (
+CREATE TABLE inprog.categories (
   "category_id" SERIAL PRIMARY KEY,
   "name" varchar(16) UNIQUE,
   "price_multplier" decimal
 );
 
-CREATE TABLE "types" (
+CREATE TABLE inprog.types (
   "type_id" SERIAL PRIMARY KEY,
   "twin_bed" boolean,
   "places" integer,
   "price" integer
 );
 
-CREATE TABLE "facilities" (
+CREATE TABLE inprog.facilities (
   "facility_id" SERIAL PRIMARY KEY,
   "name" varchar(32),
   "price" integer
 );
 
-CREATE TABLE "bookings" (
+CREATE TABLE inprog.bookings (
   "booking_id" SERIAL PRIMARY KEY,
   "user_id" integer,
   "room_id" integer,
@@ -53,14 +53,14 @@ CREATE TABLE "bookings" (
   "real_check_out" datetime
 );
 
-ALTER TABLE "users" ADD FOREIGN KEY ("authority_id") REFERENCES "authorities" ("authority_id");
+ALTER TABLE inprog.users ADD FOREIGN KEY ("authority_id") REFERENCES inprog.authorities ("authority_id");
 
-ALTER TABLE "rooms" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("category_id");
+ALTER TABLE inprog.rooms ADD FOREIGN KEY ("category_id") REFERENCES inprog.categories ("category_id");
 
-ALTER TABLE "rooms" ADD FOREIGN KEY ("facility_id") REFERENCES "facilities" ("facility_id");
+ALTER TABLE inprog.rooms ADD FOREIGN KEY ("facility_id") REFERENCES inprog.facilities ("facility_id");
 
-ALTER TABLE "rooms" ADD FOREIGN KEY ("type_id") REFERENCES "types" ("type_id");
+ALTER TABLE inprog.rooms ADD FOREIGN KEY ("type_id") REFERENCES inprog.types ("type_id");
 
-ALTER TABLE "bookings" ADD FOREIGN KEY ("room_id") REFERENCES "rooms" ("room_id");
+ALTER TABLE inprog.bookings ADD FOREIGN KEY ("room_id") REFERENCES inprog.rooms ("room_id");
 
-ALTER TABLE "bookings" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
+ALTER TABLE inprog.bookings ADD FOREIGN KEY ("user_id") REFERENCES inprog.users ("user_id");

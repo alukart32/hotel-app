@@ -4,8 +4,8 @@ databaseChangeLog:
                     type: postgresql
     -   changeSet:
             id           : 1
-            author       : your name
-            comment      : Create users table
+            author       : itarasov
+            comment      : Create tabels
             changes      :
                 -   sqlFile:
                         path                   : changesets/H-001.sql

@@ -1,6 +1,6 @@
-package shared.model;
+package ru.relex.hotelteam.shared.model;
 
-public enum Role {
+public enum Authorities {
 
     ADMIN(1),
     USER(2)
@@ -8,7 +8,7 @@ public enum Role {
 
     private final int id;
 
-    Role(final int id) {
+    Authorities(final int id) {
         this.id = id;
     }
 
@@ -16,7 +16,7 @@ public enum Role {
         return id;
     }
 
-    public static Role of(Integer id) {
+    public static Authorities of(Integer id) {
         if (id == null) {
             return null;
         }
