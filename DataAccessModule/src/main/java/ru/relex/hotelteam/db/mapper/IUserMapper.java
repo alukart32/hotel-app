@@ -17,5 +17,4 @@ public interface IUserMapper {
     List<User> listUsers();
 
     void deleteUser(@Param("id") int id);
-
 }

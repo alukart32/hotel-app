@@ -1,31 +1,15 @@
 package ru.relex.hotelteam.db.domain;
 
-
-import ru.relex.hotelteam.shared.model.Authorities;
-
+import ru.relex.hotelteam.shared.model.Authority;
 
 public class User {
-
     private int id;
     private String password;
     private String login;
     private String firstName;
     private String lastName;
     private String middleName;
-    private Authorities authorities;
-
-    public User() {}
-
-    public User(int id, String password, String login,
-                String firstName, String lastName, String middleName, Authorities authorities) {
-        this.id = id;
-        this.password = password;
-        this.login = login;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.authorities = authorities;
-    }
+    private Authority authority;
 
     public int getId() {
         return id;
@@ -75,12 +59,12 @@ public class User {
         this.middleName = middleName;
     }
 
-    public Authorities getAuthorities() {
-        return authorities;
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public void setAuthorities(Authorities authorities) {
-        this.authorities = authorities;
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 }
 

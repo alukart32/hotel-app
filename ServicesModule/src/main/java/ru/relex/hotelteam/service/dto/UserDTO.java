@@ -1,6 +1,6 @@
 package ru.relex.hotelteam.service.dto;
 
-import ru.relex.hotelteam.shared.model.Authorities;
+import ru.relex.hotelteam.shared.model.Authority;
 
 public class UserDTO {
     private int id;
@@ -9,20 +9,7 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String middleName;
-    private Authorities authorities;
-
-    public UserDTO() {}
-
-    public UserDTO(int id, String password, String login,
-                   String firstName, String lastName, String middleName, Authorities authorities) {
-        this.id = id;
-        this.password = password;
-        this.login = login;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.authorities = authorities;
-    }
+    private Authority authority;
 
     public int getId() {
         return id;
@@ -72,11 +59,11 @@ public class UserDTO {
         this.middleName = middleName;
     }
 
-    public Authorities getAuthorities() {
-        return authorities;
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public void setAuthorities(Authorities authorities) {
-        this.authorities = authorities;
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 }

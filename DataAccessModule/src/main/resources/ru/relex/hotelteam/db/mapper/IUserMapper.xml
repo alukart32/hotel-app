@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.hotelteam.db.mapper.IUserMapper">
+    <select id="createUser" resultType="User">
+        INSERT INTO inprog.users(authority_id, first_name, last_name, login, password, middle_name)
+        VALUES (#{role}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
+        RETURNING user_id as id,
+                  first_name,
+                  last_name,
+                  middle_name,
+                  authority_id as authority,
+                  login,
+                  password
+    </select>
+
+    <select id="getUserById" resultType="User">
+        SELECT user_id as id,
+               first_name,
+               last_name,
+               middle_name,
+               authority_id as authority,
+               login,
+               password
+        FROM inprog.users
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="listUsers" resultType="User">
+        SELECT user_id as id,
+               first_name,
+               second_name,
+               middle_name,
+               authority_id as authority,
+               login,
+               password
+        FROM inprog.users
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM inprog.users
+        WHERE user_id = #{id}
+    </delete>
+</mapper>

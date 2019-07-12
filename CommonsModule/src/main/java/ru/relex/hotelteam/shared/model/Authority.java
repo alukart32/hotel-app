@@ -1,6 +1,6 @@
 package ru.relex.hotelteam.shared.model;
 
-public enum Authorities {
+public enum Authority {
 
     OWNER(1),
     ADMIN(2),
@@ -8,7 +8,7 @@ public enum Authorities {
 
     private final int id;
 
-    Authorities(final int id) {
+    Authority(final int id) {
         this.id = id;
     }
 
@@ -16,7 +16,7 @@ public enum Authorities {
         return id;
     }
 
-    public static Authorities of(Integer id) {
+    public static Authority of(Integer id) {
         if (id == null) {
             return null;
         }
