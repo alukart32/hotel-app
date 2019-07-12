@@ -1,9 +1,11 @@
 package ru.relex.hotelteam.service.impl;
 
 import org.springframework.stereotype.Service;
+import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
 import ru.relex.hotelteam.service.dto.UserDTO;
+import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
 import java.util.List;
@@ -41,8 +43,23 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO update(int id, UserDTO updatedUser) {
-        return null;
+    public UserDTO update(int id, UserUpdateDTO updatedUser) {
+        User user = mapper.getUserById(id);
+
+        /**
+         * просто без проверок
+         */
+        user.setId(id);
+        user.setAuthority(user.getAuthority());
+        user.setPassword(user.getPassword());
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setMiddleName(updatedUser.getMiddleName());
+        user.setEmail(updatedUser.getEmail());
+        user.setBirthDate(updatedUser.getBirthDate());
+
+        return mapstruct.toDTO(user);
+
     }
 }
 

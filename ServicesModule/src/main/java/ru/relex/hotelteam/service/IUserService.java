@@ -1,6 +1,7 @@
 package ru.relex.hotelteam.service;
 
 import ru.relex.hotelteam.service.dto.UserDTO;
+import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface IUserService {
 
     void delete(int id);
 
-    UserDTO update(int id, UserDTO updatedUser);
+    UserDTO update(int id, UserUpdateDTO updatedUser);
 }
