@@ -1,11 +1,7 @@
 package ru.relex.hotelteam.service.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.relex.hotelteam.shared.model.Authorities;
 
-@Getter
-@Setter
 public class UserDTO {
     private int id;
     private String password;
@@ -15,6 +11,8 @@ public class UserDTO {
     private String middleName;
     private Authorities role;
 
+    public UserDTO() {}
+
     public UserDTO(int id, String password, String login,
                    String firstName, String lastName, String middleName, Authorities role) {
         this.id = id;
@@ -23,6 +21,62 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public Authorities getRole() {
+        return role;
+    }
+
+    public void setRole(Authorities role) {
         this.role = role;
     }
 }

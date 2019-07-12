@@ -1,4 +1,4 @@
-CREATE TABLE inprog.authorities (
+CREATE TABLE inprog.authority (
   "authority_id" SERIAL PRIMARY KEY,
   "name" varchar(16) UNIQUE
 );
@@ -11,7 +11,7 @@ CREATE TABLE inprog.users (
   "first_name" varchar(32),
   "second_name" varchar(32),
   "middle_name" varchar(32),
-  "birth_date" datetime,
+  "birth_date" date ,
   "email" varchar(32) UNIQUE
 );
 
@@ -47,13 +47,13 @@ CREATE TABLE inprog.bookings (
   "booking_id" SERIAL PRIMARY KEY,
   "user_id" integer,
   "room_id" integer,
-  "check_in" datetime,
-  "check_out" datetime,
-  "real_check_in" datetime,
-  "real_check_out" datetime
+  "check_in" timestamp ,
+  "check_out" timestamp ,
+  "real_check_in" timestamp ,
+  "real_check_out" timestamp
 );
 
-ALTER TABLE inprog.users ADD FOREIGN KEY ("authority_id") REFERENCES inprog.authorities ("authority_id");
+ALTER TABLE inprog.users ADD FOREIGN KEY ("authority_id") REFERENCES inprog.authority ("authority_id");
 
 ALTER TABLE inprog.rooms ADD FOREIGN KEY ("category_id") REFERENCES inprog.categories ("category_id");
 
