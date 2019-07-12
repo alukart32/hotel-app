@@ -9,19 +9,19 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String middleName;
-    private Authorities role;
+    private Authorities authorities;
 
     public UserDTO() {}
 
     public UserDTO(int id, String password, String login,
-                   String firstName, String lastName, String middleName, Authorities role) {
+                   String firstName, String lastName, String middleName, Authorities authorities) {
         this.id = id;
         this.password = password;
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.role = role;
+        this.authorities = authorities;
     }
 
     public int getId() {
@@ -72,11 +72,11 @@ public class UserDTO {
         this.middleName = middleName;
     }
 
-    public Authorities getRole() {
-        return role;
+    public Authorities getAuthorities() {
+        return authorities;
     }
 
-    public void setRole(Authorities role) {
-        this.role = role;
+    public void setAuthorities(Authorities authorities) {
+        this.authorities = authorities;
     }
 }

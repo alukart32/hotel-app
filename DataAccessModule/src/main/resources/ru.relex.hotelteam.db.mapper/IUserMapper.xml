@@ -6,7 +6,7 @@
 
     <!-- <insert id="createUser">
         INSERT INTO demo.users(role_id, first_name, last_name, login, password, middle_name)
-        VALUES (#{role}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
+        VALUES (#{authorities}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
         <selectKey keyProperty="id" order="AFTER" resultType="int">
             SELECT currval('demo.users_user_id_seq')
         </selectKey>
@@ -14,12 +14,12 @@
 
         <select id="createUser" resultType="User">
             INSERT INTO inprog.users(authority_id, first_name, last_name, login, password, middle_name)
-            VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
+            VALUES (#{authorities}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
             RETURNING user_id as id,
                       first_name,
                       last_name,
                       middle_name,
-                      authority_id as role,
+                      authority_id as authority,
                       login,
                       password
         </select>
@@ -29,7 +29,7 @@
                    first_name,
                    last_name,
                    middle_name,
-                   authority_id as role,
+                   authority_id as authority,
                    login,
                    password
             FROM inprog.users
@@ -41,7 +41,7 @@
                    first_name,
                    last_name,
                    middle_name,
-                   authority_id as role,
+                   authority_id as authority,
                    login,
                    password
             FROM inprog.users

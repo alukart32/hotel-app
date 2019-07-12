@@ -1,4 +1,4 @@
-CREATE TABLE inprog.authority (
+CREATE TABLE inprog.authorities (
   "authority_id" SERIAL PRIMARY KEY,
   "name" varchar(16) UNIQUE
 );
@@ -53,7 +53,7 @@ CREATE TABLE inprog.bookings (
   "real_check_out" timestamp
 );
 
-ALTER TABLE inprog.users ADD FOREIGN KEY ("authority_id") REFERENCES inprog.authority ("authority_id");
+ALTER TABLE inprog.users ADD FOREIGN KEY ("authority_id") REFERENCES inprog.authorities ("authority_id");
 
 ALTER TABLE inprog.rooms ADD FOREIGN KEY ("category_id") REFERENCES inprog.categories ("category_id");
 

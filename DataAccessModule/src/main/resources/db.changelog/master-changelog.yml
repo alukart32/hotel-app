@@ -10,3 +10,11 @@ databaseChangeLog:
                 -   sqlFile:
                         path                   : changesets/H-001.sql
                         relativeToChangelogFile: true
+    -   changeSet:
+          id           : 2
+          author       : itarasov
+          comment      : insert roles(owner, admin, guest)
+          changes      :
+            -   sqlFile:
+                  path                   : changesets/H-002.sql
+                  relativeToChangelogFile: true

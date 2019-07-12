@@ -2,9 +2,9 @@ package ru.relex.hotelteam.shared.model;
 
 public enum Authorities {
 
-    ADMIN(1),
-    USER(2)
-    ;
+    OWNER(1),
+    ADMIN(2),
+    GUEST(3);
 
     private final int id;
 

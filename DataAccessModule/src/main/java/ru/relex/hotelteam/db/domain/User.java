@@ -12,19 +12,19 @@ public class User {
     private String firstName;
     private String lastName;
     private String middleName;
-    private Authorities authority;
+    private Authorities authorities;
 
     public User() {}
 
     public User(int id, String password, String login,
-                String firstName, String lastName, String middleName, Authorities authority) {
+                String firstName, String lastName, String middleName, Authorities authorities) {
         this.id = id;
         this.password = password;
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.authority = authority;
+        this.authorities = authorities;
     }
 
     public int getId() {
@@ -75,12 +75,12 @@ public class User {
         this.middleName = middleName;
     }
 
-    public Authorities getAuthority() {
-        return authority;
+    public Authorities getAuthorities() {
+        return authorities;
     }
 
-    public void setAuthority(Authorities authority) {
-        this.authority = authority;
+    public void setAuthorities(Authorities authorities) {
+        this.authorities = authorities;
     }
 }
 
