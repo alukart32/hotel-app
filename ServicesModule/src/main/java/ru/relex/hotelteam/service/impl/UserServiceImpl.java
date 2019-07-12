@@ -39,5 +39,10 @@ public class UserServiceImpl implements IUserService {
     public void delete(final int id) {
         mapper.deleteUser(id);
     }
+
+    @Override
+    public UserDTO update(int id, UserDTO updatedUser) {
+        return null;
+    }
 }
 

@@ -40,4 +40,14 @@ public class UserController {
     public void removeUser(@PathVariable("id") int id) {
         userService.delete(id);
     }
+
+    /**
+     *
+     * updateRole()
+     * бронирование
+     *
+     */
+
+
+
 }

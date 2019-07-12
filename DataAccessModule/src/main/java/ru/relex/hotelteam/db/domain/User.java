@@ -2,6 +2,8 @@ package ru.relex.hotelteam.db.domain;
 
 import ru.relex.hotelteam.shared.model.Authority;
 
+import java.util.Date;
+
 public class User {
     private int id;
     private String password;
@@ -9,6 +11,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String middleName;
+     private Date birthDate;
+    private String email;
     private Authority authority;
 
     public int getId() {

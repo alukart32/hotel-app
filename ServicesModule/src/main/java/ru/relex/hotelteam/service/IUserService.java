@@ -13,4 +13,6 @@ public interface IUserService {
     List<UserDTO> listUsers();
 
     void delete(int id);
+
+    UserDTO update(int id, UserDTO updatedUser);
 }
