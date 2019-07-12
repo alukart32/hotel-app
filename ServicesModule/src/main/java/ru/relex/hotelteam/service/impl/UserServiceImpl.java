@@ -29,14 +29,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO findById(final int id) {
-        return mapstruct.toDTO(mapper.getUserById(id));
+        return mapstruct.toDTO(mapper.getUserById(id).orElseThrow());
     }
 
     @Override
     public List<UserDTO> listUsers() {
         return mapstruct.toDTO(mapper.listUsers());
     }
-
     @Override
     public void delete(final int id) {
         mapper.deleteUser(id);
@@ -44,21 +43,21 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO update(int id, UserUpdateDTO updatedUser) {
-        User user = mapper.getUserById(id);
+
+        User user = mapper.getUserById(id).orElseThrow();
 
         /**
          * просто без проверок
          */
-        user.setId(id);
-        user.setAuthority(user.getAuthority());
-        user.setPassword(user.getPassword());
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setMiddleName(updatedUser.getMiddleName());
-        user.setEmail(updatedUser.getEmail());
-        user.setBirthDate(updatedUser.getBirthDate());
+         user.setId(id);
+         user.setAuthority(user.getAuthority());
+         user.setPassword(user.getPassword());
+         user.setFirstName(updatedUser.getFirstName());
+         user.setLastName(updatedUser.getLastName());
+         user.setMiddleName(updatedUser.getMiddleName());
+         user.setEmail(updatedUser.getEmail());
 
-        return mapstruct.toDTO(user);
+         return mapstruct.toDTO(mapper.updateUser(id, user));
 
     }
 }

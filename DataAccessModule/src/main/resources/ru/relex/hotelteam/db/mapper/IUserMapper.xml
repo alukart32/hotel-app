@@ -5,7 +5,7 @@
 <mapper namespace="ru.relex.hotelteam.db.mapper.IUserMapper">
     <select id="createUser" resultType="User">
         INSERT INTO inprog.users(authority_id, first_name, last_name, login, password, middle_name)
-        VALUES (#{role}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
+        VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
         RETURNING user_id as id,
                   first_name,
                   last_name,
@@ -30,13 +30,23 @@
     <select id="listUsers" resultType="User">
         SELECT user_id as id,
                first_name,
-               second_name,
+               last_name,
                middle_name,
-               authority_id as authority,
-               login,
-               password
+               email,
+               birth_date,
+               authority_id as authority
         FROM inprog.users
     </select>
+
+    <update id="updateUserById">
+        update inprog.users set
+          first_name = #{firstName},
+          second_name = #{secondName},
+          middle_name = #{middleName},
+          email = #{email},
+          birth_date = #{birthDate}
+        where user_id = #{id}
+    </update>
 
     <delete id="deleteUser">
         DELETE
