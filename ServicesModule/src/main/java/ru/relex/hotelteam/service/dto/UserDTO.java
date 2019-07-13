@@ -3,19 +3,13 @@ package ru.relex.hotelteam.service.dto;
 import ru.relex.hotelteam.shared.model.Authority;
 
 public class UserDTO {
-    private int id;
+
     private String password;
     private String login;
     private String firstName;
     private String lastName;
     private String middleName;
     private Authority authority;
-
-    public int getId() { return id;}
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getPassword() {
         return password;

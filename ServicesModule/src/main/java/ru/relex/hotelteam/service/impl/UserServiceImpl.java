@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO update(int id, UserUpdateDTO updatedUser) {
+    public void update(int id, UserUpdateDTO updatedUser) {
 
         User user = mapper.getUserById(id).orElseThrow();
 
@@ -57,8 +57,7 @@ public class UserServiceImpl implements IUserService {
          user.setMiddleName(updatedUser.getMiddleName());
          user.setEmail(updatedUser.getEmail());
 
-         return mapstruct.toDTO(mapper.updateUser(id, user));
-
+         mapper.updateUser(user);
     }
 }
 

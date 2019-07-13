@@ -15,5 +15,5 @@ public interface IUserService {
 
     void delete(int id);
 
-    UserDTO update(int id, UserUpdateDTO updatedUser);
+    void update(int id, UserUpdateDTO updatedUser);
 }

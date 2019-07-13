@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.relex.hotelteam.service.IUserService;
 import ru.relex.hotelteam.service.dto.UserDTO;
+import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 
 import java.util.List;
 
@@ -37,17 +38,22 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void removeUser(@PathVariable("id") int id) {
         userService.delete(id);
     }
 
+
+    @PutMapping("/{id}")
+    public void updateUser(@PathVariable("id") int id, @RequestBody UserUpdateDTO dto){
+        userService.update(id, dto);
+    }
+
     /**
      *
-     * updateRole()
-     * бронирование
+     * 1) updateAuthority()
+     *
+     * 2) changeLoginAndPassword
      *
      */
-
-
-
 }

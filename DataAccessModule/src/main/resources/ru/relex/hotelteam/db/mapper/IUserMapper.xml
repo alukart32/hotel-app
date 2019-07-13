@@ -11,40 +11,41 @@
                   last_name,
                   middle_name,
                   authority_id as authority,
-                  login,
-                  password
+                  login
     </select>
 
     <select id="getUserById" resultType="User">
-        SELECT user_id as id,
+        SELECT
+               user_id as id,
                first_name,
                last_name,
                middle_name,
                authority_id as authority,
-               login,
-               password
+               login
+
         FROM inprog.users
         WHERE user_id = #{id}
     </select>
 
     <select id="listUsers" resultType="User">
-        SELECT user_id as id,
-               first_name,
-               last_name,
-               middle_name,
+        SELECT
+               first_name as firstName,
+               last_name as lastName,
+               middle_name as middleName,
                email,
-               birth_date,
+               birth_date as birthDate,
                authority_id as authority
+
         FROM inprog.users
     </select>
 
-    <update id="updateUserById">
-        update inprog.users set
+    <update id="updateUser" parameterType="User">
+        update inprog.users
+        set
           first_name = #{firstName},
-          second_name = #{secondName},
+          last_name = #{lastName},
           middle_name = #{middleName},
-          email = #{email},
-          birth_date = #{birthDate}
+          email = #{email}
         where user_id = #{id}
     </update>
 
