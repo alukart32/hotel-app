@@ -27,14 +27,23 @@
         WHERE user_id = #{id}
     </select>
 
-    <select id="listUsers" resultType="User">
-        SELECT
-               first_name as firstName,
-               last_name as lastName,
-               middle_name as middleName,
+    <resultMap id="listUsersMap" type="User">
+        <id property="id"  column="user_id"/>
+        <result property="firstName" column="first_name" />
+        <result property="lastName" column="last_name" />
+        <result property="middleName" column="middle_name" />
+        <result property="birthDate" column="birth_date" />
+        <result property="authority" column="authority_id" />
+    </resultMap>
+
+    <select id="listUsers" resultMap="listUsersMap">
+        SELECT user_id
+               first_name,
+               last_name,
+               middle_name,
                email,
-               birth_date as birthDate,
-               authority_id as authority
+               birth_date,
+               authority_id
 
         FROM inprog.users
     </select>

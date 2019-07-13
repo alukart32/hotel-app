@@ -19,5 +19,5 @@ public interface IUserMapper {
 
     void deleteUser(@Param("id") int id);
 
-    User updateUser(User user);
+    void updateUser(User user);
 }

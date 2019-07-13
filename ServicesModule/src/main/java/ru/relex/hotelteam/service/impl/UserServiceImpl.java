@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void update(int id, UserUpdateDTO updatedUser) {
+    public UserUpdateDTO update(int id, UserUpdateDTO updatedUser) {
 
         User user = mapper.getUserById(id).orElseThrow();
 
@@ -58,6 +58,9 @@ public class UserServiceImpl implements IUserService {
          user.setEmail(updatedUser.getEmail());
 
          mapper.updateUser(user);
+         // то ли тот сохранённый объект возвращаем, то ли изменённый объект на сохранение, чтобы
+         //  чтобы не обращаться лишний раз к бд ?
+         return mapstruct.toUserUpdateDTO(user);
     }
 }
 
