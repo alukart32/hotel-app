@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserDTO;
+import ru.relex.hotelteam.service.dto.UserSafeDTO;
 import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
@@ -24,17 +24,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO createUser(final UserDTO user) {
+    public UserSafeDTO createUser(final UserSafeDTO user) {
         return mapstruct.toDTO(mapper.createUser(mapstruct.fromDTO(user)));
     }
 
     @Override
-    public UserDTO findById(final int id) {
+    public UserSafeDTO findById(final int id) {
         return mapstruct.toDTO(mapper.getUserById(id).orElseThrow());
     }
 
     @Override
-    public List<UserDTO> listUsers() {
+    public List<UserSafeDTO> listUsers() {
         return mapstruct.toDTO(mapper.listUsers());
     }
     @Override

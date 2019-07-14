@@ -3,31 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.relex.hotelteam.db.mapper.IUserMapper">
-    <select id="createUser" resultType="User">
-        INSERT INTO inprog.users(authority_id, first_name, last_name, login, password, middle_name)
-        VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
-        RETURNING user_id as id,
-                  first_name,
-                  last_name,
-                  middle_name,
-                  authority_id as authority,
-                  login
-    </select>
 
-    <select id="getUserById" resultType="User">
-        SELECT
-               user_id as id,
-               first_name,
-               last_name,
-               middle_name,
-               authority_id as authority,
-               login
-
-        FROM inprog.users
-        WHERE user_id = #{id}
-    </select>
-
-    <resultMap id="listUsersMap" type="User">
+    <resultMap id="UserMap" type="User">
         <id property="id"  column="user_id"/>
         <result property="firstName" column="first_name" />
         <result property="lastName" column="last_name" />
@@ -36,14 +13,44 @@
         <result property="authority" column="authority_id" />
     </resultMap>
 
-    <select id="listUsers" resultMap="listUsersMap">
+    <select id="createUser" resultType="User">
+        INSERT INTO inprog.users(authority_id, first_name, last_name, login,
+         password, middle_name, email, birth_date)
+        VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName}, #{email}, #{birthDate})
+        RETURNING user_id as id,
+                  first_name,
+                  last_name,
+                  middle_name,
+                  authority_id as authority,
+                  login,
+                  email,
+                  birth_date as birthDate
+    </select>
+
+    <select id="getUserById" resultMap="UserMap">
+        SELECT
+               user_id,
+               first_name,
+               last_name,
+               middle_name,
+               email,
+               birth_date,
+               authority_id,
+               login
+
+        FROM inprog.users
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="listUsers" resultMap="UserMap">
         SELECT user_id
                first_name,
                last_name,
                middle_name,
                email,
                birth_date,
-               authority_id
+               authority_id,
+               login
 
         FROM inprog.users
     </select>
