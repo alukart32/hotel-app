@@ -1,7 +1,7 @@
 package ru.relex.hotelteam.service;
 
-import ru.relex.hotelteam.service.dto.UserDTO;
-import ru.relex.hotelteam.service.dto.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.domain.UserDTO;
+import ru.relex.hotelteam.service.dto.domain.UserUpdateDTO;
 
 import java.util.List;
 
