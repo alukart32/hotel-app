@@ -27,7 +27,7 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public BookingDTO findById(int id) {
-        return null;
+        return mapstruct.toDTO(mapper.getBookingById(id).orElseThrow());
     }
 
     @Override
