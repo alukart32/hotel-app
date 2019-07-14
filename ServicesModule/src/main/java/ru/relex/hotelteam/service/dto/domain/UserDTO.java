@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto;
+package ru.relex.hotelteam.service.dto.domain;
 
 import ru.relex.hotelteam.shared.model.Authority;
 

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserDTO;
-import ru.relex.hotelteam.service.dto.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.domain.UserDTO;
+import ru.relex.hotelteam.service.dto.domain.UserUpdateDTO;
 
 import java.util.List;
 
