@@ -25,7 +25,7 @@ subprojects {
 subprojects.each { proj ->
     if (proj.name != "CommonsModule") {
         proj.dependencies {
-           implementation project(":CommonsModule")
+            implementation project(":CommonsModule")
         }
     }
 }
@@ -35,7 +35,7 @@ dependencies {
 
     implementation project(":ServicesModule")
     implementation "org.springframework.boot:spring-boot-starter-web:$springboot_ver"
-
+    
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'

@@ -3,40 +3,69 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.relex.hotelteam.db.mapper.IUserMapper">
+
+    <resultMap id="UserMap" type="User">
+        <id property="id"  column="user_id"/>
+        <result property="firstName" column="first_name" />
+        <result property="lastName" column="last_name" />
+        <result property="middleName" column="middle_name" />
+        <result property="birthDate" column="birth_date" />
+        <result property="authority" column="authority_id" />
+    </resultMap>
+
     <select id="createUser" resultType="User">
-        INSERT INTO inprog.users(authority_id, first_name, last_name, login, password, middle_name)
-        VALUES (#{role}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName})
+        INSERT INTO inprog.users(authority_id, first_name, last_name, login,
+         password, middle_name, email, birth_date)
+        VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName}, #{email}, #{birthDate})
         RETURNING user_id as id,
                   first_name,
                   last_name,
                   middle_name,
                   authority_id as authority,
                   login,
-                  password
+                  email,
+                  birth_date as birthDate
     </select>
 
-    <select id="getUserById" resultType="User">
-        SELECT user_id as id,
+    <select id="getUserById" resultMap="UserMap">
+        SELECT
+               user_id,
                first_name,
                last_name,
                middle_name,
-               authority_id as authority,
-               login,
-               password
+               email,
+               birth_date,
+               authority_id,
+               login
+
         FROM inprog.users
         WHERE user_id = #{id}
     </select>
 
-    <select id="listUsers" resultType="User">
-        SELECT user_id as id,
+    <select id="listUsers" resultMap="UserMap">
+        SELECT user_id
                first_name,
-               second_name,
+               last_name,
                middle_name,
-               authority_id as authority,
-               login,
-               password
+               email,
+               birth_date,
+               authority_id,
+               login
+
         FROM inprog.users
     </select>
+
+    <update id="updateUser" parameterType="User">
+        update inprog.users
+        set
+          first_name = #{firstName},
+          last_name = #{lastName},
+          middle_name = #{middleName},
+          email = #{email},
+          birth_date = #{birthDate}
+
+        where user_id = #{id}
+    </update>
 
     <delete id="deleteUser">
         DELETE
