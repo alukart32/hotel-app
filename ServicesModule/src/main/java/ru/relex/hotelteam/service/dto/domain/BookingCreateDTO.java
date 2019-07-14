@@ -7,7 +7,9 @@ import java.time.OffsetDateTime;
 public class BookingCreateDTO {
 
     private User user;
+
     private OffsetDateTime checkInDate;
+
     private OffsetDateTime checkOutDate;
     // private Room room;
 
