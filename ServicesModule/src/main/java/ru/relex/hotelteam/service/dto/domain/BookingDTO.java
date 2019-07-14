@@ -10,6 +10,7 @@ public class BookingDTO {
     // private Room room;
 
     private OffsetDateTime checkInDate;
+
     private OffsetDateTime checkOutDate;
 
     private OffsetDateTime realCheckInDate;
