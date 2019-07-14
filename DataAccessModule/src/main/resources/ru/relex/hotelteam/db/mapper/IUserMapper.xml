@@ -61,7 +61,9 @@
           first_name = #{firstName},
           last_name = #{lastName},
           middle_name = #{middleName},
-          email = #{email}
+          email = #{email},
+          birth_date = #{birthDate}
+
         where user_id = #{id}
     </update>
 

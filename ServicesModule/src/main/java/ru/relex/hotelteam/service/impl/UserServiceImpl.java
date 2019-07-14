@@ -25,17 +25,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserSafeDTO createUser(final UserSafeDTO user) {
-        return mapstruct.toDTO(mapper.createUser(mapstruct.fromDTO(user)));
+        return mapstruct.toSafeDTO(mapper.createUser(mapstruct.fromSafeDTO(user)));
     }
 
     @Override
     public UserSafeDTO findById(final int id) {
-        return mapstruct.toDTO(mapper.getUserById(id).orElseThrow());
+        return mapstruct.toSafeDTO(mapper.getUserById(id).orElseThrow());
     }
 
     @Override
     public List<UserSafeDTO> listUsers() {
-        return mapstruct.toDTO(mapper.listUsers());
+        return mapstruct.toSafeDTOs(mapper.listUsers());
     }
     @Override
     public void delete(final int id) {
@@ -58,9 +58,10 @@ public class UserServiceImpl implements IUserService {
          user.setLastName(updatedUser.getLastName());
          user.setMiddleName(updatedUser.getMiddleName());
          user.setEmail(updatedUser.getEmail());
+         user.setBirthDate(updatedUser.getBirthDate());
 
          mapper.updateUser(user);
-         return mapstruct.toUserUpdateDTO(user);
+         return mapstruct.toUpdateDTO(user);
     }
 
     private Supplier<RuntimeException> notFound(String s) {
