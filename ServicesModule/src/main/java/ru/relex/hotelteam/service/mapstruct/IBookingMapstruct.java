@@ -11,15 +11,19 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IBookingMapstruct {
 
-        Booking fromBookingCreateDTO(BookingCreateDTO dto);
+    Booking fromDTO(BookingDTO dto);
 
-        BookingCreateDTO toBookingCreateDTO(Booking booking);
+    BookingDTO toDTO(Booking booking);
 
-        Booking fromBookingUpdateDTO(BookingUpdateDTO dto);
+    Booking fromCreateDTO(BookingCreateDTO dto);
 
-        BookingUpdateDTO toBookingUpdateDTO(Booking booking);
+    BookingCreateDTO toCreateDTO(Booking booking);
 
-        List<BookingDTO> toDTO(List<Booking> bookings);
+    Booking fromUpdateDTO(BookingUpdateDTO dto);
 
-        List<Booking> fromDTO(List<BookingDTO> bookingDTOs);
+    BookingUpdateDTO toUpdateDTO(Booking booking);
+
+    List<BookingDTO> toDTO(List<Booking> bookings);
+
+    List<Booking> fromDTO(List<BookingDTO> bookingDTOs);
 }
