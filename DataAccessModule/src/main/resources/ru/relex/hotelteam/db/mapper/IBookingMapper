@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.hotelteam.db.mapper.IBookingMapper">
+
+    <resultMap id="getBooking" type="Booking">
+        <id property="id"  column="booking_id"/>
+        <result property="userId" column="user_id" />
+        <!--<result property="roomId" column="room_id" />-->
+        <result property="checkInDate" column="check_in" />
+        <result property="checkOutDate" column="check_out" />
+        <result property="realCheckInDate" column="real_check_in" />
+        <result property="realCheckOutDate" column="real_check_out" />
+    </resultMap>
+
+    <select id="createBooking" resultType="Booking">
+        INSERT INTO inprog.bookings(user_id, check_in, check_out <!--,room_id-->)
+        VALUES (#{user}, #{checkInDate}, #{checkOutDate})
+        RETURNING booking_id as id,
+                  user_id as user,
+                  check_in as checkInDate,
+                  check_out as checkOutDate
+    </select>
+
+    <select id="getBookingById" resultMap="getBooking">
+        SELECT
+               booking_id as id,
+               user_id as user,
+               check_in as checkInDate,
+               check_out as checkOutDate
+        FROM inprog.bookings
+        WHERE booking_id = #{id}
+    </select>
+
+    <select id="listBookings" resultMap="getUser">
+        SELECT
+               booking_id as id,
+               user_id as user,
+               check_in as checkInDate,
+               check_out as checkOutDate
+        FROM inprog.bookings
+    </select>
+
+    <update id="updateBooking" parameterType="Booking">
+        update inprog.bookings
+        set
+          check_in = #{checkInDate},
+          check_out = #{checkOutDate},
+          room_id = #{roomId}
+        where booking_id = #{id}
+    </update>
+
+    <delete id="deleteBooking">
+        DELETE
+        FROM inprog.bookings
+        WHERE booking_id = #{id}
+    </delete>
+</mapper>
