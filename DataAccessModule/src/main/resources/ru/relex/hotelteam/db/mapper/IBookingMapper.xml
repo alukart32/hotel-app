@@ -33,7 +33,7 @@
         WHERE booking_id = #{id}
     </select>
 
-    <select id="listBookings" resultMap="getUser">
+    <select id="listBookings" resultMap="getBooking">
         SELECT
                booking_id as id,
                user_id as user,
