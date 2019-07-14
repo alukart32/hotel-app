@@ -24,12 +24,12 @@ public class BookingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookingDTO createUser(@RequestBody BookingCreateDTO dto) {
+    public BookingDTO createBooking(@RequestBody BookingCreateDTO dto) {
         return bookingService.createBooking(dto);
     }
 
     @GetMapping
-    public List<BookingDTO> listUsers() {
+    public List<BookingDTO> listBookings() {
         return bookingService.listBookings();
     }
 
