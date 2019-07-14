@@ -32,7 +32,7 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public List<BookingDTO> listBookings() {
-        return null;
+        return mapstruct.toDTO(mapper.listBookings());
     }
 
     @Override
