@@ -9,6 +9,7 @@ import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -44,10 +45,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserUpdateDTO update(int id, UserUpdateDTO updatedUser) {
 
-        User user = mapper.getUserById(id).orElseThrow();
+        User user = mapper.getUserById(id).
+                orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
         /**
-         * просто без проверок
+         * просто без проверок пока
          */
          user.setId(id);
          user.setAuthority(user.getAuthority());
@@ -58,9 +60,11 @@ public class UserServiceImpl implements IUserService {
          user.setEmail(updatedUser.getEmail());
 
          mapper.updateUser(user);
-         // то ли тот сохранённый объект возвращаем, то ли изменённый объект на сохранение, чтобы
-         //  чтобы не обращаться лишний раз к бд ?
          return mapstruct.toUserUpdateDTO(user);
+    }
+
+    private Supplier<RuntimeException> notFound(String s) {
+        return () -> new RuntimeException(s);
     }
 }
 
