@@ -28,7 +28,9 @@
                booking_id,
                user_id,
                check_in,
-               check_out
+               check_out,
+               real_check_in,
+               real_check_out
         FROM inprog.bookings
         WHERE booking_id = #{id}
     </select>
@@ -38,7 +40,9 @@
                booking_id,
                user_id,
                check_in,
-               check_out
+               check_out,
+               real_check_in,
+               real_check_out
         FROM inprog.bookings
     </select>
 

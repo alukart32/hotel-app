@@ -9,6 +9,7 @@ import ru.relex.hotelteam.service.dto.domain.UserUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -24,17 +25,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO createUser(final UserDTO user) {
-        return mapstruct.toDTO(mapper.createUser(mapstruct.fromDTO(user)));
+        return mapstruct.toSafeDTO(mapper.createUser(mapstruct.fromSafeDTO(user)));
     }
 
     @Override
     public UserDTO findById(final int id) {
-        return mapstruct.toDTO(mapper.getById(id).orElseThrow());
+        return mapstruct.toSafeDTO(mapper.getUserById(id).orElseThrow());
     }
 
     @Override
     public List<UserDTO> listUsers() {
-        return mapstruct.toDTO(mapper.listUsers());
+        return mapstruct.toSafeDTOs(mapper.listUsers());
     }
     @Override
     public void delete(final int id) {
@@ -42,25 +43,24 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserUpdateDTO update(int id, UserUpdateDTO updatedUser) {
+    public void update(int id, UserUpdateDTO updatedUser) {
 
-        User user = mapper.getById(id).orElseThrow();
+        User user = mapper.getUserById(id).
+                orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
-        /**
-         * просто без проверок
-         */
          user.setId(id);
          user.setAuthority(user.getAuthority());
          user.setPassword(user.getPassword());
          user.setFirstName(updatedUser.getFirstName());
          user.setLastName(updatedUser.getLastName());
          user.setMiddleName(updatedUser.getMiddleName());
-         user.setEmail(updatedUser.getEmail());
+         user.setBirthDate(updatedUser.getBirthDate());
 
          mapper.updateUser(user);
-         // то ли тот сохранённый объект возвращаем, то ли изменённый объект на сохранение, чтобы
-         //  чтобы не обращаться лишний раз к бд ?
-         return mapstruct.toUserUpdateDTO(user);
+    }
+
+    private Supplier<RuntimeException> notFound(String s) {
+        return () -> new RuntimeException(s);
     }
 }
 

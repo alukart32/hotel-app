@@ -4,10 +4,6 @@ import ru.relex.hotelteam.shared.model.Authority;
 
 import java.util.Date;
 
-
-/**
- * UserDTO - представляет User без пароля (для безопасности)
- */
 public class UserDTO {
 
     private int id;
