@@ -3,11 +3,11 @@ package ru.relex.hotelteam.service.dto;
 import java.util.Date;
 
 public class UserUpdateDTO {
+
     private String firstName;
     private String lastName;
     private String middleName;
     private Date birthDate;
-    private String email;
 
     public String getFirstName() {
         return firstName;
@@ -39,13 +39,5 @@ public class UserUpdateDTO {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
