@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.relex.hotelteam.db.mapper.IBookingMapper">
 
-    <resultMap id="getBooking" type="Booking">
+    <resultMap id="bookingMap" type="Booking">
         <id property="id"  column="booking_id"/>
         <result property="userId" column="user_id" />
         <!--<result property="roomId" column="room_id" />-->
@@ -16,29 +16,29 @@
 
     <select id="createBooking" resultType="Booking">
         INSERT INTO inprog.bookings(user_id, check_in, check_out <!--,room_id-->)
-        VALUES (#{user}, #{checkInDate}, #{checkOutDate})
+        VALUES (#{userId}, #{checkInDate}, #{checkOutDate})
         RETURNING booking_id as id,
-                  user_id as user,
+                  user_id as userId,
                   check_in as checkInDate,
                   check_out as checkOutDate
     </select>
 
-    <select id="getBookingById" resultMap="getBooking">
+    <select id="getBookingById" resultMap="bookingMap">
         SELECT
-               booking_id as id,
-               user_id as user,
-               check_in as checkInDate,
-               check_out as checkOutDate
+               booking_id,
+               user_id,
+               check_in,
+               check_out
         FROM inprog.bookings
         WHERE booking_id = #{id}
     </select>
 
-    <select id="listBookings" resultMap="getBooking">
+    <select id="listBookings" resultMap="bookingMap">
         SELECT
-               booking_id as id,
-               user_id as user,
-               check_in as checkInDate,
-               check_out as checkOutDate
+               booking_id,
+               user_id,
+               check_in,
+               check_out
         FROM inprog.bookings
     </select>
 

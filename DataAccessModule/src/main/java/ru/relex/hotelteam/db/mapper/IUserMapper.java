@@ -13,7 +13,7 @@ public interface IUserMapper {
 
     User createUser(User user);
 
-    Optional<User> getById(int id);
+    Optional<User> getUserById(int id);
 
     List<User> listUsers();
 

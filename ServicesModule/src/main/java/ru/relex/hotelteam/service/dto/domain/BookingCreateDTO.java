@@ -6,19 +6,20 @@ import java.time.OffsetDateTime;
 
 public class BookingCreateDTO {
 
-    private User user;
+    private int userId;
 
     private OffsetDateTime checkInDate;
 
     private OffsetDateTime checkOutDate;
     // private Room room;
 
-    public User getUser() {
-        return user;
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public OffsetDateTime getCheckInDate() {
