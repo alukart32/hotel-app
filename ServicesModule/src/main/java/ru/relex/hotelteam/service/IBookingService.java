@@ -16,5 +16,5 @@ public interface IBookingService {
 
     void delete(int id);
 
-    BookingUpdateDTO update(int id, BookingUpdateDTO updatedBooking);
+    void update(int id, BookingUpdateDTO updatedBooking);
 }

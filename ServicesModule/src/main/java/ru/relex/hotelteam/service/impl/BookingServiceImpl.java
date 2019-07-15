@@ -45,26 +45,20 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     @Override
-    public BookingUpdateDTO update(int id, BookingUpdateDTO updatedBooking) {
+    public void update(int id, BookingUpdateDTO updatedBooking) {
 
-        Booking booking = mapper.getBookingById(id).orElseThrow();
+        Booking booking = mapper.getBookingById(id)
+                .orElseThrow(notFound("No booking [ id = " + id + " ] was found!"));
 
-        /**
-         * просто без проверок
-         */
         booking.setId(id);
         booking.setCheckInDate(updatedBooking.getCheckInDate());
         booking.setCheckOutDate(updatedBooking.getCheckOutDate());
         //booking.setRoom(updatedBooking.getRoom())
 
         mapper.updateBooking(booking);
-        // то ли тот сохранённый объект возвращаем, то ли изменённый объект на сохранение, чтобы
-        //  чтобы не обращаться лишний раз к бд ?
-        return mapstruct.toUpdateDTO(booking);
     }
 
     private Supplier<RuntimeException> notFound(String s) {
         return () -> new RuntimeException(s);
     }
-
 }
