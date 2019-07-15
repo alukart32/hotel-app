@@ -6,10 +6,11 @@ import java.util.Date;
 
 
 /**
- * UserSafeDTO - представляет User без пароля (для безопасности)
+ * UserDTO - представляет User без пароля (для безопасности)
  */
-public class UserSafeDTO {
+public class UserDTO {
 
+    private int id;
     private String login;
     private String firstName;
     private String lastName;
@@ -17,6 +18,14 @@ public class UserSafeDTO {
     private String email;
     private Date birthDate;
     private Authority authority;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;

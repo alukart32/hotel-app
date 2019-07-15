@@ -5,6 +5,7 @@ import ru.relex.hotelteam.shared.model.Authority;
 import java.util.Date;
 
 public class User {
+
     private int id;
     private String password;
     private String login;

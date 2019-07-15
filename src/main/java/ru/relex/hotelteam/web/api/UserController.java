@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserSafeDTO;
+import ru.relex.hotelteam.service.dto.UserDTO;
 import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 
 import java.util.List;
@@ -23,17 +23,17 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserSafeDTO createUser(@RequestBody UserSafeDTO dto) {
+    public UserDTO createUser(@RequestBody UserDTO dto) {
         return userService.createUser(dto);
     }
 
     @GetMapping
-    public List<UserSafeDTO> listUsers() {
+    public List<UserDTO> listUsers() {
         return userService.listUsers();
     }
 
     @GetMapping("/{id}")
-    public UserSafeDTO findById(@PathVariable("id") int id) {
+    public UserDTO findById(@PathVariable("id") int id) {
         return userService.findById(id);
     }
 
@@ -44,5 +44,5 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserUpdateDTO updateUser(@PathVariable("id") int id, @RequestBody UserUpdateDTO dto){ return userService.update(id, dto); }
+    public void updateUser(@PathVariable("id") int id, @RequestBody UserUpdateDTO dto){ userService.update(id, dto); }
 }
