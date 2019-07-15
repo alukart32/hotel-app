@@ -15,7 +15,7 @@ public class Booking {
     // тот, кто бронирует
     private int userId;
 
-    //private int roomId;
+    //private Room room;
 
     // время заезда и выезда по бронированию
     private OffsetDateTime checkInDate;
