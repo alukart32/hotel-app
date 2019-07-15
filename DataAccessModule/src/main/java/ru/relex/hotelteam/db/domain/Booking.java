@@ -2,12 +2,6 @@ package ru.relex.hotelteam.db.domain;
 
 import java.time.OffsetDateTime;
 
-/**
- * Booking - класс, представляющий запись о брони комнаты
- *
- * @author Taraso Ivan
- * @version 1.0
- */
 public class Booking {
 
     private int id;
