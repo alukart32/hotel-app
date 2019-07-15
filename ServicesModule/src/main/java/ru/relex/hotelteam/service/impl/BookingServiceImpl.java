@@ -10,6 +10,7 @@ import ru.relex.hotelteam.service.dto.domain.BookingUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
@@ -61,4 +62,9 @@ public class BookingServiceImpl implements IBookingService {
         //  чтобы не обращаться лишний раз к бд ?
         return mapstruct.toUpdateDTO(booking);
     }
+
+    private Supplier<RuntimeException> notFound(String s) {
+        return () -> new RuntimeException(s);
+    }
+
 }
