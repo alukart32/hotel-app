@@ -37,6 +37,7 @@ public class UserServiceImpl implements IUserService {
     public List<UserDTO> listUsers() {
         return mapstruct.toDTO(mapper.listUsers());
     }
+
     @Override
     public void delete(final int id) {
         mapper.deleteUser(id);
