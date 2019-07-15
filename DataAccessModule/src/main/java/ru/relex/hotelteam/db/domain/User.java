@@ -2,13 +2,18 @@ package ru.relex.hotelteam.db.domain;
 
 import ru.relex.hotelteam.shared.model.Authority;
 
+import java.util.Date;
+
 public class User {
+
     private int id;
     private String password;
     private String login;
     private String firstName;
     private String lastName;
     private String middleName;
+    private Date birthDate;
+    private String email;
     private Authority authority;
 
     public int getId() {
@@ -59,12 +64,20 @@ public class User {
         this.middleName = middleName;
     }
 
-    public Authority getAuthority() {
-        return authority;
+    public Authority getAuthority() { return authority; }
+
+    public void setAuthority(Authority authority) { this.authority = authority; }
+
+    public Date getBirthDate() { return birthDate; }
+
+    public void setBirthDate(Date birthDate) { this.birthDate = birthDate; }
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setAuthority(Authority authority) {
-        this.authority = authority;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

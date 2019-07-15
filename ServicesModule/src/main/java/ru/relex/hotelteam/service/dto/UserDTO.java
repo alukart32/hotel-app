@@ -2,13 +2,21 @@ package ru.relex.hotelteam.service.dto;
 
 import ru.relex.hotelteam.shared.model.Authority;
 
+import java.util.Date;
+
+
+/**
+ * UserDTO - представляет User без пароля (для безопасности)
+ */
 public class UserDTO {
+
     private int id;
-    private String password;
     private String login;
     private String firstName;
     private String lastName;
     private String middleName;
+    private String email;
+    private Date birthDate;
     private Authority authority;
 
     public int getId() {
@@ -19,12 +27,20 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getLogin() {
