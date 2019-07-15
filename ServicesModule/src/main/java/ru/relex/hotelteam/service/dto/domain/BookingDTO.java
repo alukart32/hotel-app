@@ -1,12 +1,11 @@
 package ru.relex.hotelteam.service.dto.domain;
 
-import ru.relex.hotelteam.db.domain.User;
-
 import java.time.OffsetDateTime;
 
 public class BookingDTO {
 
-    private User user;
+    private int id;
+    private int userId;
     // private Room room;
 
     private OffsetDateTime checkInDate;
@@ -16,12 +15,20 @@ public class BookingDTO {
     private OffsetDateTime realCheckInDate;
     private OffsetDateTime realCheckOutDate;
 
-    public User getUser() {
-        return user;
+    public int getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public OffsetDateTime getCheckInDate() {

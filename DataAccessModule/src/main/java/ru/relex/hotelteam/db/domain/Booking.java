@@ -13,7 +13,7 @@ public class Booking {
     private int id;
 
     // тот, кто бронирует
-    private User user;
+    private int userId;
 
     //private Room room;
 
@@ -33,12 +33,12 @@ public class Booking {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public OffsetDateTime getCheckInDate() {
