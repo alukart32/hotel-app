@@ -59,11 +59,11 @@
     </select>
 
     <update id="updateBooking" parameterType="Booking">
-        update inprog.bookings
-        set
+        UPDATE inprog.bookings
+        SET
           check_in = #{checkInDate},
           check_out = #{checkOutDate}
-        where booking_id = #{id}
+        WHERE booking_id = #{id}
     </update>
 
     <delete id="deleteBooking">
