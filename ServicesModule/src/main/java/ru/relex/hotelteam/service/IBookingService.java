@@ -14,6 +14,8 @@ public interface IBookingService {
 
     List<BookingDTO> listBookings();
 
+    List<BookingDTO> listBookingsByUserId(int userId);
+
     void delete(int id);
 
     void update(int id, BookingUpdateDTO updatedBooking);
