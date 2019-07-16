@@ -16,6 +16,8 @@ public interface IBookingMapper {
 
     List<Booking> listBookings();
 
+    List<Booking> listBookingsByUserId(@Param("userId") int userId);
+
     void deleteBooking(@Param("id") int id);
 
     void updateBooking(Booking booking);

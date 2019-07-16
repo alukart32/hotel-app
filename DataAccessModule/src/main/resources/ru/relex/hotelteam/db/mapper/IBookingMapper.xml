@@ -35,6 +35,18 @@
         WHERE booking_id = #{id}
     </select>
 
+    <select id="listBookingsByUserId" resultMap="bookingMap">
+        SELECT
+               booking_id,
+               user_id,
+               check_in,
+               check_out,
+               real_check_in,
+               real_check_out
+        FROM inprog.bookings
+        WHERE user_id = #{userId}
+    </select>
+
     <select id="listBookings" resultMap="bookingMap">
         SELECT
                booking_id,
@@ -50,8 +62,7 @@
         update inprog.bookings
         set
           check_in = #{checkInDate},
-          check_out = #{checkOutDate},
-          room_id = #{roomId}
+          check_out = #{checkOutDate}
         where booking_id = #{id}
     </update>
 

@@ -11,7 +11,7 @@ import ru.relex.hotelteam.service.dto.domain.BookingUpdateDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/booking",
+@RequestMapping(path = "/bookings",
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class BookingController {
@@ -33,7 +33,13 @@ public class BookingController {
         return bookingService.listBookings();
     }
 
+    @GetMapping("/all/{userId}")
+    public List<BookingDTO> listBookingsByUserId(@PathVariable("userId") int userId){
+        return bookingService.listBookingsByUserId(userId);
+    }
+
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public BookingDTO findById(@PathVariable("id") int id) {
         return bookingService.findById(id);
     }
@@ -45,6 +51,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDTO dto){
         bookingService.update(id, dto);
     }
