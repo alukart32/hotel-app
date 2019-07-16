@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.relex.hotelteam.service.IBookingService;
-import ru.relex.hotelteam.service.dto.domain.BookingCreateDTO;
-import ru.relex.hotelteam.service.dto.domain.BookingDTO;
-import ru.relex.hotelteam.service.dto.domain.BookingUpdateDTO;
+import ru.relex.hotelteam.service.dto.BookingCreateDTO;
+import ru.relex.hotelteam.service.dto.BookingDTO;
+import ru.relex.hotelteam.service.dto.BookingUpdateDTO;
 
 import java.util.List;
 

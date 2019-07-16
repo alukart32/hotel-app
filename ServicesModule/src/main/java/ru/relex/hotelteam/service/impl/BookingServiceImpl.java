@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.mapper.IBookingMapper;
 import ru.relex.hotelteam.service.IBookingService;
-import ru.relex.hotelteam.service.dto.domain.BookingCreateDTO;
-import ru.relex.hotelteam.service.dto.domain.BookingDTO;
-import ru.relex.hotelteam.service.dto.domain.BookingUpdateDTO;
+import ru.relex.hotelteam.service.dto.BookingCreateDTO;
+import ru.relex.hotelteam.service.dto.BookingDTO;
+import ru.relex.hotelteam.service.dto.BookingUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 
 import java.util.List;
