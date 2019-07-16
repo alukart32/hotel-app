@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ru.relex.hotelteam.hotel.main" target="1.8" />
+      <module name="ru.relex.hotelteam.hotel.test" target="1.8" />
+      <module name="ru.relex.hotelteam.ServicesModule.main" target="1.8" />
+      <module name="ru.relex.hotelteam.ServicesModule.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

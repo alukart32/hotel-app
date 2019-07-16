@@ -1,0 +1,5 @@
+rootProject.name = 'hotel'
+include 'ServicesModule'
+include 'DataAccessModule'
+include 'CommonsModule'
+
