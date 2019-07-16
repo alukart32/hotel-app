@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.domain.UserDTO;
-import ru.relex.hotelteam.service.dto.domain.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.UserDTO;
+import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
 import java.util.List;

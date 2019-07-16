@@ -1,8 +1,8 @@
 package ru.relex.hotelteam.service;
 
-import ru.relex.hotelteam.service.dto.domain.BookingCreateDTO;
-import ru.relex.hotelteam.service.dto.domain.BookingDTO;
-import ru.relex.hotelteam.service.dto.domain.BookingUpdateDTO;
+import ru.relex.hotelteam.service.dto.BookingCreateDTO;
+import ru.relex.hotelteam.service.dto.BookingDTO;
+import ru.relex.hotelteam.service.dto.BookingUpdateDTO;
 
 import java.util.List;
 

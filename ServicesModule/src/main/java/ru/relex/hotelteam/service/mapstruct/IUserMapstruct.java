@@ -3,8 +3,8 @@ package ru.relex.hotelteam.service.mapstruct;
 
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.User;
-import ru.relex.hotelteam.service.dto.domain.UserDTO;
-import ru.relex.hotelteam.service.dto.domain.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.UserDTO;
+import ru.relex.hotelteam.service.dto.UserUpdateDTO;
 
 import java.util.List;
 

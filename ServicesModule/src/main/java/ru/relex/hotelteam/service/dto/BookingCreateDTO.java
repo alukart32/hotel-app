@@ -1,12 +1,26 @@
-package ru.relex.hotelteam.service.dto.domain;
+package ru.relex.hotelteam.service.dto;
+
+import ru.relex.hotelteam.db.domain.User;
 
 import java.time.OffsetDateTime;
 
-public class BookingUpdateDTO {
+public class BookingCreateDTO {
+
+    private int userId;
 
     private OffsetDateTime checkInDate;
+
     private OffsetDateTime checkOutDate;
     // private Room room;
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public OffsetDateTime getCheckInDate() {
         return checkInDate;

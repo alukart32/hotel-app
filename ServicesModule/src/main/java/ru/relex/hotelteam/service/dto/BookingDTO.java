@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto.domain;
+package ru.relex.hotelteam.service.dto;
 
 import java.time.OffsetDateTime;
 
