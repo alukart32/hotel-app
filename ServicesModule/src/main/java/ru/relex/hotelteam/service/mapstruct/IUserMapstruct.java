@@ -11,15 +11,15 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IUserMapstruct {
 
-    User fromSafeDTO(UserDTO dto);
+    User fromDTO(UserDTO dto);
 
-    UserDTO toSafeDTO(User user);
+    UserDTO toDTO(User user);
 
     UserUpdateDTO toUpdateDTO(User user);
 
     User fromUpdateDTO(UserUpdateDTO userUpdateDTO);
 
-    List<UserDTO> toSafeDTOs(List<User> users);
+    List<UserDTO> toDTO(List<User> users);
 
     List<User> fromDTO(List<UserDTO> userSafeDTOS);
 }
