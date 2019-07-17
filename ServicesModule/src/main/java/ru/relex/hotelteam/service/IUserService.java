@@ -1,19 +1,19 @@
 package ru.relex.hotelteam.service;
 
-import ru.relex.hotelteam.service.dto.UserDTO;
-import ru.relex.hotelteam.service.dto.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.UserDto;
+import ru.relex.hotelteam.service.dto.UserUpdateDto;
 
 import java.util.List;
 
 public interface IUserService {
 
-    UserDTO createUser(UserDTO user);
+  UserDto createUser(UserDto user);
 
-    UserDTO findById(int id);
+  UserDto findById(int id);
 
-    List<UserDTO> listUsers();
+  List<UserDto> listUsers();
 
-    void delete(int id);
+  void delete(int id);
 
-    void update(int id, UserUpdateDTO updatedUser);
+  void update(int id, UserUpdateDto updatedUser);
 }
