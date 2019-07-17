@@ -26,3 +26,11 @@ databaseChangeLog:
             -   sqlFile:
                   path                   : changesets/H-003.sql
                   relativeToChangelogFile: true
+    -   changeSet:
+          id           : 4
+          author       : itarasov
+          comment      : change type for price (Facilities, Types)
+          changes      :
+            -   sqlFile:
+                  path                   : changesets/H-004.sql
+                  relativeToChangelogFile: true
