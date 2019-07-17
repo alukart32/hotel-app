@@ -1,3 +1,5 @@
+CREATE SCHEMA inprog;
+
 CREATE TABLE inprog.authorities (
   "authority_id" SERIAL PRIMARY KEY,
   "name" varchar(16) UNIQUE
