@@ -1,0 +1,40 @@
+image        : "amazoncorretto:11"
+
+stages       :
+    - build
+    - test
+    - lint
+
+before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache        :
+    paths:
+        - .gradle/
+
+build        :
+    stage : build
+    script:
+        - ./gradlew assemble
+
+test         :
+    stage    : test
+    script   :
+        - ./gradlew test
+    artifacts:
+        when   : on_failure
+        reports:
+            junit: "build/test-results/test/TEST-*.xml"
+
+
+lint         :
+    stage    : lint
+    script   :
+        - ./gradlew lint
+    artifacts:
+        when : on_failure
+        name : "$CI_COMMIT_REF_NAME.lint"
+        paths:
+            - build/reports/checkstyle/*.html
+            - build/reports/pmd/*.html
+            - build/reports/checkstyle/*.html

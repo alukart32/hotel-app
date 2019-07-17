@@ -1,5 +1,5 @@
 rootProject.name = 'hotel'
-include 'ServicesModule'
+include 'ServicesModule' //На будущее слово 'Module' обычно лишнее и его можно не писать
 include 'DataAccessModule'
 include 'CommonsModule'
 
