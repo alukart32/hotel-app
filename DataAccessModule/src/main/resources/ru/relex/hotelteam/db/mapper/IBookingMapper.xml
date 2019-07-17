@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.relex.hotelteam.db.mapper.IBookingMapper">
 
-    <resultMap id="bookingMap" type="Booking">
-        <id property="id"  column="booking_id"/>
-        <result property="userId" column="user_id" />
-        <!--<result property="roomId" column="room_id" />-->
-        <result property="checkInDate" column="check_in" />
-        <result property="checkOutDate" column="check_out" />
-        <result property="realCheckInDate" column="real_check_in" />
-        <result property="realCheckOutDate" column="real_check_out" />
-    </resultMap>
+  <resultMap id="bookingMap" type="Booking">
+    <id property="id" column="booking_id"/>
+    <result property="userId" column="user_id"/>
+    <!--<result property="roomId" column="room_id" />-->
+    <result property="checkInDate" column="check_in"/>
+    <result property="checkOutDate" column="check_out"/>
+    <result property="realCheckInDate" column="real_check_in"/>
+    <result property="realCheckOutDate" column="real_check_out"/>
+  </resultMap>
 
-    <select id="createBooking" resultType="Booking">
-        INSERT INTO inprog.bookings(user_id, check_in, check_out <!--,room_id-->)
-        VALUES (#{userId}, #{checkInDate}, #{checkOutDate})
-        RETURNING booking_id as id,
-                  user_id as userId,
-                  check_in as checkInDate,
-                  check_out as checkOutDate
-    </select>
+  <select id="createBooking" resultType="Booking">
+    INSERT INTO inprog.bookings(user_id, check_in, check_out <!--,room_id-->)
+    VALUES (#{userId}, #{checkInDate}, #{checkOutDate})
+    RETURNING booking_id as id,
+    user_id as userId,
+    check_in as checkInDate,
+    check_out as checkOutDate
+  </select>
 
-    <select id="getBookingById" resultMap="bookingMap">
+  <select id="getBookingById" resultMap="bookingMap">
         SELECT
                booking_id,
                user_id,
@@ -35,7 +35,7 @@
         WHERE booking_id = #{id}
     </select>
 
-    <select id="listBookingsByUserId" resultMap="bookingMap">
+  <select id="listBookingsByUserId" resultMap="bookingMap">
         SELECT
                booking_id,
                user_id,
@@ -47,7 +47,7 @@
         WHERE user_id = #{userId}
     </select>
 
-    <select id="listBookings" resultMap="bookingMap">
+  <select id="listBookings" resultMap="bookingMap">
         SELECT
                booking_id,
                user_id,
@@ -58,7 +58,7 @@
         FROM inprog.bookings
     </select>
 
-    <update id="updateBooking" parameterType="Booking">
+  <update id="updateBooking" parameterType="Booking">
         UPDATE inprog.bookings
         SET
           check_in = #{checkInDate},
@@ -66,7 +66,7 @@
         WHERE booking_id = #{id}
     </update>
 
-    <delete id="deleteBooking">
+  <delete id="deleteBooking">
         DELETE
         FROM inprog.bookings
         WHERE booking_id = #{id}

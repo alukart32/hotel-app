@@ -12,4 +12,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("db.properties")
 @MapperScan("ru.relex.hotelteam.db.mapper")
 public class DbConfiguration {
+
 }
