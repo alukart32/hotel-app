@@ -2,7 +2,7 @@ package ru.relex.hotelteam.service.dto;
 
 import java.util.Date;
 
-public class UserUpdateDTO {
+public class UserUpdateDto {
 
   private String firstName;
   private String lastName;

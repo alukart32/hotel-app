@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.service.IBookingService;
-import ru.relex.hotelteam.service.dto.BookingCreateDTO;
-import ru.relex.hotelteam.service.dto.BookingDTO;
-import ru.relex.hotelteam.service.dto.BookingUpdateDTO;
+import ru.relex.hotelteam.service.dto.BookingCreateDto;
+import ru.relex.hotelteam.service.dto.BookingDto;
+import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 
 @RestController
 @RequestMapping(path = "/bookings",
@@ -31,23 +31,23 @@ public class BookingController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public BookingDTO createBooking(@RequestBody BookingCreateDTO dto) {
+  public BookingDto createBooking(@RequestBody BookingCreateDto dto) {
     return bookingService.createBooking(dto);
   }
 
   @GetMapping
-  public List<BookingDTO> listBookings() {
+  public List<BookingDto> listBookings() {
     return bookingService.listBookings();
   }
 
   @GetMapping("/all/{userId}")
-  public List<BookingDTO> listBookingsByUserId(@PathVariable("userId") int userId) {
+  public List<BookingDto> listBookingsByUserId(@PathVariable("userId") int userId) {
     return bookingService.listBookingsByUserId(userId);
   }
 
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public BookingDTO findById(@PathVariable("id") int id) {
+  public BookingDto findById(@PathVariable("id") int id) {
     return bookingService.findById(id);
   }
 
@@ -59,7 +59,7 @@ public class BookingController {
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDTO dto) {
+  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto) {
     bookingService.update(id, dto);
   }
 }

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserDTO;
-import ru.relex.hotelteam.service.dto.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.UserDto;
+import ru.relex.hotelteam.service.dto.UserUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
 @Service
@@ -23,17 +23,17 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public UserDTO createUser(final UserDTO user) {
-    return mapstruct.toDTO(mapper.createUser(mapstruct.fromDTO(user)));
+  public UserDto createUser(final UserDto user) {
+    return mapstruct.toDto(mapper.createUser(mapstruct.fromDto(user)));
   }
 
   @Override
-  public UserDTO findById(final int id) {
-    return mapstruct.toDTO(mapper.getUserById(id).orElseThrow());
+  public UserDto findById(final int id) {
+    return mapstruct.toDto(mapper.getUserById(id).orElseThrow());
   }
 
   @Override
-  public List<UserDTO> listUsers() {
+  public List<UserDto> listUsers() {
     return mapstruct.toDTO(mapper.listUsers());
   }
 
@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public void update(int id, UserUpdateDTO updatedUser) {
+  public void update(int id, UserUpdateDto updatedUser) {
 
     User user = mapper.getUserById(id).
         orElseThrow(notFound("No user [ id = " + id + " ] was found!"));

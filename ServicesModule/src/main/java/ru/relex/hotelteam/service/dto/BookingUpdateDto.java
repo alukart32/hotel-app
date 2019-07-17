@@ -2,7 +2,7 @@ package ru.relex.hotelteam.service.dto;
 
 import java.time.OffsetDateTime;
 
-public class BookingUpdateDTO {
+public class BookingUpdateDto {
 
   private OffsetDateTime checkInDate;
   private OffsetDateTime checkOutDate;

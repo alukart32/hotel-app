@@ -3,26 +3,26 @@ package ru.relex.hotelteam.service.mapstruct;
 import java.util.List;
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.Booking;
-import ru.relex.hotelteam.service.dto.BookingCreateDTO;
-import ru.relex.hotelteam.service.dto.BookingDTO;
-import ru.relex.hotelteam.service.dto.BookingUpdateDTO;
+import ru.relex.hotelteam.service.dto.BookingCreateDto;
+import ru.relex.hotelteam.service.dto.BookingDto;
+import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 
 @Mapper(componentModel = "spring")
 public interface IBookingMapstruct {
 
-  Booking fromDTO(BookingDTO dto);
+  Booking fromDto(BookingDto dto);
 
-  BookingDTO toDTO(Booking booking);
+  BookingDto toDto(Booking booking);
 
-  Booking fromCreateDTO(BookingCreateDTO dto);
+  Booking fromCreateDto(BookingCreateDto dto);
 
-  BookingCreateDTO toCreateDTO(Booking booking);
+  BookingCreateDto toCreateDto(Booking booking);
 
-  Booking fromUpdateDTO(BookingUpdateDTO dto);
+  Booking fromUpdateDto(BookingUpdateDto dto);
 
-  BookingUpdateDTO toUpdateDTO(Booking booking);
+  BookingUpdateDto toUpdateDto(Booking booking);
 
-  List<BookingDTO> toDTO(List<Booking> bookings);
+  List<BookingDto> toDto(List<Booking> bookings);
 
-  List<Booking> fromDTO(List<BookingDTO> bookingDTOs);
+  List<Booking> fromDto(List<BookingDto> bookingDtoList);
 }

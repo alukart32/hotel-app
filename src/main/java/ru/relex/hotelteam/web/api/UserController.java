@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserDTO;
-import ru.relex.hotelteam.service.dto.UserUpdateDTO;
+import ru.relex.hotelteam.service.dto.UserDto;
+import ru.relex.hotelteam.service.dto.UserUpdateDto;
 
 @RestController
 @RequestMapping(path = "/users",
@@ -30,17 +30,17 @@ public class UserController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public UserDTO createUser(@RequestBody UserDTO dto) {
+  public UserDto createUser(@RequestBody UserDto dto) {
     return userService.createUser(dto);
   }
 
   @GetMapping
-  public List<UserDTO> listUsers() {
+  public List<UserDto> listUsers() {
     return userService.listUsers();
   }
 
   @GetMapping("/{id}")
-  public UserDTO findById(@PathVariable("id") int id) {
+  public UserDto findById(@PathVariable("id") int id) {
     return userService.findById(id);
   }
 
@@ -51,7 +51,7 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public void updateUser(@PathVariable("id") int id, @RequestBody UserUpdateDTO dto) {
+  public void updateUser(@PathVariable("id") int id, @RequestBody UserUpdateDto dto) {
     userService.update(id, dto);
   }
 }

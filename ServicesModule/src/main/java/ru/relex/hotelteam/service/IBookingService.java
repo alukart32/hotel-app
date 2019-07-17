@@ -1,21 +1,21 @@
 package ru.relex.hotelteam.service;
 
 import java.util.List;
-import ru.relex.hotelteam.service.dto.BookingCreateDTO;
-import ru.relex.hotelteam.service.dto.BookingDTO;
-import ru.relex.hotelteam.service.dto.BookingUpdateDTO;
+import ru.relex.hotelteam.service.dto.BookingCreateDto;
+import ru.relex.hotelteam.service.dto.BookingDto;
+import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 
 public interface IBookingService {
 
-  BookingDTO createBooking(BookingCreateDTO booking);
+  BookingDto createBooking(BookingCreateDto booking);
 
-  BookingDTO findById(int id);
+  BookingDto findById(int id);
 
-  List<BookingDTO> listBookings();
+  List<BookingDto> listBookings();
 
-  List<BookingDTO> listBookingsByUserId(int userId);
+  List<BookingDto> listBookingsByUserId(int userId);
 
   void delete(int id);
 
-  void update(int id, BookingUpdateDTO updatedBooking);
+  void update(int id, BookingUpdateDto updatedBooking);
 }
