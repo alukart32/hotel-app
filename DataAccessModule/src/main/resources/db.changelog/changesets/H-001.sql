@@ -27,7 +27,7 @@ CREATE TABLE inprog.rooms (
 CREATE TABLE inprog.categories (
   "category_id" SERIAL PRIMARY KEY,
   "name" varchar(16) UNIQUE,
-  "price_multplier" decimal
+  "price_multiplier" decimal
 );
 
 CREATE TABLE inprog.types (
