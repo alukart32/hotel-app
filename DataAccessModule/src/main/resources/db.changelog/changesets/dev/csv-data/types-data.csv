@@ -1,0 +1,7 @@
+twin_bed|places|price
+false   |1     |1000
+true    |2     |1500
+false   |2     |1500
+true    |3     |2000
+true    |4     |2500
+false   |4     |2500
