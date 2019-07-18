@@ -40,7 +40,7 @@ public class BookingController {
     return bookingService.listBookings();
   }
 
-  @GetMapping("/all/{userId}")
+  @GetMapping("/users/{userId}")
   public List<BookingDto> listBookingsByUserId(@PathVariable("userId") int userId) {
     return bookingService.listBookingsByUserId(userId);
   }
