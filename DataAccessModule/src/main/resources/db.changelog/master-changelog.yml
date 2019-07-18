@@ -34,3 +34,11 @@ databaseChangeLog:
         - sqlFile:
             path: changesets/H-004.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 5
+      author: itarasov
+      comment: add table "payments"
+      changes:
+        - sqlFile:
+            path: changesets/H-005.sql
+            relativeToChangelogFile: true
