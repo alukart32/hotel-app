@@ -83,5 +83,4 @@
       <column name="booking_id" type="NUMERIC"/>
     </loadData>
   </changeSet>
-
 </databaseChangeLog>

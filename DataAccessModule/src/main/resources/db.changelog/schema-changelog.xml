@@ -30,4 +30,20 @@
     <comment>Add rooms_facilities table</comment>
     <sqlFile path="changesets/H-007.sql" relativeToChangelogFile="true"/>
   </changeSet>
+  <changeSet author="yakimov" id="8">
+    <comment>Add daily_price(room_id INTEGER) function</comment>
+    <sqlFile path="changesets/H-008.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="9">
+    <comment>Add total_price(room_id INTEGER, days_count INTEGER) function</comment>
+    <sqlFile path="changesets/H-009.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="10">
+    <comment>Add booking_price(booking_id INTEGER) function</comment>
+    <sqlFile path="changesets/H-010.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="11">
+    <comment>Add autoincrement and NOT NULL constraints to payments table</comment>
+    <sqlFile path="changesets/H-011.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
