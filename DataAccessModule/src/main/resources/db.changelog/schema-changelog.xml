@@ -81,4 +81,10 @@
     </comment>
     <sqlFile path="changesets/H-013.sql" relativeToChangelogFile="true" splitStatements="false"/>
   </changeSet>
+  <changeSet author="yakimov" id="14">
+    <comment>
+      Add room_view for IRoomMapper.xml
+    </comment>
+    <sqlFile path="changesets/H-014.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
