@@ -1,0 +1,84 @@
+<databaseChangeLog
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet author="itarasov" id="1">
+    <comment>
+      Create tables
+    </comment>
+    <sqlFile path="changesets/H-001.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="itarasov" id="2">
+    <comment>
+      Insert roles(owner, admin, guest)
+    </comment>
+    <sqlFile path="changesets/H-002.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="itarasov" id="3">
+    <comment>
+      Rename second_name to last_name in users table
+    </comment>
+    <sqlFile path="changesets/H-003.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="itarasov" id="4">
+    <comment>
+      Change type for price (facilities, types)
+    </comment>
+    <sqlFile path="changesets/H-004.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="itarasov" id="5">
+    <comment>
+      Add table "payments"
+    </comment>
+    <sqlFile path="changesets/H-005.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" id="6">
+    <comment>
+      Remove unused 'facilities_id' key in rooms table
+    </comment>
+    <sqlFile path="changesets/H-006.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" id="7">
+    <comment>
+      Add rooms_facilities table
+    </comment>
+    <sqlFile path="changesets/H-007.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" id="8">
+    <comment>
+      Add daily_price(room_id INTEGER) function
+    </comment>
+    <sqlFile path="changesets/H-008.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="9">
+    <comment>
+      Add total_price(room_id INTEGER, days_count INTEGER) function
+    </comment>
+    <sqlFile path="changesets/H-009.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="10">
+    <comment>
+      Add booking_price(booking_id INTEGER) function
+    </comment>
+    <sqlFile path="changesets/H-010.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="11">
+    <comment>
+      Add autoincrement and NOT NULL constraints to payments table
+    </comment>
+    <sqlFile path="changesets/H-011.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" id="12">
+    <comment>
+      Add utility prices_table(INTEGER) function
+    </comment>
+    <sqlFile path="changesets/H-012.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+  <changeSet author="yakimov" id="13">
+    <comment>
+      Fix bug in daily_price(INTEGER) table due to which functions
+      miscounted price if multiple facilities were present
+    </comment>
+    <sqlFile path="changesets/H-013.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
+</databaseChangeLog>

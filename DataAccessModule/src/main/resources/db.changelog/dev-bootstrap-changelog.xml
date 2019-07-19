@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet author="yakimov" context="dev" id="dev-01">
+    <comment>Truncate tables</comment>
+    <sqlFile path="changesets/dev/D-001.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-02">
+    <comment>Bootstrap Users table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/user-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="users">
+      <column name="id" type="skip"/>
+      <column name="authority_id" type="NUMERIC"/>
+      <column name="birth_date" type="DATE"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-03">
+    <comment>Bootstrap facilities table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/facilities-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="facilities">
+      <column name="price" type="NUMERIC"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-04">
+    <comment>Bootstrap types table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/types-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="types">
+      <column name="places" type="NUMERIC"/>
+      <column name="price" type="NUMERIC"/>
+      <column name="twin_bed" type="BOOLEAN"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-05">
+    <comment>Bootstrap categories table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/categories-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="categories">
+      <column name="price_multiplier" type="NUMERIC"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-06">
+    <comment>Bootstrap rooms table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/rooms-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="rooms">
+      <column name="number" type="NUMERIC"/>
+      <column name="floor" type="NUMERIC"/>
+      <column name="category_id" type="NUMERIC"/>
+      <column name="type_id" type="NUMERIC"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-07">
+    <comment>Bootstrap rooms_facilities table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/rooms-facilities-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="rooms_facilities">
+      <column name="facility_id" type="NUMERIC"/>
+      <column name="room_id" type="NUMERIC"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-08">
+    <comment>Truncate payments table</comment>
+    <sqlFile path="changesets/dev/D-002.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-09">
+    <comment>Bootstrap bookings table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/bookings-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="bookings">
+      <column name="check_in" type="DATE"/>
+      <column name="check_out" type="DATE"/>
+      <column header="real_check" name="real_check_in" type="DATE"/>
+      <column name="real_check_out" type="DATE"/>
+      <column name="room_id" type="NUMERIC"/>
+      <column name="user_id" type="NUMERIC"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-10">
+    <comment>Bootstrap payments table</comment>
+    <sqlFile path="changesets/dev/D-003.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+</databaseChangeLog>
