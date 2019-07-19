@@ -69,7 +69,7 @@ public class UserServiceImpl implements IUserService {
     user.setEmail(updatedAuth.getEmail());
     user.setPassword(user.getPassword());
 
-    mapper.updateUser(user);
+    mapper.updateUserSecurityInfo(user);
   }
 
   private Supplier<RuntimeException> notFound(String s) {
