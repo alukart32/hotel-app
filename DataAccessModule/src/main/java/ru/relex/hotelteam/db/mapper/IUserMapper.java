@@ -20,4 +20,6 @@ public interface IUserMapper {
   void deleteUser(@Param("id") int id);
 
   void updateUser(User user);
+
+  void updateUserSecurityInfo(User user);
 }

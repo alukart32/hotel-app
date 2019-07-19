@@ -68,6 +68,15 @@
         where user_id = #{id}
     </update>
 
+  <update id="updateUserSecurityInfo" parameterType="User">
+        update inprog.users
+        set
+          login = #{login},
+          email = #{email},
+          password = #{password}
+        where user_id = #{id}
+    </update>
+
     <delete id="deleteUser">
         DELETE
         FROM inprog.users
