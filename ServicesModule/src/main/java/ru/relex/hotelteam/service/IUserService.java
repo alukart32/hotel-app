@@ -18,5 +18,5 @@ public interface IUserService {
 
   void update(int id, UserUpdateDto updatedUser);
 
-  void updateAuth(int id, UserSecurityDto updatedAuth);
+  void updateSecurityInfo(int id, UserSecurityDto updatedAuth);
 }

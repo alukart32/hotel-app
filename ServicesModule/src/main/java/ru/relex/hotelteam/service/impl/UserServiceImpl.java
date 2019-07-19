@@ -61,7 +61,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public void updateAuth(int id, UserSecurityDto updatedAuth) {
+  public void updateSecurityInfo(int id, UserSecurityDto updatedAuth) {
     User user = mapper.getUserById(id).
         orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
