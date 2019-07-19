@@ -5,7 +5,6 @@ import ru.relex.hotelteam.shared.model.Authority;
 
 public class UserBaseDto {
 
-  private int id;
   private String login;
   private String email;
   private String firstName;
@@ -13,14 +12,6 @@ public class UserBaseDto {
   private String middleName;
   private Date birthDate;
   private Authority authority;
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public String getLogin() {
     return login;
