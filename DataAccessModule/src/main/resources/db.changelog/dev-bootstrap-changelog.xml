@@ -58,4 +58,24 @@
       <column name="room_id" type="NUMERIC"/>
     </loadData>
   </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-08">
+    <comment>Truncate payments table</comment>
+    <sqlFile path="changesets/dev/D-002.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-09">
+    <comment>Bootstrap bookings table</comment>
+    <loadData catalogName="inprog" file="db.changelog/changesets/dev/csv-data/bookings-data.csv"
+      quotchar="" schemaName="inprog" separator="|" tableName="bookings">
+      <column name="check_in" type="DATE"/>
+      <column name="check_out" type="DATE"/>
+      <column header="real_check" name="real_check_in" type="DATE"/>
+      <column name="real_check_out" type="DATE"/>
+      <column name="room_id" type="NUMERIC"/>
+      <column name="user_id" type="NUMERIC"/>
+    </loadData>
+  </changeSet>
+  <changeSet author="yakimov" context="dev" id="dev-10">
+    <comment>Bootstrap payments table</comment>
+    <sqlFile path="changesets/dev/D-003.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
