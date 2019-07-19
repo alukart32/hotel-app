@@ -1,6 +1,6 @@
 package ru.relex.hotelteam.service;
 
-import ru.relex.hotelteam.service.dto.UserListDto;
+import ru.relex.hotelteam.service.dto.UserBaseDto;
 import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
@@ -13,7 +13,7 @@ public interface IUserService {
 
   UserDto findById(int id);
 
-  List<UserListDto> listUsers();
+  List<UserBaseDto> listUsers();
 
   void delete(int id);
 

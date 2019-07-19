@@ -41,3 +41,4 @@ public class UserUpdateDto {
     this.birthDate = birthDate;
   }
 }
+

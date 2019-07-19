@@ -5,7 +5,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.service.dto.UserDto;
-import ru.relex.hotelteam.service.dto.UserListDto;
+import ru.relex.hotelteam.service.dto.UserBaseDto;
 import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 
@@ -24,7 +24,7 @@ public interface IUserMapstruct {
 
   User fromSecurityDto(UserSecurityDto userSecurityDto);
 
-  List<UserListDto> toDto(List<User> users);
+  List<UserBaseDto> toDto(List<User> users);
 
-  List<User> fromDto(List<UserListDto> userDtoList);
+  List<User> fromDto(List<UserBaseDto> userDtoList);
 }

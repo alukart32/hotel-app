@@ -3,7 +3,7 @@ package ru.relex.hotelteam.service.dto;
 import java.util.Date;
 import ru.relex.hotelteam.shared.model.Authority;
 
-public class UserListDto {
+public class UserBaseDto {
 
   private int id;
   private String login;

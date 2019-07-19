@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.service.IUserService;
 import ru.relex.hotelteam.service.dto.UserDto;
-import ru.relex.hotelteam.service.dto.UserListDto;
+import ru.relex.hotelteam.service.dto.UserBaseDto;
 import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 
@@ -37,7 +37,7 @@ public class UserController {
   }
 
   @GetMapping
-  public List<UserListDto> listUsers() {
+  public List<UserBaseDto> listUsers() {
     return userService.listUsers();
   }
 
