@@ -1,1 +1,3 @@
+ALTER SEQUENCE inprog.payment_id_seq RESTART WITH 1;
+
 TRUNCATE TABLE inprog.payments RESTART IDENTITY CASCADE;
