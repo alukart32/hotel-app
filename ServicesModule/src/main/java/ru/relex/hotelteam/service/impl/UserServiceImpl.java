@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
+import ru.relex.hotelteam.service.dto.UserAuthDto;
 import ru.relex.hotelteam.service.dto.UserDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
@@ -56,6 +57,18 @@ public class UserServiceImpl implements IUserService {
     user.setLastName(updatedUser.getLastName());
     user.setMiddleName(updatedUser.getMiddleName());
     user.setBirthDate(updatedUser.getBirthDate());
+
+    mapper.updateUser(user);
+  }
+
+  @Override
+  public void updateAuth(int id, UserAuthDto updatedAuth) {
+    User user = mapper.getUserById(id).
+        orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
+
+    user.setLogin(updatedAuth.getLogin());
+    user.setEmail(updatedAuth.getEmail());
+    user.setPassword(user.getPassword());
 
     mapper.updateUser(user);
   }
