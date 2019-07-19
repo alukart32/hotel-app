@@ -59,13 +59,13 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public void updateSecurityInfo(int id, UserSecurityDto updatedAuth) {
+  public void updateSecurityInfo(int id, UserSecurityDto updatedSecurity) {
     User user = mapper.getUserById(id).
         orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
-    user.setLogin(updatedAuth.getLogin());
-    user.setEmail(updatedAuth.getEmail());
-    user.setPassword(updatedAuth.getPassword());
+    user.setLogin(updatedSecurity.getLogin());
+    user.setEmail(updatedSecurity.getEmail());
+    user.setPassword(updatedSecurity.getPassword());
 
     mapper.updateUserSecurityInfo(user);
   }
