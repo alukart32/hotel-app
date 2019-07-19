@@ -1,13 +1,33 @@
 package ru.relex.hotelteam.service.dto;
 
 import java.util.Date;
+import ru.relex.hotelteam.shared.model.Authority;
 
-public class UserUpdateDto {
+public class UserBaseDto {
 
+  private String login;
+  private String email;
   private String firstName;
   private String lastName;
   private String middleName;
   private Date birthDate;
+  private Authority authority;
+
+  public String getLogin() {
+    return login;
+  }
+
+  public void setLogin(String login) {
+    this.login = login;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -40,5 +60,12 @@ public class UserUpdateDto {
   public void setBirthDate(Date birthDate) {
     this.birthDate = birthDate;
   }
-}
 
+  public Authority getAuthority() {
+    return authority;
+  }
+
+  public void setAuthority(Authority authority) {
+    this.authority = authority;
+  }
+}

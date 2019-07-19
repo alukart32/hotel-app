@@ -1,25 +1,34 @@
 package ru.relex.hotelteam.service.mapstruct;
 
 
+import java.util.List;
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.service.dto.UserDto;
+import ru.relex.hotelteam.service.dto.UserBaseDto;
+import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface IUserMapstruct {
 
-  User fromDTO(UserDto dto);
+  User fromDto(UserDto dto);
 
-  UserDto toDTO(User user);
+  UserDto toDto(User user);
+
+  User fromBaseDto(UserBaseDto dto);
+
+  UserBaseDto toBaseDto(User user);
 
   UserUpdateDto toUpdateDto(User user);
 
-  User fromUpdateDto(UserUpdateDto userUpdateDTO);
+  User fromUpdateDto(UserUpdateDto userUpdateDto);
 
-  List<UserDto> toDTO(List<User> users);
+  UserSecurityDto toSecurityDto(User user);
 
-  List<User> fromDTO(List<UserDto> userDtoList);
+  User fromSecurityDto(UserSecurityDto userSecurityDto);
+
+  List<UserBaseDto> toDto(List<User> users);
+
+  List<User> fromDto(List<UserBaseDto> userDtoList);
 }
