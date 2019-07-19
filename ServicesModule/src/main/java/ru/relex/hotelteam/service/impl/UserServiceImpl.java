@@ -67,7 +67,7 @@ public class UserServiceImpl implements IUserService {
 
     user.setLogin(updatedAuth.getLogin());
     user.setEmail(updatedAuth.getEmail());
-    user.setPassword(user.getPassword());
+    user.setPassword(updatedAuth.getPassword());
 
     mapper.updateUserSecurityInfo(user);
   }
