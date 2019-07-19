@@ -49,9 +49,6 @@ public class UserServiceImpl implements IUserService {
     User user = mapper.getUserById(id).
         orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
-    user.setId(id);
-    user.setAuthority(user.getAuthority());
-    user.setPassword(user.getPassword());
     user.setFirstName(updatedUser.getFirstName());
     user.setLastName(updatedUser.getLastName());
     user.setMiddleName(updatedUser.getMiddleName());
