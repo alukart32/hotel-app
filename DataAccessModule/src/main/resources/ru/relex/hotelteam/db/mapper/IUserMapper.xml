@@ -36,7 +36,8 @@
                email,
                birth_date,
                authority_id,
-               login
+               login,
+               password
 
         FROM inprog.users
         WHERE user_id = #{id}
