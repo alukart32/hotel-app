@@ -25,17 +25,17 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public UserDto createUser(final UserDto user) {
-    return mapstruct.toDTO(mapper.createUser(mapstruct.fromDTO(user)));
+    return mapstruct.toDto(mapper.createUser(mapstruct.fromDto(user)));
   }
 
   @Override
   public UserDto findById(final int id) {
-    return mapstruct.toDTO(mapper.getUserById(id).orElseThrow());
+    return mapstruct.toDto(mapper.getUserById(id).orElseThrow());
   }
 
   @Override
   public List<UserDto> listUsers() {
-    return mapstruct.toDTO(mapper.listUsers());
+    return mapstruct.toDto(mapper.listUsers());
   }
 
   @Override
