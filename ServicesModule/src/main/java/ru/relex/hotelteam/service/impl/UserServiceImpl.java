@@ -1,16 +1,15 @@
 package ru.relex.hotelteam.service.impl;
 
+import java.util.List;
+import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserAuthDto;
+import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -19,7 +18,7 @@ public class UserServiceImpl implements IUserService {
   private final IUserMapstruct mapstruct;
 
   public UserServiceImpl(final IUserMapper mapper,
-                         final IUserMapstruct mapstruct) {
+      final IUserMapstruct mapstruct) {
     this.mapper = mapper;
     this.mapstruct = mapstruct;
   }
@@ -62,7 +61,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public void updateAuth(int id, UserAuthDto updatedAuth) {
+  public void updateAuth(int id, UserSecurityDto updatedAuth) {
     User user = mapper.getUserById(id).
         orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 

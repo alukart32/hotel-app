@@ -3,7 +3,7 @@ package ru.relex.hotelteam.service.dto;
 /**
  * Created by Tarasov Ivan on 19/07/2019.
  */
-public class UserAuthDto {
+public class UserSecurityDto {
 
   private int id;
   private String login;

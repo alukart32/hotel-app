@@ -1,6 +1,6 @@
 package ru.relex.hotelteam.service;
 
-import ru.relex.hotelteam.service.dto.UserAuthDto;
+import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 
@@ -18,5 +18,5 @@ public interface IUserService {
 
   void update(int id, UserUpdateDto updatedUser);
 
-  void updateAuth(int id, UserAuthDto updatedAuth);
+  void updateAuth(int id, UserSecurityDto updatedAuth);
 }
