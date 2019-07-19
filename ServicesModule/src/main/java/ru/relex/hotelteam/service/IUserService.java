@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface IUserService {
 
-  UserDto createUser(UserDto user);
+  UserBaseDto createUser(UserDto user);
 
-  UserDto findById(int id);
+  UserBaseDto findById(int id);
 
   List<UserBaseDto> listUsers();
 
@@ -19,5 +19,5 @@ public interface IUserService {
 
   void update(int id, UserUpdateDto updatedUser);
 
-  void updateSecurityInfo(int id, UserSecurityDto updatedAuth);
+  void updateSecurityInfo(int id, UserSecurityDto updatedSecurityInfo);
 }

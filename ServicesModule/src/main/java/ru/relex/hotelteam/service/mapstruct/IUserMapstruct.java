@@ -16,6 +16,10 @@ public interface IUserMapstruct {
 
   UserDto toDto(User user);
 
+  User fromBaseDto(UserBaseDto dto);
+
+  UserBaseDto toBaseDto(User user);
+
   UserUpdateDto toUpdateDto(User user);
 
   User fromUpdateDto(UserUpdateDto userUpdateDto);

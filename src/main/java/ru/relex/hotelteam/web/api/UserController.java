@@ -32,7 +32,7 @@ public class UserController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public UserDto createUser(@RequestBody UserDto dto) {
+  public UserBaseDto createUser(@RequestBody UserDto dto) {
     return userService.createUser(dto);
   }
 
@@ -42,7 +42,7 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public UserDto findById(@PathVariable("id") int id) {
+  public UserBaseDto findById(@PathVariable("id") int id) {
     return userService.findById(id);
   }
 
