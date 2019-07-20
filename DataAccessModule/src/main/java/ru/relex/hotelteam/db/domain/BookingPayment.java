@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 /**
- * Created by Tarasov Ivan on 20/07/2019
+ * Created by Tarasov Ivan on 20/07/2019 Time: 19:01
  */
 public class BookingPayment {
 
