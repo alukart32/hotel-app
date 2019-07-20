@@ -6,7 +6,7 @@ public class BookingUpdateDto {
 
   private OffsetDateTime checkInDate;
   private OffsetDateTime checkOutDate;
-  // private Room room;
+  private int roomId;
 
   public OffsetDateTime getCheckInDate() {
     return checkInDate;
@@ -22,5 +22,13 @@ public class BookingUpdateDto {
 
   public void setCheckOutDate(OffsetDateTime checkOutDate) {
     this.checkOutDate = checkOutDate;
+  }
+
+  public int getRoomId() {
+    return roomId;
+  }
+
+  public void setRoomId(int roomId) {
+    this.roomId = roomId;
   }
 }
