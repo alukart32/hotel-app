@@ -58,25 +58,29 @@
     </select>
 
     <update id="updateUser" parameterType="User">
-        update inprog.users
-        set
-          first_name = #{firstName},
-          last_name = #{lastName},
-          middle_name = #{middleName},
-          email = #{email},
-          birth_date = #{birthDate}
+      UPDATE inprog.users
+      <set>
+        <if test="firstName != null">first_name = #{firstName},</if>
+        <if test="lastName != null">last_name = #{lastName},</if>
+        <if test="middleName != null">middle_name = #{middleName},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="birthDate != null">birth_date = #{birthDate}</if>
+      </set>
 
-        where user_id = #{id}
+      WHERE user_id = #{id}
     </update>
 
   <update id="updateUserSecurityInfo" parameterType="User">
-        update inprog.users
-        set
-          login = #{login},
-          email = #{email},
-          password = #{password}
-        where user_id = #{id}
-    </update>
+    UPDATE inprog.users
+
+    <set>
+      <if test="login != null">login = #{login},</if>
+      <if test="email != null">email = #{email},</if>
+      <if test="password != null">password = #{password}</if>
+    </set>
+
+    WHERE user_id = #{id}
+  </update>
 
     <delete id="deleteUser">
         DELETE
