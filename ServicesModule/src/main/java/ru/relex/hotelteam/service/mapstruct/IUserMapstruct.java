@@ -5,6 +5,8 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.service.dto.UserDto;
+import ru.relex.hotelteam.service.dto.UserBaseDto;
+import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 
 @Mapper(componentModel = "spring")
@@ -14,11 +16,19 @@ public interface IUserMapstruct {
 
   UserDto toDto(User user);
 
+  User fromBaseDto(UserBaseDto dto);
+
+  UserBaseDto toBaseDto(User user);
+
   UserUpdateDto toUpdateDto(User user);
 
-  User fromUpdateDto(UserUpdateDto userUpdateDTO);
+  User fromUpdateDto(UserUpdateDto userUpdateDto);
 
-  List<UserDto> toDTO(List<User> users);
+  UserSecurityDto toSecurityDto(User user);
 
-  List<User> fromDto(List<UserDto> userSafeDTOS);
+  User fromSecurityDto(UserSecurityDto userSecurityDto);
+
+  List<UserBaseDto> toDto(List<User> users);
+
+  List<User> fromDto(List<UserBaseDto> userDtoList);
 }

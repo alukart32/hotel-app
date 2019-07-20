@@ -7,6 +7,8 @@ import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
 import ru.relex.hotelteam.service.dto.UserDto;
+import ru.relex.hotelteam.service.dto.UserBaseDto;
+import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
 
@@ -23,18 +25,18 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public UserDto createUser(final UserDto user) {
-    return mapstruct.toDto(mapper.createUser(mapstruct.fromDto(user)));
+  public UserBaseDto createUser(final UserDto user) {
+    return mapstruct.toBaseDto(mapper.createUser(mapstruct.fromDto(user)));
   }
 
   @Override
-  public UserDto findById(final int id) {
-    return mapstruct.toDto(mapper.getUserById(id).orElseThrow());
+  public UserBaseDto findById(final int id) {
+    return mapstruct.toBaseDto(mapper.getUserById(id).orElseThrow());
   }
 
   @Override
-  public List<UserDto> listUsers() {
-    return mapstruct.toDTO(mapper.listUsers());
+  public List<UserBaseDto> listUsers() {
+    return mapstruct.toDto(mapper.listUsers());
   }
 
   @Override
@@ -48,15 +50,24 @@ public class UserServiceImpl implements IUserService {
     User user = mapper.getUserById(id).
         orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
-    user.setId(id);
-    user.setAuthority(user.getAuthority());
-    user.setPassword(user.getPassword());
     user.setFirstName(updatedUser.getFirstName());
     user.setLastName(updatedUser.getLastName());
     user.setMiddleName(updatedUser.getMiddleName());
     user.setBirthDate(updatedUser.getBirthDate());
 
     mapper.updateUser(user);
+  }
+
+  @Override
+  public void updateSecurityInfo(int id, UserSecurityDto updatedSecurity) {
+    User user = mapper.getUserById(id).
+        orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
+
+    user.setLogin(updatedSecurity.getLogin());
+    user.setEmail(updatedSecurity.getEmail());
+    user.setPassword(updatedSecurity.getPassword());
+
+    mapper.updateUserSecurityInfo(user);
   }
 
   private Supplier<RuntimeException> notFound(String s) {

@@ -3,10 +3,12 @@ package ru.relex.hotelteam.service.dto;
 import java.util.Date;
 import ru.relex.hotelteam.shared.model.Authority;
 
+
 public class UserDto {
 
   private int id;
   private String login;
+  private String password;
   private String firstName;
   private String lastName;
   private String middleName;
@@ -20,6 +22,14 @@ public class UserDto {
 
   public void setId(int id) {
     this.id = id;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public String getEmail() {

@@ -1,0 +1,1 @@
+ALTER TABLE inprog.rooms DROP COLUMN facility_id;

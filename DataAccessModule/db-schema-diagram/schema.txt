@@ -1,0 +1,109 @@
+//Insert this script into dbdiagram.io
+//Or open this link https://dbdiagram.io/d/5d30c97eced98361d6dccc73
+//
+
+//----------------------------------------------
+//USERS
+//----------------------------------------------
+
+table authorities{
+  authority_id integer PK
+  name varchar(16) UNIQUE
+}
+
+table users{
+  user_id integer PK
+  authority_id integer
+  login varchar(32) UNIQUE
+  password varchar(88)
+  first_name varchar(32)
+  second_name varchar(32)
+  middle_name varchar(32)
+  birth_date datetime
+  email varchar(32) UNIQUE
+}
+
+Ref: users.authority_id > authorities.authority_id
+
+//----------------------------------------------
+//ROOMS
+//----------------------------------------------
+
+table rooms{
+  room_id integer PK
+  number integer
+  floor integer
+  category_id integer
+  type_id integer
+}
+
+table categories{
+  category_id integer PK
+  name varchar(16) UNIQUE
+  price_multplier decimal
+}
+
+table types{
+  type_id integer PK
+  twin_bed boolean
+  places integer
+  price decimal
+}
+
+table facilities{
+  facility_id integer PK
+  name varchar(32)
+  price decimal
+}
+
+table rooms_facilities{
+  room_id integer
+  facility_id integer
+}
+
+ref: rooms_facilities.room_id > rooms.room_id
+
+ref: rooms_facilities.facility_id > facilities.facility_id
+
+ref: rooms.category_id > categories.category_id
+
+ref: rooms.type_id > types.type_id
+
+//----------------------------------------------
+//BOOKINGS
+//----------------------------------------------
+
+
+table bookings{
+  booking_id integer PK
+  user_id integer
+  room_id integer
+
+  // время заезда/выселения
+  check_in datetime
+  check_out datetime
+
+  // фактическое время заезда/выселения
+  real_check_in datetime
+  real_check_out datetime
+
+
+}
+
+ref: bookings.room_id > rooms.room_id
+ref: bookings.user_id > users.user_id
+
+//----------------------------------------------
+//PAYMENTS
+//----------------------------------------------
+
+table payments{
+  payment_id integer PK
+  booking_id integer
+  user_id integer
+  date datetime
+  total decimal
+}
+
+ref: bookings.booking_id - payments.booking_id
+ref: users.user_id - payments.user_id
