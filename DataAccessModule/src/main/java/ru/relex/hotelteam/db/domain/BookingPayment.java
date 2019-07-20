@@ -11,7 +11,8 @@ public class BookingPayment {
   private int id;
   private int userId;
   private int bookingId;
-  private OffsetDateTime date;
+  private int amountOfReservedDays;
+  private OffsetDateTime timePayment;
   private BigDecimal total;
 
   public int getId() {
@@ -30,6 +31,14 @@ public class BookingPayment {
     this.userId = userId;
   }
 
+  public OffsetDateTime getTimePayment() {
+    return timePayment;
+  }
+
+  public void setTimePayment(OffsetDateTime timePayment) {
+    this.timePayment = timePayment;
+  }
+
   public int getBookingId() {
     return bookingId;
   }
@@ -38,12 +47,12 @@ public class BookingPayment {
     this.bookingId = bookingId;
   }
 
-  public OffsetDateTime getDate() {
-    return date;
+  public int getAmountOfReservedDays() {
+    return amountOfReservedDays;
   }
 
-  public void setDate(OffsetDateTime date) {
-    this.date = date;
+  public void setAmountOfReservedDays(int amountOfReservedDays) {
+    this.amountOfReservedDays = amountOfReservedDays;
   }
 
   public BigDecimal getTotal() {

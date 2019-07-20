@@ -12,7 +12,7 @@
 
   <select id="createBooking" resultType="BookingPayment">
     INSERT INTO inprog.payments(user_id, booking_id, date)
-    VALUES (#{userId}, #{bookingId}, inprog.total_price(#{roomId}, #{days}))
+    VALUES (#{userId}, #{bookingId}, inprog.total_price(#{roomId}, #{amountOfReservedDays}))
 
     RETURNING
       user_id as userId,
