@@ -47,6 +47,18 @@
         WHERE user_id = #{userId}
     </select>
 
+  <select id="listBookingsByRoomId" resultMap="bookingMap">
+        SELECT
+               booking_id,
+               user_id,
+               check_in,
+               check_out,
+               real_check_in,
+               real_check_out
+        FROM inprog.bookings
+        WHERE user_id = #{userId}
+    </select>
+
   <select id="listBookings" resultMap="bookingMap">
         SELECT
                booking_id,

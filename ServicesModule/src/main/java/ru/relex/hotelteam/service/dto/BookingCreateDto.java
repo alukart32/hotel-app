@@ -5,9 +5,9 @@ import java.time.OffsetDateTime;
 public class BookingCreateDto {
 
   private int userId;
+  private int roomId;
   private OffsetDateTime checkInDate;
   private OffsetDateTime checkOutDate;
-  private int roomId;
 
   public int getUserId() {
     return userId;

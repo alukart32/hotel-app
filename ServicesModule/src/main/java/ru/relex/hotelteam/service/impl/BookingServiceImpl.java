@@ -44,6 +44,11 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   @Override
+  public List<BookingDto> listBookingsByRoomId(int roomId) {
+    return mapstruct.toDto(mapper.listBookingsByRoomId(roomId));
+  }
+
+  @Override
   public void delete(int id) {
     mapper.deleteBooking(id);
   }

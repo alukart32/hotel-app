@@ -4,9 +4,9 @@ import java.time.OffsetDateTime;
 
 public class BookingUpdateDto {
 
+  private int roomId;
   private OffsetDateTime checkInDate;
   private OffsetDateTime checkOutDate;
-  private int roomId;
 
   public OffsetDateTime getCheckInDate() {
     return checkInDate;

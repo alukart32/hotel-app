@@ -45,6 +45,11 @@ public class BookingController {
     return bookingService.listBookingsByUserId(userId);
   }
 
+  @GetMapping("/rooms/{roomId}")
+  public List<BookingDto> listBookingsByRoomId(@PathVariable("roomId") int roomId) {
+    return bookingService.listBookingsByRoomId(roomId);
+  }
+
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public BookingDto findById(@PathVariable("id") int id) {

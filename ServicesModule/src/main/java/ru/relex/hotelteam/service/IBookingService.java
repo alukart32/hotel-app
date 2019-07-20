@@ -18,4 +18,6 @@ public interface IBookingService {
   void delete(int id);
 
   void update(int id, BookingUpdateDto updatedBooking);
+
+  List<BookingDto> listBookingsByRoomId(int roomId);
 }
