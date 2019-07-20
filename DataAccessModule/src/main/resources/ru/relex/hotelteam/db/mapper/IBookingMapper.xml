@@ -7,7 +7,7 @@
   <resultMap id="bookingMap" type="Booking">
     <id property="id" column="booking_id"/>
     <result property="userId" column="user_id"/>
-    <!--<result property="roomId" column="room_id" />-->
+    <result property="roomId" column="room_id" />
     <result property="checkInDate" column="check_in"/>
     <result property="checkOutDate" column="check_out"/>
     <result property="realCheckInDate" column="real_check_in"/>
@@ -15,18 +15,21 @@
   </resultMap>
 
   <select id="createBooking" resultType="Booking">
-    INSERT INTO inprog.bookings(user_id, check_in, check_out <!--,room_id-->)
-    VALUES (#{userId}, #{checkInDate}, #{checkOutDate})
-    RETURNING booking_id as id,
-    user_id as userId,
-    check_in as checkInDate,
-    check_out as checkOutDate
+    INSERT INTO inprog.bookings(user_id, check_in, check_out, room_id)
+    VALUES (#{userId}, #{checkInDate}, #{checkOutDate}, #{roomId})
+    RETURNING
+      booking_id as id,
+      user_id as userId,
+      room_id as roomId,
+      check_in as checkInDate,
+      check_out as checkOutDate
   </select>
 
   <select id="getBookingById" resultMap="bookingMap">
         SELECT
                booking_id,
                user_id,
+               room_id,
                check_in,
                check_out,
                real_check_in,
@@ -38,7 +41,7 @@
   <select id="listBookingsByUserId" resultMap="bookingMap">
         SELECT
                booking_id,
-               user_id,
+               room_id,
                check_in,
                check_out,
                real_check_in,
@@ -63,6 +66,7 @@
         SELECT
                booking_id,
                user_id,
+               room_id,
                check_in,
                check_out,
                real_check_in,
@@ -71,11 +75,13 @@
     </select>
 
   <update id="updateBooking" parameterType="Booking">
-        UPDATE inprog.bookings
-        SET
-          check_in = #{checkInDate},
-          check_out = #{checkOutDate}
-        WHERE booking_id = #{id}
+    UPDATE inprog.bookings
+    <set>
+      <if test="roomId != null">room_id = #{roomId},</if>
+      <if test="checkInDate != null">check_in = #{checkInDate},</if>
+      <if test="checkOutDate != null"> check_out = #{checkOutDate}</if>
+    </set>
+     WHERE booking_id = #{id}
     </update>
 
   <delete id="deleteBooking">

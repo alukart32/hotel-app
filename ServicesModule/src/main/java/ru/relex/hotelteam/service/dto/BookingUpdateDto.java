@@ -8,6 +8,7 @@ public class BookingUpdateDto {
   private OffsetDateTime checkInDate;
   private OffsetDateTime checkOutDate;
 
+
   public OffsetDateTime getCheckInDate() {
     return checkInDate;
   }
