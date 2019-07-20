@@ -1,5 +1,9 @@
 package ru.relex.hotelteam.db.domain;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * Author: Yakimov Date: 17.07.2019 Time: 22:51
  */
@@ -16,22 +20,14 @@ public class Room {
   private Integer places;
   private Boolean twinBed;
 
-  //private List<Facility> facilities;
 
-  private Integer dailyPrice;
+  private List<Facility> facilities;
+  private BigDecimal dailyPrice;
 
-  public Room(Integer id, Integer number, Integer floor, Integer categoryId, String categoryName,
-      Integer typeId, Integer places, Boolean twinBed, Integer dailyPrice) {
-    this.id = id;
-    this.number = number;
-    this.floor = floor;
-    this.categoryId = categoryId;
-    this.categoryName = categoryName;
-    this.typeId = typeId;
-    this.places = places;
-    this.twinBed = twinBed;
-    this.dailyPrice = dailyPrice;
+  public Room() {
+
   }
+
 
   public Integer getId() {
     return id;
@@ -97,11 +93,53 @@ public class Room {
     this.twinBed = twinBed;
   }
 
-  public Integer getDailyPrice() {
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Room room = (Room) o;
+    return getId().equals(room.getId());
+  }
+
+  @Override
+  public String toString() {
+    return "Room{" +
+        "id=" + id +
+        ", number=" + number +
+        ", floor=" + floor +
+        ", categoryId=" + categoryId +
+        ", categoryName='" + categoryName + '\'' +
+        ", typeId=" + typeId +
+        ", places=" + places +
+        ", twinBed=" + twinBed +
+        ", facilities=" + facilities.toString() +
+        ", dailyPrice=" + dailyPrice +
+        '}';
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId());
+  }
+
+  public List<Facility> getFacilities() {
+    return facilities;
+  }
+
+  public void setFacilities(List<Facility> facilities) {
+    this.facilities = facilities;
+  }
+
+  public BigDecimal getDailyPrice() {
     return dailyPrice;
   }
 
-  public void setDailyPrice(Integer dailyPrice) {
+  public void setDailyPrice(BigDecimal dailyPrice) {
     this.dailyPrice = dailyPrice;
   }
+  
 }
