@@ -32,6 +32,16 @@
         WHERE payment_id = #{id}
     </select>
 
+  <select id="listPayments" resultMap="bookingPaymentMap">
+        SELECT
+               user_id,
+               booking_id,
+               date,
+               total
+        FROM inprog.payments
+        WHERE booking_id = #{bookingId}
+    </select>
+
   <select id="listPaymentsByBookingId" resultMap="bookingPaymentMap">
         SELECT
                user_id,
@@ -56,7 +66,7 @@
       <if test="userId != null">user_id = #{userId},</if>
       <if test="bookingId != null">booking_id = #{bookingId},</if>
       <if test="date != null"> date = #{date}</if>
-      <if test="total != null or total == 0"> total = #{total}</if>
+      <if test="total != null or -total >= 0"> total = inprog.total_price(#{roomId}, #{amountOfReservedDays})</if>
     </set>
     WHERE booking_id = #{id}
   </update>

@@ -3,10 +3,14 @@ package ru.relex.hotelteam.service.dto;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+/**
+ * Created by Tarasov Ivan on 20/07/2019
+ */
 public class BookingPaymentDto {
 
   private int userId;
   private int bookingId;
+  private int roomId;
   private int amountOfReservedDays;
   private OffsetDateTime timePayment;
   private BigDecimal total;
@@ -25,6 +29,14 @@ public class BookingPaymentDto {
 
   public void setBookingId(int bookingId) {
     this.bookingId = bookingId;
+  }
+
+  public int getRoomId() {
+    return roomId;
+  }
+
+  public void setRoomId(int roomId) {
+    this.roomId = roomId;
   }
 
   public int getAmountOfReservedDays() {

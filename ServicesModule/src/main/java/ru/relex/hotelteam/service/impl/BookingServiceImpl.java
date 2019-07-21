@@ -8,6 +8,7 @@ import ru.relex.hotelteam.db.mapper.IBookingMapper;
 import ru.relex.hotelteam.service.IBookingService;
 import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
+import ru.relex.hotelteam.service.dto.BookingPaymentDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 
@@ -16,16 +17,23 @@ public class BookingServiceImpl implements IBookingService {
 
   private final IBookingMapper mapper;
   private final IBookingMapstruct mapstruct;
+  private final BookingPaymentServiceImpl paymentService;
 
-  public BookingServiceImpl(final IBookingMapper mapper,
-      final IBookingMapstruct mapstruct) {
+  public BookingServiceImpl(IBookingMapper mapper, IBookingMapstruct mapstruct,
+      BookingPaymentServiceImpl paymentService) {
     this.mapper = mapper;
     this.mapstruct = mapstruct;
+    this.paymentService = paymentService;
   }
 
   @Override
   public BookingDto createBooking(BookingCreateDto booking) {
-    return mapstruct.toDto(mapper.createBooking(mapstruct.fromCreateDto(booking)));
+
+    Booking savedBoooking = mapper.createBooking(mapstruct.fromCreateDto(booking));
+
+    paymentService.createPayment(savedBoooking);
+
+    return mapstruct.toDto(savedBoooking);
   }
 
   @Override
@@ -62,7 +70,7 @@ public class BookingServiceImpl implements IBookingService {
     booking.setId(id);
     booking.setCheckInDate(updatedBooking.getCheckInDate());
     booking.setCheckOutDate(updatedBooking.getCheckOutDate());
-    //booking.setRoom(updatedBooking.getRoom())
+    booking.setRoomId(updatedBooking.getRoomId());
 
     mapper.updateBooking(booking);
   }
