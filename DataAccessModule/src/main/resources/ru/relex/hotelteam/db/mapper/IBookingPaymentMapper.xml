@@ -10,9 +10,9 @@
     <result property="bookingId" column="booking_id" />
   </resultMap>
 
-  <select id="createBooking" resultType="BookingPayment">
-    INSERT INTO inprog.payments(user_id, booking_id, date)
-    VALUES (#{userId}, #{bookingId}, inprog.total_price(#{roomId}, #{amountOfReservedDays}))
+  <select id="createPayment" resultType="BookingPayment">
+    INSERT INTO inprog.payments(user_id, booking_id, date, total)
+    VALUES (#{userId}, #{bookingId}, #{timePayment},inprog.total_price(#{roomId}, #{amountOfReservedDays}))
 
     RETURNING
       user_id as userId,

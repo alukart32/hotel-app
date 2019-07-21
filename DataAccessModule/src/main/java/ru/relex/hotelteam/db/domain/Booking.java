@@ -7,7 +7,6 @@ public class Booking {
   private int id;
   private int userId;
   private int roomId;
-  private int paymentId;
   private OffsetDateTime checkInDate;
   private OffsetDateTime checkOutDate;
   private OffsetDateTime realCheckInDate;
@@ -35,14 +34,6 @@ public class Booking {
 
   public void setRoomId(int roomId) {
     this.roomId = roomId;
-  }
-
-  public int getPaymentId() {
-    return paymentId;
-  }
-
-  public void setPaymentId(int paymentId) {
-    this.paymentId = paymentId;
   }
 
   public OffsetDateTime getCheckInDate() {

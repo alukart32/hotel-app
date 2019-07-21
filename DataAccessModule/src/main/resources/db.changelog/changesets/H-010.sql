@@ -15,7 +15,7 @@ BEGIN
     FROM inprog.bookings as B
     WHERE B.booking_id = booking_id_param
     into room_id_param;
-    days_count := extract(amountOfReservedDays from booking_interval) :: INTEGER;
+    days_count := extract(days from booking_interval) :: INTEGER;
     RETURN inprog.total_price(room_id_param, days_count);
 END;
 $$ LANGUAGE 'plpgsql';
