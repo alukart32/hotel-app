@@ -9,6 +9,6 @@ public interface IRoomMapstruct {
 
   RoomBaseDto toDto(Room room);
 
-  Room toDomain(RoomBaseDto);
+  Room toDomain(RoomBaseDto room);
 
 }
