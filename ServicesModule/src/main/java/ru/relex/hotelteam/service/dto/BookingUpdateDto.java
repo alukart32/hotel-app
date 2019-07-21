@@ -8,6 +8,8 @@ public class BookingUpdateDto {
   private int userId;
   private LocalDateTime checkInDate;
   private LocalDateTime checkOutDate;
+  private LocalDateTime realCheckInDate;
+  private LocalDateTime realCheckOutDate;
 
   public int getUserId() {
     return userId;
@@ -31,6 +33,22 @@ public class BookingUpdateDto {
 
   public void setCheckOutDate(LocalDateTime checkOutDate) {
     this.checkOutDate = checkOutDate;
+  }
+
+  public LocalDateTime getRealCheckInDate() {
+    return realCheckInDate;
+  }
+
+  public void setRealCheckInDate(LocalDateTime realCheckInDate) {
+    this.realCheckInDate = realCheckInDate;
+  }
+
+  public LocalDateTime getRealCheckOutDate() {
+    return realCheckOutDate;
+  }
+
+  public void setRealCheckOutDate(LocalDateTime realCheckOutDate) {
+    this.realCheckOutDate = realCheckOutDate;
   }
 
   public int getRoomId() {

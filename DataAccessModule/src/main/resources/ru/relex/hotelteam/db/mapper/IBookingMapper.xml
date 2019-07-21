@@ -80,7 +80,9 @@
       <if test="roomId != null">room_id = #{roomId},</if>
       <if test="userId != null">user_id = #{userId},</if>
       <if test="checkInDate != null">check_in = #{checkInDate},</if>
-      <if test="checkOutDate != null"> check_out = #{checkOutDate}</if>
+      <if test="checkOutDate != null"> check_out = #{checkOutDate},</if>
+      <if test="realCheckInDate != null">real_check_in = #{realCheckInDate},</if>
+      <if test="realCheckOutDate != null">real_check_out = #{realCheckOutDate}</if>
     </set>
      WHERE booking_id = #{id}
     </update>

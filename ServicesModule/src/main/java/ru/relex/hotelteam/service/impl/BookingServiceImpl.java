@@ -30,7 +30,6 @@ public class BookingServiceImpl implements IBookingService {
   public BookingDto createBooking(BookingCreateDto booking) {
 
     Booking savedBoooking = mapper.createBooking(mapstruct.fromCreateDto(booking));
-
     paymentService.createPayment(savedBoooking);
 
     return mapstruct.toDto(savedBoooking);
@@ -68,10 +67,12 @@ public class BookingServiceImpl implements IBookingService {
     Booking booking = mapper.getBookingById(id)
         .orElseThrow(notFound("No booking [ id = " + id + " ] was found!"));
 
-    booking.setId(id);
+    booking.setRoomId(updatedBooking.getRoomId());
+    booking.setUserId(updatedBooking.getUserId());
     booking.setCheckInDate(updatedBooking.getCheckInDate());
     booking.setCheckOutDate(updatedBooking.getCheckOutDate());
-    booking.setRoomId(updatedBooking.getRoomId());
+    booking.setRealCheckInDate(updatedBooking.getRealCheckInDate());
+    booking.setRealCheckOutDate(updatedBooking.getRealCheckOutDate());
 
     mapper.updateBooking(booking);
   }
