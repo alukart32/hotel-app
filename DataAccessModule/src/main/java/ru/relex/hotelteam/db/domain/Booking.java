@@ -1,16 +1,16 @@
 package ru.relex.hotelteam.db.domain;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 public class Booking {
 
   private int id;
   private int userId;
   private int roomId;
-  private OffsetDateTime checkInDate;
-  private OffsetDateTime checkOutDate;
-  private OffsetDateTime realCheckInDate;
-  private OffsetDateTime realCheckOutDate;
+  private LocalDateTime checkInDate;
+  private LocalDateTime checkOutDate;
+  private LocalDateTime realCheckInDate;
+  private LocalDateTime realCheckOutDate;
 
   public int getId() {
     return id;
@@ -36,35 +36,35 @@ public class Booking {
     this.roomId = roomId;
   }
 
-  public OffsetDateTime getCheckInDate() {
+  public LocalDateTime getCheckInDate() {
     return checkInDate;
   }
 
-  public void setCheckInDate(OffsetDateTime checkInDate) {
+  public void setCheckInDate(LocalDateTime checkInDate) {
     this.checkInDate = checkInDate;
   }
 
-  public OffsetDateTime getCheckOutDate() {
+  public LocalDateTime getCheckOutDate() {
     return checkOutDate;
   }
 
-  public void setCheckOutDate(OffsetDateTime checkOutDate) {
+  public void setCheckOutDate(LocalDateTime checkOutDate) {
     this.checkOutDate = checkOutDate;
   }
 
-  public OffsetDateTime getRealCheckInDate() {
+  public LocalDateTime getRealCheckInDate() {
     return realCheckInDate;
   }
 
-  public void setRealCheckInDate(OffsetDateTime realCheckInDate) {
+  public void setRealCheckInDate(LocalDateTime realCheckInDate) {
     this.realCheckInDate = realCheckInDate;
   }
 
-  public OffsetDateTime getRealCheckOutDate() {
+  public LocalDateTime getRealCheckOutDate() {
     return realCheckOutDate;
   }
 
-  public void setRealCheckOutDate(OffsetDateTime realCheckOutDate) {
+  public void setRealCheckOutDate(LocalDateTime realCheckOutDate) {
     this.realCheckOutDate = realCheckOutDate;
   }
 }

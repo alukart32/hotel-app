@@ -11,7 +11,7 @@ public interface IBookingPaymentMapper {
 
   BookingPayment createPayment(BookingPayment bookingPayment);
 
-  Optional<BookingPayment> getPaymentById(@Param("Id") int Id);
+  Optional<BookingPayment> getPaymentById(@Param("id") int id);
 
   List<BookingPayment> listPayments();
 
