@@ -35,7 +35,7 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
     payment.setUserId(booking.getUserId());
 
     long days = (booking.getCheckOutDate().toEpochSecond()
-        - booking.getCheckInDate().toEpochSecond()) /(24*60*60);
+        - booking.getCheckInDate().toEpochSecond()) /(24L*60L*60L);
 
     payment.setAmountOfReservedDays((int) days + 1);
     payment.setTimePayment(OffsetDateTime.now());
