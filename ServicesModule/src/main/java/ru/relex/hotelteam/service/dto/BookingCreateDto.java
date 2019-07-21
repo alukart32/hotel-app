@@ -1,13 +1,13 @@
 package ru.relex.hotelteam.service.dto;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 public class BookingCreateDto {
 
   private int userId;
   private int roomId;
-  private OffsetDateTime checkInDate;
-  private OffsetDateTime checkOutDate;
+  private LocalDateTime checkInDate;
+  private LocalDateTime checkOutDate;
 
   public int getUserId() {
     return userId;
@@ -25,19 +25,19 @@ public class BookingCreateDto {
     this.roomId = roomId;
   }
 
-  public OffsetDateTime getCheckInDate() {
+  public LocalDateTime getCheckInDate() {
     return checkInDate;
   }
 
-  public void setCheckInDate(OffsetDateTime checkInDate) {
+  public void setCheckInDate(LocalDateTime checkInDate) {
     this.checkInDate = checkInDate;
   }
 
-  public OffsetDateTime getCheckOutDate() {
+  public LocalDateTime getCheckOutDate() {
     return checkOutDate;
   }
 
-  public void setCheckOutDate(OffsetDateTime checkOutDate) {
+  public void setCheckOutDate(LocalDateTime checkOutDate) {
     this.checkOutDate = checkOutDate;
   }
 }

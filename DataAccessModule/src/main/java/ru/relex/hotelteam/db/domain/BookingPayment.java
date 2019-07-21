@@ -1,7 +1,7 @@
 package ru.relex.hotelteam.db.domain;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 /**
  * Created by Tarasov Ivan on 20/07/2019 Time: 19:01
@@ -13,7 +13,7 @@ public class BookingPayment {
   private int bookingId;
   private int roomId;
   private int amountOfReservedDays;
-  private OffsetDateTime timePayment;
+  private LocalDateTime timePayment;
   private BigDecimal total;
 
   public int getId() {
@@ -40,11 +40,11 @@ public class BookingPayment {
     this.roomId = roomId;
   }
 
-  public OffsetDateTime getTimePayment() {
+  public LocalDateTime getTimePayment() {
     return timePayment;
   }
 
-  public void setTimePayment(OffsetDateTime timePayment) {
+  public void setTimePayment(LocalDateTime timePayment) {
     this.timePayment = timePayment;
   }
 

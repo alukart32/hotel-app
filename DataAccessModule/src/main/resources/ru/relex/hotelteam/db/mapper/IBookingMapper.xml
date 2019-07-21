@@ -78,6 +78,7 @@
     UPDATE inprog.bookings
     <set>
       <if test="roomId != null">room_id = #{roomId},</if>
+      <if test="userId != null">user_id = #{userId},</if>
       <if test="checkInDate != null">check_in = #{checkInDate},</if>
       <if test="checkOutDate != null"> check_out = #{checkOutDate}</if>
     </set>
