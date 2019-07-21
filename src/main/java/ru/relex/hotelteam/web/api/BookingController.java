@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.service.IBookingService;
 import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
+import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 
 @RestController
@@ -45,13 +46,18 @@ public class BookingController {
     return bookingService.listBookingsByUserId(userId);
   }
 
+  @PostMapping("/users/registration")
+  @ResponseStatus(HttpStatus.OK)
+  public void registerUser(@RequestBody BookingRegisterDto registerDto) {
+    bookingService.registerGuest(registerDto);
+  }
+
   @GetMapping("/rooms/{roomId}")
   public List<BookingDto> listBookingsByRoomId(@PathVariable("roomId") int roomId) {
     return bookingService.listBookingsByRoomId(roomId);
   }
 
   @GetMapping("/{id}")
-  @ResponseStatus(HttpStatus.OK)
   public BookingDto findById(@PathVariable("id") int id) {
     return bookingService.findById(id);
   }

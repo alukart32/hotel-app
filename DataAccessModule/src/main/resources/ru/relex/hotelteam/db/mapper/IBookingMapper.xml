@@ -77,8 +77,8 @@
   <update id="updateBooking" parameterType="Booking">
     UPDATE inprog.bookings
     <set>
-      <if test="roomId != null">room_id = #{roomId},</if>
-      <if test="userId != null">user_id = #{userId},</if>
+      <if test="roomId != null and not roomId == 0">room_id = #{roomId},</if>
+      <if test="userId != null and not userId == 0">user_id = #{userId},</if>
       <if test="checkInDate != null">check_in = #{checkInDate},</if>
       <if test="checkOutDate != null"> check_out = #{checkOutDate},</if>
       <if test="realCheckInDate != null">real_check_in = #{realCheckInDate},</if>

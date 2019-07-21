@@ -12,7 +12,7 @@ public class BookingPayment {
   private int userId;
   private int bookingId;
   private int roomId;
-  private int amountOfReservedDays;
+  private int amountOfDays;
   private LocalDateTime timePayment;
   private BigDecimal total;
 
@@ -56,12 +56,12 @@ public class BookingPayment {
     this.bookingId = bookingId;
   }
 
-  public int getAmountOfReservedDays() {
-    return amountOfReservedDays;
+  public int getAmountOfDays() {
+    return amountOfDays;
   }
 
-  public void setAmountOfReservedDays(int amountOfReservedDays) {
-    this.amountOfReservedDays = amountOfReservedDays;
+  public void setAmountOfDays(int amountOfDays) {
+    this.amountOfDays = amountOfDays;
   }
 
   public BigDecimal getTotal() {
