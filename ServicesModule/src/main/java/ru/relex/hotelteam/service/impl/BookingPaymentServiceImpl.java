@@ -1,7 +1,7 @@
 package ru.relex.hotelteam.service.impl;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
@@ -35,11 +35,7 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
     payment.setRoomId(booking.getRoomId());
     payment.setUserId(booking.getUserId());
 
-    long days = 0;
-    long to = booking.getCheckOutDate().toEpochSecond(ZoneOffset.UTC);
-    long from = booking.getCheckInDate().toEpochSecond(ZoneOffset.UTC);
-
-    days = ((to-from) / (24L * 60L * 60L)) + 2;
+    long days = ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate()) + 1;
 
     payment.setAmountOfReservedDays((int)days);
     payment.setTimePayment(LocalDateTime.now());
