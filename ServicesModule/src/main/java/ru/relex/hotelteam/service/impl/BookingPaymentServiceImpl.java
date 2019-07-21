@@ -66,7 +66,12 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
 
   @Override
   public void deletePayment(int id) {
+    mapper.deletePayment(id);
+  }
 
+  @Override
+  public void deletePaymentByBookingId(int bookingId) {
+    mapper.deletePaymentByBookingId(bookingId);
   }
 
   @Override

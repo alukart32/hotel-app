@@ -75,5 +75,11 @@
         DELETE
         FROM inprog.payments
         WHERE payment_id = #{id}
-    </delete>
+   </delete>
+
+  <delete id="deletePaymentByBookingId">
+        DELETE
+        FROM inprog.payments
+        WHERE booking_id = #{bookingId}
+  </delete>
 </mapper>

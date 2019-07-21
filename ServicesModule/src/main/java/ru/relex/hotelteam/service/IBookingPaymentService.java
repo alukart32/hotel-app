@@ -19,5 +19,8 @@ public interface IBookingPaymentService {
 
   void deletePayment(int id);
 
+  void deletePaymentByBookingId(int bookingId);
+
   void updatePayment(BookingPayment payment);
+
 }

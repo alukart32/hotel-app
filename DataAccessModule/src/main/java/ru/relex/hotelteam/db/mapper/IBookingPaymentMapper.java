@@ -21,6 +21,8 @@ public interface IBookingPaymentMapper {
 
   void deletePayment(@Param("id") int id);
 
+  void deletePaymentByBookingId(@Param("bookingId") int bookingId);
+
   void updatePayment(BookingPayment payment);
 
 }
