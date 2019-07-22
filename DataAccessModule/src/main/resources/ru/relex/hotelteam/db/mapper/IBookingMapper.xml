@@ -7,7 +7,7 @@
   <resultMap id="bookingMap" type="Booking">
     <id property="id" column="booking_id"/>
     <result property="userId" column="user_id"/>
-    <result property="roomId" column="room_id" />
+    <result property="roomId" column="room_id"/>
     <result property="checkInDate" column="check_in"/>
     <result property="checkOutDate" column="check_out"/>
     <result property="realCheckInDate" column="real_check_in"/>
@@ -80,12 +80,12 @@
       <if test="roomId != null and not roomId == 0">room_id = #{roomId},</if>
       <if test="userId != null and not userId == 0">user_id = #{userId},</if>
       <if test="checkInDate != null">check_in = #{checkInDate},</if>
-      <if test="checkOutDate != null"> check_out = #{checkOutDate},</if>
+      <if test="checkOutDate != null">check_out = #{checkOutDate},</if>
       <if test="realCheckInDate != null">real_check_in = #{realCheckInDate},</if>
       <if test="realCheckOutDate != null">real_check_out = #{realCheckOutDate}</if>
     </set>
-     WHERE booking_id = #{id}
-    </update>
+    WHERE booking_id = #{id}
+  </update>
 
   <delete id="deleteBooking">
         DELETE

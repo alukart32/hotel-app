@@ -7,7 +7,7 @@
   <resultMap id="bookingPaymentMap" type="BookingPayment">
     <id property="id" column="payment_id"/>
     <result property="userId" column="user_id"/>
-    <result property="bookingId" column="booking_id" />
+    <result property="bookingId" column="booking_id"/>
   </resultMap>
 
   <select id="createPayment" resultType="BookingPayment">
@@ -65,8 +65,8 @@
     <set>
       <if test="userId != null">user_id = #{userId},</if>
       <if test="bookingId != null">booking_id = #{bookingId},</if>
-      <if test="date != null"> date = #{date}</if>
-      <if test="total != null or -total >= 0"> total = inprog.total_price(#{roomId}, #{amountOfDays})</if>
+      <if test="date != null">date = #{date}</if>
+      <if test="total != null or -total >= 0">total = inprog.total_price(#{roomId}, #{amountOfDays})</if>
     </set>
     WHERE booking_id = #{id}
   </update>

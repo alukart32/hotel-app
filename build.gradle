@@ -52,6 +52,7 @@ apply from: 'checks.gradle'
 dependencies {
 
     implementation project(":ServicesModule")
+    implementation project(":CommonsModule")
     implementation "org.springframework.boot:spring-boot-starter-web:$springboot_ver"
     
     // Lombok

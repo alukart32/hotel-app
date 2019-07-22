@@ -12,6 +12,8 @@ import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
+import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
+import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
@@ -28,23 +30,24 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   @Override
-  public BookingDto createBooking(BookingCreateDto booking) {
+  public BookingDto createBooking(BookingCreateDto booking) throws CreateBookingException {
 
     List<Booking> bookings = mapstruct.fromDto(listBookings());
 
-    final boolean[] hasBooking = {false};
+    final boolean[] hasBooking = {true};
+
+    bookings.removeIf(b -> booking.getRoomId() != b.getRoomId());
 
     bookings.forEach(b -> {
-      if (booking.getCheckInDate().isEqual(b.getCheckInDate())
-          && booking.getCheckOutDate().isEqual(b.getCheckOutDate())) {
-        hasBooking[0] = true;
+      if (isInDateInterval(booking, b.getCheckOutDate(), b.getCheckInDate())) {
+        hasBooking[0] = false;
       }
     });
 
-    if (!hasBooking[0]) {
+    if (hasBooking[0]) {
       return mapstruct.toDto(mapper.createBooking(mapstruct.fromCreateDto(booking)));
     } else {
-      return new BookingDto();
+      throw new CreateBookingException("Room is already booked");
     }
   }
 
@@ -74,16 +77,20 @@ public class BookingServiceImpl implements IBookingService {
    * @param registerDto the guest, date when he has checked in
    */
   @Override
-  public void registerGuest(BookingRegisterDto registerDto) {
+  public void registerGuest(BookingRegisterDto registerDto) throws RegisterGuestDateException {
 
     Booking currentBooking = mapstruct.fromDto(findBookingForCheckIn(registerDto));
 
-    currentBooking.setRealCheckInDate(registerDto.getCheckIn());
-    currentBooking.setUserId(registerDto.getUserId());
+    if (currentBooking != null) {
+      currentBooking.setRealCheckInDate(registerDto.getCheckIn());
+      currentBooking.setUserId(registerDto.getUserId());
 
-    update(currentBooking.getId(), mapstruct.toUpdateDto(currentBooking));
+      update(currentBooking.getId(), mapstruct.toUpdateDto(currentBooking));
 
-    paymentService.createPayment(currentBooking);
+      paymentService.createPayment(currentBooking);
+    } else {
+      throw new RegisterGuestDateException("Registration date is out of booking dates");
+    }
   }
 
   @Override
@@ -125,6 +132,44 @@ public class BookingServiceImpl implements IBookingService {
     });
 
     return currentBooking[0];
+  }
+
+
+  /**
+   * Checking booking's date. Guest can book a room if it hasn't booked yet.
+   *
+   * @param bookingCreateDto possible a new booking
+   * @param to checkOut date of some booking
+   * @param from checkIn date of some booking
+   * @return if  dates of a new booking is not between [from, to] dates then returns true
+   */
+  private boolean isInDateInterval(BookingCreateDto bookingCreateDto,
+      LocalDateTime to, LocalDateTime from) {
+    // checking that date interval isn't same as a new booking's dates
+    if (from.isEqual(bookingCreateDto.getCheckInDate())
+        && to.isEqual(bookingCreateDto.getCheckOutDate())) {
+      return true;
+    }
+
+    // checking that date interval doesn't have a new booking's dates
+    if (from.isAfter(bookingCreateDto.getCheckInDate())
+        && to.isBefore(bookingCreateDto.getCheckOutDate())) {
+      return true;
+    }
+
+    // checking that new booking's checkOut date is between [from, to]
+    if (bookingCreateDto.getCheckOutDate().isBefore(to)
+        && from.isBefore(bookingCreateDto.getCheckOutDate())) {
+      return true;
+    }
+
+    // checking that new booking's checkInt date is between [from, to]
+    if (to.isAfter(bookingCreateDto.getCheckInDate())
+        && bookingCreateDto.getCheckInDate().isAfter(from)) {
+      return true;
+    }
+
+    return false;
   }
 
   private Supplier<RuntimeException> notFound(String s) {

@@ -5,10 +5,12 @@ import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
+import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
+import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 
 public interface IBookingService {
 
-  BookingDto createBooking(BookingCreateDto booking);
+  BookingDto createBooking(BookingCreateDto booking) throws CreateBookingException;
 
   BookingDto findById(int id);
 
@@ -18,7 +20,7 @@ public interface IBookingService {
 
   List<BookingDto> listBookingsByRoomId(int roomId);
 
-  void registerGuest(BookingRegisterDto registerDto);
+  void registerGuest(BookingRegisterDto registerDto) throws RegisterGuestDateException;
 
   void delete(int id);
 

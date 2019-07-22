@@ -17,6 +17,8 @@ import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
+import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
+import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 
 @RestController
 @RequestMapping(path = "/bookings",
@@ -32,7 +34,7 @@ public class BookingController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public BookingDto createBooking(@RequestBody BookingCreateDto dto) {
+  public BookingDto createBooking(@RequestBody BookingCreateDto dto) throws CreateBookingException {
     return bookingService.createBooking(dto);
   }
 
@@ -48,7 +50,7 @@ public class BookingController {
 
   @PostMapping("/users/registration")
   @ResponseStatus(HttpStatus.OK)
-  public void registerUser(@RequestBody BookingRegisterDto registerDto) {
+  public void registerUser(@RequestBody BookingRegisterDto registerDto) throws RegisterGuestDateException {
     bookingService.registerGuest(registerDto);
   }
 
