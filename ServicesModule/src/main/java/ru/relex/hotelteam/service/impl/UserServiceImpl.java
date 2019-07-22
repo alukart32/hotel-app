@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserDto;
 import ru.relex.hotelteam.service.dto.UserBaseDto;
+import ru.relex.hotelteam.service.dto.UserDto;
 import ru.relex.hotelteam.service.dto.UserSecurityDto;
 import ru.relex.hotelteam.service.dto.UserUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
@@ -47,8 +47,8 @@ public class UserServiceImpl implements IUserService {
   @Override
   public void update(int id, UserUpdateDto updatedUser) {
 
-    User user = mapper.getUserById(id).
-        orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
+    User user = mapper.getUserById(id)
+        .orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
     user.setFirstName(updatedUser.getFirstName());
     user.setLastName(updatedUser.getLastName());
@@ -60,8 +60,8 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public void updateSecurityInfo(int id, UserSecurityDto updatedSecurity) {
-    User user = mapper.getUserById(id).
-        orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
+    User user = mapper.getUserById(id)
+        .orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
 
     user.setLogin(updatedSecurity.getLogin());
     user.setEmail(updatedSecurity.getEmail());

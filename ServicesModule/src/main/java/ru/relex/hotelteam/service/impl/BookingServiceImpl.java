@@ -29,7 +29,23 @@ public class BookingServiceImpl implements IBookingService {
 
   @Override
   public BookingDto createBooking(BookingCreateDto booking) {
-    return mapstruct.toDto(mapper.createBooking(mapstruct.fromCreateDto(booking)));
+
+    List<Booking> bookings = mapstruct.fromDto(listBookings());
+
+    final boolean[] hasBooking = {false};
+
+    bookings.forEach(b -> {
+      if (booking.getCheckInDate().isEqual(b.getCheckInDate())
+          && booking.getCheckOutDate().isEqual(b.getCheckOutDate())) {
+        hasBooking[0] = true;
+      }
+    });
+
+    if (!hasBooking[0]) {
+      return mapstruct.toDto(mapper.createBooking(mapstruct.fromCreateDto(booking)));
+    } else {
+      return new BookingDto();
+    }
   }
 
   @Override
@@ -103,7 +119,7 @@ public class BookingServiceImpl implements IBookingService {
 
     bookingList.forEach(b -> {
       if (registerDate.isAfter(b.getCheckInDate())
-          & registerDate.isBefore(b.getCheckOutDate())) {
+          && registerDate.isBefore(b.getCheckOutDate())) {
         currentBooking[0] = b;
       }
     });
