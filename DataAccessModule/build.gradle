@@ -12,6 +12,7 @@ dependencies {
 
     //Mybatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.0"
     
     //Driver
     runtimeOnly "org.postgresql:postgresql:42.2.6"
