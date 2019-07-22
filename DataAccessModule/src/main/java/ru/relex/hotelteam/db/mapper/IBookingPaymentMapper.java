@@ -17,7 +17,7 @@ public interface IBookingPaymentMapper {
 
   List<BookingPayment> listPaymentsByUserId(@Param("userId") int userId);
 
-  List<BookingPayment> listPaymentsByBookingId(@Param("bookingId") int bookingId);
+  BookingPayment getPaymentByBookingId(@Param("bookingId") int bookingId);
 
   void deletePayment(@Param("id") int id);
 

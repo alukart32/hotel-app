@@ -1,5 +1,6 @@
 package ru.relex.hotelteam.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Supplier;
@@ -9,6 +10,7 @@ import ru.relex.hotelteam.db.mapper.IBookingMapper;
 import ru.relex.hotelteam.service.IBookingService;
 import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
+import ru.relex.hotelteam.service.dto.BookingPaymentDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
@@ -91,6 +93,36 @@ public class BookingServiceImpl implements IBookingService {
     } else {
       throw new RegisterGuestDateException("Registration date is out of booking dates");
     }
+  }
+
+  @Override
+  public void cancel(int userId, int bookingId) {
+    /**
+     * 1) find guest's booking
+     * 2) is it paid
+     *    2.1) no = delete
+     *    2.2) yes = refund?
+     */
+    List<Booking> bookings = mapstruct.fromDto(listBookingsByUserId(userId));
+
+    Booking booking = null;
+
+    for (Booking b: bookings) {
+      if(b.getId() == bookingId) {
+        booking = b;
+        break;
+      }
+    }
+
+    if(booking != null){
+      BookingPaymentDto payment = paymentService.getPaymentByBookingId(bookingId);
+
+      if(payment == null)
+         delete(bookingId);
+    }
+
+    // кинем exception
+
   }
 
   @Override

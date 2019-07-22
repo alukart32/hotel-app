@@ -75,4 +75,10 @@ public class BookingController {
   public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto) {
     bookingService.update(id, dto);
   }
+
+  @PutMapping("/users/{userId}/cancel/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void cancekBooking(@PathVariable("userId") int userId, @PathVariable("id") int bookingId){
+    bookingService.cancel(userId, bookingId);
+  }
 }

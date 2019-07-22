@@ -60,8 +60,8 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
   }
 
   @Override
-  public List<BookingPaymentDto> listPaymentsByBookingId(int bookingId) {
-    return mapstruct.toDto(mapper.listPaymentsByBookingId(bookingId));
+  public BookingPaymentDto getPaymentByBookingId(int bookingId) {
+    return mapstruct.toDto(mapper.getPaymentByBookingId(bookingId));
   }
 
   @Override

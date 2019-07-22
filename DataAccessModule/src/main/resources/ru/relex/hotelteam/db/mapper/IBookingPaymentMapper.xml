@@ -42,7 +42,7 @@
         WHERE booking_id = #{bookingId}
     </select>
 
-  <select id="listPaymentsByBookingId" resultMap="bookingPaymentMap">
+  <select id="getPaymentByBookingId" resultMap="bookingPaymentMap">
         SELECT
                user_id,
                date,

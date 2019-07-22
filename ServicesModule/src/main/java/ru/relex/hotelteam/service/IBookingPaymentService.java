@@ -15,7 +15,7 @@ public interface IBookingPaymentService {
 
   List<BookingPaymentDto> listPaymentsByUserId(int userId);
 
-  List<BookingPaymentDto> listPaymentsByBookingId(int bookingId);
+  BookingPaymentDto getPaymentByBookingId(int bookingId);
 
   void deletePayment(int id);
 
