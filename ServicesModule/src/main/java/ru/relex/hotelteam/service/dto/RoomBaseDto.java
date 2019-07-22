@@ -15,7 +15,7 @@ public class RoomBaseDto {
   private BigDecimal dailyPrice;
 
 
-  private List<Facility> facilities;
+  private List<FacilityDtoWithNoPrice> facilities;
 
   public int getNumber() {
     return number;
@@ -33,14 +33,29 @@ public class RoomBaseDto {
     this.floor = floor;
   }
 
-  public List<Facility> getFacilities() {
+  public List<FacilityDtoWithNoPrice> getFacilities() {
     return facilities;
   }
 
-  public void setFacilities(List<Facility> facilities) {
+  public void setFacilities(List<FacilityDtoWithNoPrice> facilities) {
     this.facilities = facilities;
   }
 
+  public TypeDtoWithNoPrice getType() {
+    return type;
+  }
+
+  public void setType(TypeDtoWithNoPrice type) {
+    this.type = type;
+  }
+
+  public CategoryDtoWithNoPricemult getCategory() {
+    return category;
+  }
+
+  public void setCategory(CategoryDtoWithNoPricemult category) {
+    this.category = category;
+  }
 
   public BigDecimal getDailyPrice() {
     return dailyPrice;

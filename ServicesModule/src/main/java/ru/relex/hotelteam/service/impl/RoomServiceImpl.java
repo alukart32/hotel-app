@@ -34,9 +34,9 @@ public class RoomServiceImpl implements IRoomService {
 
   @Override
   public List<RoomWithIdDto> getAllRooms() {
-    var rooms = mapper.getAllRooms().stream().map(room -> mapstruct.toRoomWithIdDto(room)).collect(Collectors.toList());
+    var rooms = mapper.getAllRooms();
     rooms.forEach(room -> room.setFacilities(mapper.getFacilitiesForRoom(room.getId())));
-    return rooms;
+    return rooms.stream().map(room -> mapstruct.toRoomWithIdDto(room)).collect(Collectors.toList());
   }
 
   @Override
