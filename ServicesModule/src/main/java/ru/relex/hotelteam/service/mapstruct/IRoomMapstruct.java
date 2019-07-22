@@ -11,13 +11,16 @@ import ru.relex.hotelteam.service.dto.RoomWithIdDto;
 @Mapper(componentModel = "spring")
 public interface IRoomMapstruct {
 
+  @Mapping(target = "type", ignore = true)
+  @Mapping(target = "category", ignore = true)
   @Mapping(source = "facilities", target = "facilities",
       nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
       nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
-  @Mapping(target = "type", defaultExpression = "java(new TypeDtoWithNoPrice())")
   @Mapping(source = "typeId", target = "type.id")
   @Mapping(source = "places", target = "type.places")
   @Mapping(source = "twinBed", target = "type.twinbed")
+  @Mapping(source = "categoryId", target = "category.id")
+  @Mapping(source = "categoryName", target = "category.name")
   RoomBaseDto toBaseDto(Room room);
 
   @Mapping(target = "type", ignore = true)
