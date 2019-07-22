@@ -2,11 +2,11 @@ package ru.relex.hotelteam.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.mapper.IBookingMapper;
 import ru.relex.hotelteam.service.IBookingService;
+import ru.relex.hotelteam.service.dto.BookingCheckOutDto;
 import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingPaymentDto;
@@ -16,6 +16,7 @@ import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
 import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
+import ru.relex.hotelteam.shared.exception.service.UserNotFoundException;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
@@ -54,8 +55,13 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   @Override
-  public BookingDto findById(int id) {
-    return mapstruct.toDto(mapper.getBookingById(id).orElseThrow());
+  public BookingDto findById(int id) throws BookingNotFoundException {
+    Booking booking = mapper.getBookingById(id);
+
+    if (booking == null) {
+      throw new BookingNotFoundException("Booking with id: " + id + " wasn't found");
+    }
+    return mapstruct.toDto(mapper.getBookingById(id));
   }
 
   @Override
@@ -79,12 +85,13 @@ public class BookingServiceImpl implements IBookingService {
    * @param registerDto the guest, date when he has checked in
    */
   @Override
-  public void registerGuest(BookingRegisterDto registerDto) throws RegisterGuestDateException {
+  public void registerGuest(BookingRegisterDto registerDto)
+      throws RegisterGuestDateException, BookingNotFoundException{
 
     Booking currentBooking = mapstruct.fromDto(findBookingForCheckIn(registerDto));
 
     if (currentBooking != null) {
-      currentBooking.setRealCheckInDate(registerDto.getCheckIn());
+      currentBooking.setRealCheckInDate(registerDto.getCheckInDate());
       currentBooking.setUserId(registerDto.getUserId());
 
       update(currentBooking.getId(), mapstruct.toUpdateDto(currentBooking));
@@ -92,6 +99,21 @@ public class BookingServiceImpl implements IBookingService {
       paymentService.createPayment(currentBooking);
     } else {
       throw new RegisterGuestDateException("Registration date is out of booking dates");
+    }
+  }
+
+  @Override
+  public void checkOutGuest(BookingCheckOutDto checkOutDto)
+    throws UserNotFoundException, BookingNotFoundException {
+    Booking currentBooking = mapstruct.fromDto(findBookingForCheckOut(checkOutDto));
+
+    if (currentBooking != null) {
+      currentBooking.setRealCheckOutDate(checkOutDto.getCheckOutDate());
+      currentBooking.setUserId(checkOutDto.getUserId());
+
+      update(currentBooking.getId(), mapstruct.toUpdateDto(currentBooking));
+    } else {
+      throw new UserNotFoundException("User with id: " + checkOutDto.getUserId() + " wasn't found");
     }
   }
 
@@ -136,8 +158,9 @@ public class BookingServiceImpl implements IBookingService {
 
     Booking booking = mapper.getBookingById(id);
 
-    if(booking == null)
+    if (booking == null) {
       throw new BookingNotFoundException("Reservation wasn't found");
+    }
 
     booking.setRoomId(updatedBooking.getRoomId());
     booking.setUserId(updatedBooking.getUserId());
@@ -153,21 +176,43 @@ public class BookingServiceImpl implements IBookingService {
     List<BookingDto> bookingList = listBookingsByUserId(registerDto.getUserId());
 
     bookingList.removeIf(b -> b.getRealCheckOutDate() != null);
+    bookingList.removeIf(b -> b.getRealCheckInDate() != null);
 
-    LocalDateTime registerDate = registerDto.getCheckIn();
+    LocalDateTime registerDate = registerDto.getCheckInDate();
+
+    return getBookingForDateBetweenCheckDates(bookingList, registerDate);
+  }
+
+  private BookingDto findBookingForCheckOut(BookingCheckOutDto checkOutDto) {
+    List<BookingDto> bookingList = listBookingsByUserId(checkOutDto.getUserId());
+
+    bookingList.removeIf(b -> b.getRealCheckInDate() == null);
+    bookingList.removeIf(b -> b.getRealCheckOutDate() != null);
+
+    LocalDateTime checkOutDate = checkOutDto.getCheckOutDate();
+
+    return getBookingForDateBetweenCheckDates(bookingList, checkOutDate);
+  }
+
+  /**
+   * Searching for a booking which suits for date: date must be between booking's [to, from] dates
+   *
+   * @param bookingList list of user's (with specific userId) bookings
+   * @param date specific date that checked to be in [to, from]
+   * @return booking for which date is in date interval
+   */
+  private BookingDto getBookingForDateBetweenCheckDates(List<BookingDto> bookingList, LocalDateTime date) {
 
     final BookingDto[] currentBooking = new BookingDto[1];
 
     bookingList.forEach(b -> {
-      if (registerDate.isAfter(b.getCheckInDate())
-          && registerDate.isBefore(b.getCheckOutDate())) {
+      if (!isOutDateInterval(b.getCheckInDate(), b.getCheckOutDate(), date)) {
         currentBooking[0] = b;
       }
     });
 
     return currentBooking[0];
   }
-
 
   /**
    * Checking booking's date. Guest can book a room if it hasn't booked yet.
@@ -206,7 +251,14 @@ public class BookingServiceImpl implements IBookingService {
     return false;
   }
 
-  private Supplier<RuntimeException> notFound(String s) {
-    return () -> new RuntimeException(s);
+  private boolean isOutDateInterval(LocalDateTime from, LocalDateTime to,
+      LocalDateTime date){
+    if (date.isAfter(from) && date.isBefore(to))
+        return false;
+      else
+    if (date.isEqual(from) || date.isEqual(to))
+      return false;
+
+    return true;
   }
 }

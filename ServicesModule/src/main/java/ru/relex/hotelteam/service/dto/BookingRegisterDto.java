@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class BookingRegisterDto {
 
   private int userId;
-  private LocalDateTime checkIn;
+  private LocalDateTime checkInDate;
 
   public int getUserId() {
     return userId;
@@ -18,11 +18,11 @@ public class BookingRegisterDto {
     this.userId = userId;
   }
 
-  public LocalDateTime getCheckIn() {
-    return checkIn;
+  public LocalDateTime getCheckInDate() {
+    return checkInDate;
   }
 
-  public void setCheckIn(LocalDateTime checkIn) {
-    this.checkIn = checkIn;
+  public void setCheckInDate(LocalDateTime checkInDate) {
+    this.checkInDate = checkInDate;
   }
 }

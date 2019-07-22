@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.service.IBookingService;
+import ru.relex.hotelteam.service.dto.BookingCheckOutDto;
 import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
+import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
 import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
+import ru.relex.hotelteam.shared.exception.service.UserNotFoundException;
 
 @RestController
 @RequestMapping(path = "/bookings",
@@ -50,8 +53,16 @@ public class BookingController {
 
   @PostMapping("/users/registration")
   @ResponseStatus(HttpStatus.OK)
-  public void registerUser(@RequestBody BookingRegisterDto registerDto) throws RegisterGuestDateException {
+  public void registerGuest(@RequestBody BookingRegisterDto registerDto)
+      throws RegisterGuestDateException, BookingNotFoundException {
     bookingService.registerGuest(registerDto);
+  }
+
+  @PutMapping("/{id}/users/leave")
+  @ResponseStatus(HttpStatus.OK)
+  public void checkOutGuest(@RequestBody BookingCheckOutDto checkOutDto)
+      throws UserNotFoundException, BookingNotFoundException {
+    bookingService.checkOutGuest(checkOutDto);
   }
 
   @GetMapping("/rooms/{roomId}")
@@ -60,7 +71,8 @@ public class BookingController {
   }
 
   @GetMapping("/{id}")
-  public BookingDto findById(@PathVariable("id") int id) {
+  public BookingDto findById(@PathVariable("id") int id)
+    throws BookingNotFoundException {
     return bookingService.findById(id);
   }
 
@@ -72,7 +84,8 @@ public class BookingController {
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto) {
+  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto)
+    throws UserNotFoundException, BookingNotFoundException {
     bookingService.update(id, dto);
   }
 
