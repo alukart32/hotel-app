@@ -11,6 +11,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
 
+/**
+ * Created by Tarasov Ivan on 22/07/2019
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class CreateBookingExceptionHandler extends ResponseEntityExceptionHandler {
