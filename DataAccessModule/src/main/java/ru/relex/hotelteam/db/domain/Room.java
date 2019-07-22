@@ -1,6 +1,7 @@
 package ru.relex.hotelteam.db.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Room {
   private Boolean twinBed;
 
 
-  private List<Facility> facilities;
+  private List<Facility> facilities = new ArrayList<>(0);
   private BigDecimal dailyPrice;
 
   public Room() {
