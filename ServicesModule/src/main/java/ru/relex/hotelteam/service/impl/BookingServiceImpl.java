@@ -80,13 +80,13 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   /**
-   * Register a guest means that it needs to update a realCheckInDate field and create payment
+   * Register a guest means that it needs to update a realCheckInDate field and create payment.
    *
    * @param registerDto the guest, date when he has checked in
    */
   @Override
   public void registerGuest(BookingRegisterDto registerDto)
-      throws RegisterGuestDateException, BookingNotFoundException{
+      throws RegisterGuestDateException, BookingNotFoundException {
 
     Booking currentBooking = mapstruct.fromDto(findBookingForCheckIn(registerDto));
 
@@ -104,7 +104,7 @@ public class BookingServiceImpl implements IBookingService {
 
   @Override
   public void checkOutGuest(BookingCheckOutDto checkOutDto)
-    throws UserNotFoundException, BookingNotFoundException {
+      throws UserNotFoundException, BookingNotFoundException {
     Booking currentBooking = mapstruct.fromDto(findBookingForCheckOut(checkOutDto));
 
     if (currentBooking != null) {
@@ -120,7 +120,7 @@ public class BookingServiceImpl implements IBookingService {
   @Override
   public void cancel(int userId, int bookingId) {
     /**
-     * 1) find guest's booking
+     * 1) find guest's booking.
      * 2) is it paid
      *    2.1) no = delete
      *    2.2) yes = refund?
@@ -195,7 +195,7 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   /**
-   * Searching for a booking which suits for date: date must be between booking's [to, from] dates
+   * Searching for a booking which suits for date: date must be between booking's [to, from] dates.
    *
    * @param bookingList list of user's (with specific userId) bookings
    * @param date specific date that checked to be in [to, from]
@@ -252,12 +252,12 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   private boolean isOutDateInterval(LocalDateTime from, LocalDateTime to,
-      LocalDateTime date){
-    if (date.isAfter(from) && date.isBefore(to))
-        return false;
-      else
-    if (date.isEqual(from) || date.isEqual(to))
+      LocalDateTime date) {
+    if (date.isAfter(from) && date.isBefore(to)) {
       return false;
+    } else if (date.isEqual(from) || date.isEqual(to)) {
+      return false;
+    }
 
     return true;
   }

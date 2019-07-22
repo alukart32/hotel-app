@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 
 /**
- * Created by Tarasov Ivan on 22/07/2019
+ * Created by Tarasov Ivan on 22/07/2019.
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice

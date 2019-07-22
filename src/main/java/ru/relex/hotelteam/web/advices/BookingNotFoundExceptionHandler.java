@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 
 /**
- * Created by Tarasov Ivan on 22/07/2019 Time: 17:36
+ * Created by Tarasov Ivan on 22/07/2019 Time: 17:36.
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import ru.relex.hotelteam.shared.exception.service.UserNotFoundException;
 
 /**
- * Created by Tarasov Ivan on 20/07/2019 Time: 18:16
+ * Created by Tarasov Ivan on 20/07/2019 Time: 18:16.
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice

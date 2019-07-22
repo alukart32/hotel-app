@@ -3,7 +3,7 @@ package ru.relex.hotelteam.service.dto;
 import java.time.LocalDateTime;
 
 /**
- * Created by Tarasov Ivan on 20/07/2019
+ * Created by Tarasov Ivan on 20/07/2019.
  */
 public class BookingCheckOutDto {
 

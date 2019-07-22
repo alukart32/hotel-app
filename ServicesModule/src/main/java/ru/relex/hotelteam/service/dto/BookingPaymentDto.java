@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Created by Tarasov Ivan on 20/07/2019
+ * Created by Tarasov Ivan on 20/07/2019.
  */
 public class BookingPaymentDto {
 

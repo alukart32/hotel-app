@@ -13,7 +13,7 @@ import ru.relex.hotelteam.service.dto.BookingPaymentDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingPaymentMapstruct;
 
 /**
- * Created by Tarasov Ivan on 20/07/2019 Time: 19:54
+ * Created by Tarasov Ivan on 20/07/2019 Time: 19:54.
  */
 @Service
 public class BookingPaymentServiceImpl implements IBookingPaymentService {
