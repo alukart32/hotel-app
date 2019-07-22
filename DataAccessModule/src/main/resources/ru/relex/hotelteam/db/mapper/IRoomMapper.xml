@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ru.relex.hotelteam.db.mapper.IRoomMapper">
+  <delete id="deleteRoom">
+    DELETE
+    FROM inprog.rooms_facilities
+    WHERE room_id = #{id};
+
+    DELETE
+    FROM inprog.payments
+    WHERE booking_id IN (
+      SELECT booking_id
+      FROM inprog.bookings
+      WHERE room_id = #{id}
+    );
+
+    DELETE
+    FROM inprog.bookings
+    WHERE room_id = #{id};
+
+    DELETE
+    FROM inprog.rooms
+    WHERE room_id = #{id}
+  </delete>
+
+  <insert id="saveFacilitiesForRoom" parameterType="collection">
+    INSERT INTO inprog.rooms_facilities(room_id, facility_id) VALUES
+    <foreach collection="facilities" item="facility" separator=",">
+      (#{id} , #{facility.id})
+    </foreach>
+  </insert>
+
+  <resultMap autoMapping="true" id="room" type="ru.relex.hotelteam.db.domain.Room">
+
+    <collection autoMapping="true" ofType="ru.relex.hotelteam.db.domain.Facility"
+      property="facilities" resultSet="facilities">
+      <id column="facility_id" property="id"/>
+      <result column="name" property="name"/>
+    </collection>
+    <id column="id" property="id"/>
+    <result column="number" property="number"/>
+
+    <result column="floor" property="floor"/>
+    <result column="category_id" property="categoryId"/>
+
+    <result column="category_name" property="categoryName"/>
+    <result column="places" property="places"/>
+    <result column="type_id" property="typeId"/>
+
+    <result column="twin_bed" property="twinBed"/>
+
+    <result column="daily_price" property="dailyPrice"/>
+  </resultMap>
+
+
+  <resultMap id="facility" type="ru.relex.hotelteam.db.domain.Facility">
+    <id column="facility_id" property="id"/>
+    <result column="name" property="name"/>
+  </resultMap>
+
+  <select id="saveRoom" parameterType="ru.relex.hotelteam.db.domain.Room" resultType="int">
+    INSERT INTO inprog.rooms("number", floor, category_id, type_id)
+    VALUES (#{number}, #{floor}, #{categoryId}, #{typeId}) RETURNING room_id as id
+  </select>
+
+  <select id="getRoomById" resultMap="room" resultSets="rooms,facilities">
+    <include refid="selectAllRooms"/>
+    WHERE room_id = #{room_id};
+
+    <include refid="selectFacilities"/>
+    WHERE room_id = #{room_id};
+  </select>
+
+  <select id="getAllRooms" resultSets="rooms" resultType="ru.relex.hotelteam.db.domain.Room">
+    <include refid="selectAllRooms"/>
+  </select>
+
+  <select id="updateRoom" parameterType="ru.relex.hotelteam.db.domain.Room" resultMap="room"
+    resultSets="rooms,facilities">
+    UPDATE inprog.rooms
+    <if test="param2.facilities != null and param2.facilities.size() != 0">
+      DELETE
+      FROM inprog.rooms_facilities
+      WHERE room_id = #{room_id};
+
+
+      INSERT INTO inprog.rooms_facilities(room_id, facility_id) VALUES
+      <foreach collection="param2.facilities" item="facility" separator=",">
+        (#{room_id} , #{facility.id})
+      </foreach>;
+    </if>
+    WHERE room_id = #{room_id};
+
+    <include refid="selectAllRooms"/>
+
+    <include refid="selectFacilities"/>
+    WHERE room_id = #{room_id};
+
+    <set>
+      <if test="param2.number != null">
+        number = #{param2.number},
+      </if>
+      <if test="param2.floor != null">
+        floor = #{param2.floor} ,
+      </if>
+      <if test="param2.typeId != null">
+        type_id = #{param2.typeId} ,
+      </if>
+      <if test="param2.categoryId != null">
+        category_id = #{param2.categoryId}
+      </if>
+    </set>
+    WHERE room_id = #{room_id};
+  </select>
+
+  <select id="getFacilitiesForRoom" parameterType="int" resultType="ru.relex.hotelteam.db.domain.Facility">
+    SELECT F.facility_id as id, name
+    FROM inprog.facilities AS F
+           INNER JOIN inprog.rooms_facilities AS RF ON F.facility_id = RF.facility_id
+    WHERE room_id = #{id}
+  </select>
+
+
+  <sql id="selectAllRooms">
+    SELECT room_id  as id,
+           "number" as number,
+           floor,
+           category_id,
+           category_name,
+           type_id,
+           twin_bed,
+           places,
+           daily_price
+    FROM inprog.rooms_view
+  </sql>
+
+  <sql id="selectFacilities">
+    SELECT F.facility_id as facility_id, name
+    FROM inprog.facilities AS F
+           INNER JOIN inprog.rooms_facilities AS RF ON F.facility_id = RF.facility_id
+  </sql>
+
+  <update id="updateFacilitiesForRoom">
+
+  </update>
+
+
+</mapper>
