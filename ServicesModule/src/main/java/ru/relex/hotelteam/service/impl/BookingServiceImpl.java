@@ -1,6 +1,5 @@
 package ru.relex.hotelteam.service.impl;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Supplier;
@@ -107,18 +106,19 @@ public class BookingServiceImpl implements IBookingService {
 
     Booking booking = null;
 
-    for (Booking b: bookings) {
-      if(b.getId() == bookingId) {
+    for (Booking b : bookings) {
+      if (b.getId() == bookingId) {
         booking = b;
         break;
       }
     }
 
-    if(booking != null){
+    if (booking != null) {
       BookingPaymentDto payment = paymentService.getPaymentByBookingId(bookingId);
 
-      if(payment == null)
-         delete(bookingId);
+      if (payment == null) {
+        delete(bookingId);
+      }
     }
 
     // кинем exception
