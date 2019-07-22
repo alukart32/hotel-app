@@ -5,6 +5,7 @@ import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
+import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
 import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 
@@ -26,5 +27,5 @@ public interface IBookingService {
 
   void delete(int id);
 
-  void update(int id, BookingUpdateDto updatedBooking);
+  void update(int id, BookingUpdateDto updatedBooking) throws BookingNotFoundException;
 }

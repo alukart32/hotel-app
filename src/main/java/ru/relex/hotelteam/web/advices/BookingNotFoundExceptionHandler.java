@@ -9,21 +9,22 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
+import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 
 /**
- * Created by Tarasov Ivan on 22/07/2019
+ * Created by Tarasov Ivan on 22/07/2019 Time: 17:36
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class CreateBookingExceptionHandler extends ResponseEntityExceptionHandler {
+public class BookingNotFoundExceptionHandler extends
+    ResponseEntityExceptionHandler {
 
   @ExceptionHandler(
-      value = CreateBookingException.class
+      value = BookingNotFoundException.class
   )
-  protected ResponseEntity<Object> handleCreateBookingException(RuntimeException ex, WebRequest request) {
-    String bodyOfResponse = "Chosen room is booked on the dates";
+  protected ResponseEntity<Object> handleBookingNotFoundException(RuntimeException ex, WebRequest request){
+    String bodyOfResponse = "Reservation wasn't found";
     return handleExceptionInternal(ex, bodyOfResponse,
-        new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+        new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 }

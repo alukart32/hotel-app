@@ -11,7 +11,7 @@ public interface IBookingMapper {
 
   Booking createBooking(Booking booking);
 
-  Optional<Booking> getBookingById(int id);
+  Booking getBookingById(int id);
 
   List<Booking> listBookings();
 

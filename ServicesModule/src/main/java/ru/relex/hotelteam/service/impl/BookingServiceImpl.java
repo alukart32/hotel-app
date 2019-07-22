@@ -13,6 +13,7 @@ import ru.relex.hotelteam.service.dto.BookingPaymentDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
+import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
 import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 
@@ -122,7 +123,6 @@ public class BookingServiceImpl implements IBookingService {
     }
 
     // кинем exception
-
   }
 
   @Override
@@ -132,10 +132,12 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   @Override
-  public void update(int id, BookingUpdateDto updatedBooking) {
+  public void update(int id, BookingUpdateDto updatedBooking) throws BookingNotFoundException {
 
-    Booking booking = mapper.getBookingById(id)
-        .orElseThrow(notFound("No booking [ id = " + id + " ] was found!"));
+    Booking booking = mapper.getBookingById(id);
+
+    if(booking == null)
+      throw new BookingNotFoundException("Reservation wasn't found");
 
     booking.setRoomId(updatedBooking.getRoomId());
     booking.setUserId(updatedBooking.getUserId());

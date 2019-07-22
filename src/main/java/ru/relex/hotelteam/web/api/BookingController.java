@@ -78,7 +78,7 @@ public class BookingController {
 
   @PutMapping("/users/{userId}/cancel/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void cancekBooking(@PathVariable("userId") int userId, @PathVariable("id") int bookingId){
+  public void cancelBooking(@PathVariable("userId") int userId, @PathVariable("id") int bookingId){
     bookingService.cancel(userId, bookingId);
   }
 }
