@@ -35,10 +35,9 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
     payment.setRoomId(booking.getRoomId());
     payment.setUserId(booking.getUserId());
 
-    long days = ChronoUnit.DAYS.between(booking.getRealCheckInDate(), booking.getCheckOutDate());
+    long days = ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate());
 
     payment.setAmountOfDays((int) days + 1);
-    payment.setTimePayment(LocalDateTime.now());
 
     return mapstruct.toDto(mapper.createPayment(payment));
   }

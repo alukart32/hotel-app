@@ -37,7 +37,11 @@ public class BookingServiceImpl implements IBookingService {
     Booking booking = mapper.getBookingByRoomIdBetweenDates(bookingDto.getRoomId()
         , bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
     if (booking == null) {
-      return mapstruct.toDto(mapper.createBooking(mapstruct.fromCreateDto(booking)));
+      Booking newBooking = mapper.createBooking(mapstruct.fromCreateDto(bookingDto));
+
+      paymentService.createPayment(newBooking);
+
+      return mapstruct.toDto(newBooking);
     } else {
       throw new CreateBookingException("Room is already booked");
     }
