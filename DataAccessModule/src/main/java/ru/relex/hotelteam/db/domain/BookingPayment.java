@@ -12,6 +12,7 @@ public class BookingPayment {
   private int userId;
   private int bookingId;
   private int roomId;
+  private boolean paid;
   private int amountOfDays;
   private LocalDateTime timePayment;
   private BigDecimal total;
@@ -38,6 +39,14 @@ public class BookingPayment {
 
   public void setRoomId(int roomId) {
     this.roomId = roomId;
+  }
+
+  public boolean isPaid() {
+    return paid;
+  }
+
+  public void setPaid(boolean paid) {
+    this.paid = paid;
   }
 
   public LocalDateTime getTimePayment() {

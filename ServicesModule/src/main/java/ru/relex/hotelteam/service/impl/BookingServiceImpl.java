@@ -43,7 +43,7 @@ public class BookingServiceImpl implements IBookingService {
 
       return mapstruct.toDto(newBooking);
     } else {
-      throw new CreateBookingException("Room is already booked");
+      throw new CreateBookingException();
     }
   }
 
