@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class BookingCheckOutDto {
 
   private int userId;
+  private int bookingId;
   private LocalDateTime checkOutDate;
 
   public int getUserId() {
@@ -16,6 +17,14 @@ public class BookingCheckOutDto {
 
   public void setUserId(int userId) {
     this.userId = userId;
+  }
+
+  public int getBookingId() {
+    return bookingId;
+  }
+
+  public void setBookingId(int bookingId) {
+    this.bookingId = bookingId;
   }
 
   public LocalDateTime getCheckOutDate() {

@@ -60,7 +60,7 @@ public class BookingController {
   @PutMapping("/{id}/users/leave")
   @ResponseStatus(HttpStatus.OK)
   public void checkOutGuest(@RequestBody BookingCheckOutDto checkOutDto){
-    bookingService.checkOutGuest(checkOutDto);
+    bookingService.checkOut(checkOutDto);
   }
 
   @GetMapping("/rooms/{roomId}")

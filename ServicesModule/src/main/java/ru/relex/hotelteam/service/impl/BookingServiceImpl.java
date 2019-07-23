@@ -12,7 +12,6 @@ import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingPaymentDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDateDto;
-import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
@@ -97,15 +96,15 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   @Override
-  public void checkOutGuest(BookingCheckOutDto checkOutDto)
+  public void checkOut(BookingCheckOutDto checkOutDto)
       throws UserNotFoundException, BookingNotFoundException {
-    Booking currentBooking = mapstruct.fromDto(findBookingForCheckOut(checkOutDto));
+    Booking booking = mapper.getBookingById(checkOutDto.getBookingId());
 
-    if (currentBooking != null) {
-      currentBooking.setRealCheckOutDate(checkOutDto.getCheckOutDate());
-      currentBooking.setUserId(checkOutDto.getUserId());
+    if (booking != null) {
+      BookingUpdateDateDto dates = new BookingUpdateDateDto();
+      dates.setRealCheckOutDate(checkOutDto.getCheckOutDate());
 
-      update(currentBooking.getId(), mapstruct.toUpdateDto(currentBooking));
+      updateRealCheckDate(dates);
     } else {
       throw new UserNotFoundException("User with id: " + checkOutDto.getUserId() + " wasn't found");
     }

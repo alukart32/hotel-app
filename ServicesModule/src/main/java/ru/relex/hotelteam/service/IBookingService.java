@@ -26,7 +26,7 @@ public interface IBookingService {
   void registration(BookingRegisterDto registerDto)
       throws RegisterGuestDateException, BookingNotFoundException;
 
-  void checkOutGuest(BookingCheckOutDto checkOutDto)
+  void checkOut(BookingCheckOutDto checkOutDto)
       throws UserNotFoundException, BookingNotFoundException;
 
   void cancel(int userId, int bookingId);
