@@ -34,6 +34,7 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
     payment.setBookingId(booking.getId());
     payment.setRoomId(booking.getRoomId());
     payment.setUserId(booking.getUserId());
+    payment.setPaid(false);
 
     long days = ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate());
 
@@ -45,7 +46,7 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
   @Override
   public BookingPaymentDto findById(int id) {
     return mapstruct.toDto(mapper.getPaymentById(id)
-        .orElseThrow(notFound("\"No payment [ id = \" + id + \" ] was found!\"")));
+        .orElseThrow());
   }
 
   @Override
@@ -78,7 +79,8 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
     mapper.updatePayment(payment);
   }
 
-  private Supplier<RuntimeException> notFound(String s) {
-    return () -> new RuntimeException(s);
+  @Override
+  public void updatePaymentDateByBooking(int bookingId,LocalDateTime date) {
+    mapper.updatePaymentDateByBookingId(bookingId, date);
   }
 }

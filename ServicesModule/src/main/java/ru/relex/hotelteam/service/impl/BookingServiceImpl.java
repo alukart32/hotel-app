@@ -11,6 +11,7 @@ import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingPaymentDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
+import ru.relex.hotelteam.service.dto.BookingUpdateDateDto;
 import ru.relex.hotelteam.service.dto.BookingUpdateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
@@ -37,8 +38,8 @@ public class BookingServiceImpl implements IBookingService {
     Booking booking = mapper.getBookingByRoomIdBetweenDates(bookingDto.getRoomId()
         , bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
     if (booking == null) {
-      Booking newBooking = mapper.createBooking(mapstruct.fromCreateDto(bookingDto));
 
+      Booking newBooking = mapper.createBooking(mapstruct.fromCreateDto(bookingDto));
       paymentService.createPayment(newBooking);
 
       return mapstruct.toDto(newBooking);
@@ -78,18 +79,18 @@ public class BookingServiceImpl implements IBookingService {
    * @param registerDto the guest, date when he has checked in
    */
   @Override
-  public void registerGuest(BookingRegisterDto registerDto)
+  public void registration(BookingRegisterDto registerDto)
       throws RegisterGuestDateException, BookingNotFoundException {
 
-    Booking currentBooking = mapstruct.fromDto(findBookingForCheckIn(registerDto));
+    Booking booking = mapper.getBookingById(registerDto.getBookingId());
 
-    if (currentBooking != null) {
-      currentBooking.setRealCheckInDate(registerDto.getCheckInDate());
-      currentBooking.setUserId(registerDto.getUserId());
+    if (booking != null) {
+      BookingUpdateDateDto dates = new BookingUpdateDateDto();
+      dates.setRealCheckInDate(booking.getRealCheckInDate());
 
-      update(currentBooking.getId(), mapstruct.toUpdateDto(currentBooking));
+      updateRealCheckDate(dates);
 
-      paymentService.createPayment(currentBooking);
+      paymentService.updatePaymentDateByBooking(booking.getId(), LocalDateTime.now());
     } else {
       throw new RegisterGuestDateException("Registration date is out of booking dates");
     }
@@ -144,5 +145,9 @@ public class BookingServiceImpl implements IBookingService {
   public void delete(int id) {
     paymentService.deletePaymentByBookingId(id);
     mapper.deleteBooking(id);
+  }
+
+  private void updateRealCheckDate(BookingUpdateDateDto dto){
+    mapper.updateRealCheckDate(dto.getRealCheckInDate(), dto.getRealCheckOutDate());
   }
 }

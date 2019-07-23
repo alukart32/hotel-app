@@ -108,9 +108,18 @@
     WHERE booking_id = #{id}
   </update>
 
+  <update id="updateRealCheckDate" parameterType="Booking">
+    UPDATE inprog.bookings
+    <set>
+      <if test="realCheckIn != null">real_check_in = #{realCheckIn},</if>
+      <if test="realCheckOut != null">real_check_out = #{realCheckOut}</if>
+    </set>
+    WHERE booking_id = #{id}
+  </update>
+
   <delete id="deleteBooking">
         DELETE
         FROM inprog.bookings
         WHERE booking_id = #{id}
-    </delete>
+  </delete>
 </mapper>

@@ -1,5 +1,6 @@
 package ru.relex.hotelteam.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.domain.BookingPayment;
@@ -23,4 +24,5 @@ public interface IBookingPaymentService {
 
   void updatePayment(BookingPayment payment);
 
+  void updatePaymentDateByBooking(int bookingId, LocalDateTime date);
 }

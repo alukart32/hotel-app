@@ -1,5 +1,6 @@
 package ru.relex.hotelteam.db.mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,4 +26,5 @@ public interface IBookingPaymentMapper {
 
   void updatePayment(BookingPayment payment);
 
+  void updatePaymentDateByBookingId(int bookingId, LocalDateTime date);
 }

@@ -23,7 +23,7 @@ public interface IBookingService {
 
   List<BookingDto> listBookingsByRoomId(int roomId);
 
-  void registerGuest(BookingRegisterDto registerDto)
+  void registration(BookingRegisterDto registerDto)
       throws RegisterGuestDateException, BookingNotFoundException;
 
   void checkOutGuest(BookingCheckOutDto checkOutDto)

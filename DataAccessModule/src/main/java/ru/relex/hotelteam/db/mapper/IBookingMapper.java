@@ -25,4 +25,6 @@ public interface IBookingMapper {
   void updateBooking(Booking booking);
 
   Booking getBookingByRoomIdBetweenDates(int roomId, LocalDateTime from, LocalDateTime to);
+
+  void updateRealCheckDate(LocalDateTime realCheckIn, LocalDateTime realCheckOut);
 }

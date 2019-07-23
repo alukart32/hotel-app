@@ -53,15 +53,13 @@ public class BookingController {
 
   @PostMapping("/users/registration")
   @ResponseStatus(HttpStatus.OK)
-  public void registerGuest(@RequestBody BookingRegisterDto registerDto)
-      throws RegisterGuestDateException, BookingNotFoundException {
-    bookingService.registerGuest(registerDto);
+  public void registerGuest(@RequestBody BookingRegisterDto registerDto){
+    bookingService.registration(registerDto);
   }
 
   @PutMapping("/{id}/users/leave")
   @ResponseStatus(HttpStatus.OK)
-  public void checkOutGuest(@RequestBody BookingCheckOutDto checkOutDto)
-      throws UserNotFoundException, BookingNotFoundException {
+  public void checkOutGuest(@RequestBody BookingCheckOutDto checkOutDto){
     bookingService.checkOutGuest(checkOutDto);
   }
 
