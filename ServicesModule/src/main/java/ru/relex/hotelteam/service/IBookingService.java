@@ -32,6 +32,4 @@ public interface IBookingService {
   void cancel(int userId, int bookingId);
 
   void delete(int id);
-
-  void update(int id, BookingUpdateDto updatedBooking) throws BookingNotFoundException;
 }
