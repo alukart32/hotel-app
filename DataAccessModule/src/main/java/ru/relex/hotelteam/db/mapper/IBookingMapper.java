@@ -1,5 +1,6 @@
 package ru.relex.hotelteam.db.mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,4 +23,6 @@ public interface IBookingMapper {
   void deleteBooking(@Param("id") int id);
 
   void updateBooking(Booking booking);
+
+  Booking getBookingByRoomIdBetweenDates(int roomId, LocalDateTime from, LocalDateTime to);
 }

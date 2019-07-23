@@ -33,21 +33,10 @@ public class BookingServiceImpl implements IBookingService {
   }
 
   @Override
-  public BookingDto createBooking(BookingCreateDto booking) throws CreateBookingException {
-
-    List<Booking> bookings = mapstruct.fromDto(listBookings());
-
-    final boolean[] hasBooking = {true};
-
-    bookings.removeIf(b -> booking.getRoomId() != b.getRoomId());
-
-    bookings.forEach(b -> {
-      if (isInDateInterval(booking, b.getCheckOutDate(), b.getCheckInDate())) {
-        hasBooking[0] = false;
-      }
-    });
-
-    if (hasBooking[0]) {
+  public BookingDto createBooking(BookingCreateDto bookingDto) throws CreateBookingException {
+    Booking booking = mapper.getBookingByRoomIdBetweenDates(bookingDto.getRoomId()
+        , bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
+    if (booking == null) {
       return mapstruct.toDto(mapper.createBooking(mapstruct.fromCreateDto(booking)));
     } else {
       throw new CreateBookingException("Room is already booked");

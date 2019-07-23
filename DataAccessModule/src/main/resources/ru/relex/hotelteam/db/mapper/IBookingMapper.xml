@@ -38,6 +38,27 @@
         WHERE booking_id = #{id}
     </select>
 
+  <select id="getBookingByRoomIdBetweenDates" resultMap="bookingMap">
+    SELECT
+          booking_id,
+          user_id,
+          room_id,
+          check_in,
+          check_out,
+          real_check_in,
+          real_check_out
+    FROM inprog.bookings
+    WHERE room_id = #{roomId}
+          AND
+            (
+              (NOT (#{from} > inprog.bookings.check_in::date) AND NOT(#{to} > inprog.bookings.ckeck_out::date))
+              OR
+              ((#{from} >= inprog.bookings.check_in::date) AND NOT(#{from} >inprog.bookings.check_out::date))
+              OR
+              ((#{to} >= inprog.bookings.check_in::date) AND NOT(#{to} >inprog.bookings.check_out::date))
+            )
+  </select>
+
   <select id="listBookingsByUserId" resultMap="bookingMap">
         SELECT
                booking_id,
