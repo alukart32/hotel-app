@@ -67,11 +67,6 @@ public class BookingServiceImpl implements IBookingService {
     return mapstruct.toDto(mapper.listBookingsByUserId(userId));
   }
 
-  @Override
-  public List<BookingDto> listBookingsByRoomId(int roomId) {
-    return mapstruct.toDto(mapper.listBookingsByRoomId(roomId));
-  }
-
   /**
    * Register a guest means that it needs to update a realCheckInDate field and create payment.
    *
@@ -84,50 +79,36 @@ public class BookingServiceImpl implements IBookingService {
     Booking booking = mapper.getBookingById(registerDto.getBookingId());
 
     if (booking != null) {
-      BookingUpdateDateDto dates = new BookingUpdateDateDto();
-      dates.setRealCheckInDate(booking.getRealCheckInDate());
+      if (booking.getRealCheckInDate() == null) {
+        BookingUpdateDateDto dates = new BookingUpdateDateDto();
+        dates.setRealCheckInDate(LocalDateTime.now());
 
-      updateRealCheckDate(dates);
-
-      paymentService.updatePaymentDateByBooking(booking.getId(), LocalDateTime.now());
+        updateRealCheckDate(booking.getId(), dates);
+        paymentService.updatePaymentForCheckIn(booking.getId(), LocalDateTime.now());
+      }
     } else {
       throw new RegisterGuestDateException("Registration date is out of booking dates");
     }
   }
 
   @Override
-  public void checkOut(BookingCheckOutDto checkOutDto)
+  public void checkOut(int bookingId)
       throws UserNotFoundException, BookingNotFoundException {
-    Booking booking = mapper.getBookingById(checkOutDto.getBookingId());
+    Booking booking = mapper.getBookingById(bookingId);
 
     if (booking != null) {
       BookingUpdateDateDto dates = new BookingUpdateDateDto();
-      dates.setRealCheckOutDate(checkOutDto.getCheckOutDate());
+      dates.setRealCheckOutDate(LocalDateTime.now());
 
-      updateRealCheckDate(dates);
+      updateRealCheckDate(booking.getId(), dates);
     } else {
-      throw new UserNotFoundException("User with id: " + checkOutDto.getUserId() + " wasn't found");
+      throw new UserNotFoundException();
     }
   }
 
   @Override
-  public void cancel(int userId, int bookingId) {
-    /**
-     * 1) find guest's booking.
-     * 2) is it paid
-     *    2.1) no = delete
-     *    2.2) yes = refund?
-     */
-    List<Booking> bookings = mapstruct.fromDto(listBookingsByUserId(userId));
-
-    Booking booking = null;
-
-    for (Booking b : bookings) {
-      if (b.getId() == bookingId) {
-        booking = b;
-        break;
-      }
-    }
+  public void cancel(int bookingId) {
+    Booking booking = mapper.getBookingById(bookingId);
 
     if (booking != null) {
       BookingPaymentDto payment = paymentService.getPaymentByBookingId(bookingId);
@@ -136,8 +117,6 @@ public class BookingServiceImpl implements IBookingService {
         delete(bookingId);
       }
     }
-
-    // кинем exception
   }
 
   @Override
@@ -146,7 +125,7 @@ public class BookingServiceImpl implements IBookingService {
     mapper.deleteBooking(id);
   }
 
-  private void updateRealCheckDate(BookingUpdateDateDto dto){
-    mapper.updateRealCheckDate(dto.getRealCheckInDate(), dto.getRealCheckOutDate());
+  private void updateRealCheckDate(int id, BookingUpdateDateDto dto) {
+    mapper.updateRealCheckDate(id, dto.getRealCheckInDate(), dto.getRealCheckOutDate());
   }
 }

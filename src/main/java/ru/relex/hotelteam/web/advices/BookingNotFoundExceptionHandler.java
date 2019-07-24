@@ -19,10 +19,8 @@ import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 public class BookingNotFoundExceptionHandler extends
     ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(
-      value = BookingNotFoundException.class
-  )
-  protected ResponseEntity<Object> handleBookingNotFoundException(RuntimeException ex, WebRequest request){
+  @ExceptionHandler(BookingNotFoundException.class)
+  protected ResponseEntity<Object> handleException(RuntimeException ex, WebRequest request) {
     String bodyOfResponse = "Reservation wasn't found";
     return handleExceptionInternal(ex, bodyOfResponse,
         new HttpHeaders(), HttpStatus.NOT_FOUND, request);

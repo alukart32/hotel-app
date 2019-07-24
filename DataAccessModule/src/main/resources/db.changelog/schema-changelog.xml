@@ -93,4 +93,16 @@
     </comment>
     <sqlFile path="changesets/H-015.sql" relativeToChangelogFile="true"/>
   </changeSet>
+  <changeSet author="itarasov" id="16">
+    <comment>
+      Drop not null for date in payments table
+    </comment>
+    <sqlFile path="changesets/H-016.sql" relativeToChangelogFile="true"/>
+  </changeSet>
+  <changeSet author="itarasov" id="17">
+    <comment>
+      Add utility is_free(INTEGER, DATE, DATE) function
+    </comment>
+    <sqlFile path="changesets/H-017.sql" relativeToChangelogFile="true" splitStatements="false"/>
+  </changeSet>
 </databaseChangeLog>

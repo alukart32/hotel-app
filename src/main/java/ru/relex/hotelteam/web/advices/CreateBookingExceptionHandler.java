@@ -18,10 +18,8 @@ import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
 @ControllerAdvice
 public class CreateBookingExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(
-      value = CreateBookingException.class
-  )
-  protected ResponseEntity<Object> handleCreateBookingException(RuntimeException ex, WebRequest request) {
+  @ExceptionHandler(CreateBookingException.class)
+  protected ResponseEntity<Object> handleException(RuntimeException ex, WebRequest request) {
     String bodyOfResponse = "Chosen room is booked on the dates";
     return handleExceptionInternal(ex, bodyOfResponse,
         new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);

@@ -24,5 +24,5 @@ public interface IBookingPaymentService {
 
   void updatePayment(BookingPayment payment);
 
-  void updatePaymentDateByBooking(int bookingId, LocalDateTime date);
+  void updatePaymentForCheckIn(int bookingId, LocalDateTime date);
 }

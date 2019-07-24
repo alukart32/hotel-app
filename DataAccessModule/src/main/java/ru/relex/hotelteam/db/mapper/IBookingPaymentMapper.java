@@ -26,5 +26,6 @@ public interface IBookingPaymentMapper {
 
   void updatePayment(BookingPayment payment);
 
-  void updatePaymentDateByBookingId(int bookingId, LocalDateTime date);
+  void updatePaymentDateByBookingId(@Param("bookingId") int bookingId
+      , @Param("date") LocalDateTime date);
 }

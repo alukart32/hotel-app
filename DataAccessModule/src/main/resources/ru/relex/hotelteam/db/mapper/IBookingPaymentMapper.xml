@@ -11,8 +11,8 @@
   </resultMap>
 
   <select id="createPayment" resultType="BookingPayment">
-    INSERT INTO inprog.payments(user_id, booking_id, date, total)
-    VALUES (#{userId}, #{bookingId}, #{timePayment},inprog.total_price(#{roomId}, #{amountOfDays}))
+    INSERT INTO inprog.payments(user_id, booking_id, total)
+    VALUES (#{userId}, #{bookingId},inprog.total_price(#{roomId}, #{amountOfDays}))
 
     RETURNING
       user_id as userId,
@@ -74,9 +74,12 @@
   <update id="updatePaymentDateByBookingId" parameterType="BookingPayment">
     UPDATE inprog.payments
     <set>
-      <if test="date != null">date = #{date}</if>
+      <if test="date != null">
+        date = #{date},
+        paid = TRUE
+      </if>
     </set>
-    WHERE booking_id = #{id}
+    WHERE booking_id = #{bookingId}
   </update>
 
   <delete id="deletePayment">

@@ -3,7 +3,6 @@ package ru.relex.hotelteam.service.impl;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.domain.BookingPayment;
@@ -34,7 +33,6 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
     payment.setBookingId(booking.getId());
     payment.setRoomId(booking.getRoomId());
     payment.setUserId(booking.getUserId());
-    payment.setPaid(false);
 
     long days = ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate());
 
@@ -80,7 +78,7 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
   }
 
   @Override
-  public void updatePaymentDateByBooking(int bookingId,LocalDateTime date) {
+  public void updatePaymentForCheckIn(int bookingId, LocalDateTime date) {
     mapper.updatePaymentDateByBookingId(bookingId, date);
   }
 }

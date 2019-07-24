@@ -19,9 +19,7 @@ import ru.relex.hotelteam.shared.exception.service.UserNotFoundException;
 public class UserNotFoundExceptionHandler
     extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(
-      value = UserNotFoundException.class
-  )
+  @ExceptionHandler(UserNotFoundException.class)
   protected ResponseEntity<Object> handleUserNotFoundException(RuntimeException ex, WebRequest request) {
     String bodyOfResponse = "User not found";
     return handleExceptionInternal(ex, bodyOfResponse,

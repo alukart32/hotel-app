@@ -17,11 +17,6 @@ import ru.relex.hotelteam.service.dto.BookingCheckOutDto;
 import ru.relex.hotelteam.service.dto.BookingCreateDto;
 import ru.relex.hotelteam.service.dto.BookingDto;
 import ru.relex.hotelteam.service.dto.BookingRegisterDto;
-import ru.relex.hotelteam.service.dto.BookingUpdateDto;
-import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
-import ru.relex.hotelteam.shared.exception.service.CreateBookingException;
-import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
-import ru.relex.hotelteam.shared.exception.service.UserNotFoundException;
 
 @RestController
 @RequestMapping(path = "/bookings",
@@ -37,7 +32,7 @@ public class BookingController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public BookingDto createBooking(@RequestBody BookingCreateDto dto) throws CreateBookingException {
+  public BookingDto createBooking(@RequestBody BookingCreateDto dto) {
     return bookingService.createBooking(dto);
   }
 
@@ -53,24 +48,18 @@ public class BookingController {
 
   @PostMapping("/users/registration")
   @ResponseStatus(HttpStatus.OK)
-  public void registerGuest(@RequestBody BookingRegisterDto registerDto){
+  public void registerGuest(@RequestBody BookingRegisterDto registerDto) {
     bookingService.registration(registerDto);
   }
 
-  @PutMapping("/{id}/users/leave")
+  @PutMapping("/eviction/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void checkOutGuest(@RequestBody BookingCheckOutDto checkOutDto){
-    bookingService.checkOut(checkOutDto);
-  }
-
-  @GetMapping("/rooms/{roomId}")
-  public List<BookingDto> listBookingsByRoomId(@PathVariable("roomId") int roomId) {
-    return bookingService.listBookingsByRoomId(roomId);
+  public void checkOut(@PathVariable("id") int id) {
+    bookingService.checkOut(id);
   }
 
   @GetMapping("/{id}")
-  public BookingDto findById(@PathVariable("id") int id)
-    throws BookingNotFoundException {
+  public BookingDto findById(@PathVariable("id") int id) {
     return bookingService.findById(id);
   }
 
@@ -80,16 +69,18 @@ public class BookingController {
     bookingService.delete(id);
   }
 
+/*
+
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto)
-    throws UserNotFoundException, BookingNotFoundException {
+  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto){
     bookingService.update(id, dto);
   }
+*/
 
-  @PutMapping("/users/{userId}/cancel/{id}")
+  @PutMapping("/cancel/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void cancelBooking(@PathVariable("userId") int userId, @PathVariable("id") int bookingId){
-    bookingService.cancel(userId, bookingId);
+  public void cancelBooking(@PathVariable("id") int bookingId) {
+    bookingService.cancel(bookingId);
   }
 }
