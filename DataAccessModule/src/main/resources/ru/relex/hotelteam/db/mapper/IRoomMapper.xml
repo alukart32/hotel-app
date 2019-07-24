@@ -3,11 +3,6 @@
 <mapper namespace="ru.relex.hotelteam.db.mapper.IRoomMapper">
 
   <resultMap autoMapping="true" id="room" type="ru.relex.hotelteam.db.domain.Room">
-    <collection autoMapping="true" ofType="ru.relex.hotelteam.db.domain.Facility"
-      property="facilities" resultSet="facilities">
-      <id column="facility_id" property="id"/>
-      <result column="name" property="name"/>
-    </collection>
     <id column="id" property="id"/>
 
     <result column="number" property="number"/>
@@ -21,6 +16,11 @@
 
     <result column="twin_bed" property="twinBed"/>
     <result column="daily_price" property="dailyPrice"/>
+    <collection autoMapping="true" ofType="ru.relex.hotelteam.db.domain.Facility"
+      property="facilities" resultSet="facilities">
+      <id column="facility_id" property="id"/>
+      <result column="name" property="name"/>
+    </collection>
   </resultMap>
 
   <resultMap id="facility" type="ru.relex.hotelteam.db.domain.Facility">
