@@ -12,7 +12,7 @@ public interface IBookingMapper {
 
   Booking createBooking(Booking booking);
 
-  Booking getBookingById(int id);
+  Optional<Booking> getBookingById(int id);
 
   List<Booking> listBookings();
 
@@ -25,8 +25,8 @@ public interface IBookingMapper {
   void updateBooking(Booking booking);
 
   Booking getBookingByRoomIdBetweenDates(@Param("roomId") int roomId
-      ,@Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
+      , @Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
 
   void updateRealCheckDate(@Param("id") int id, @Param("realCheckIn") LocalDateTime realCheckIn
-      ,@Param("realCheckOut") LocalDateTime realCheckOut);
+      , @Param("realCheckOut") LocalDateTime realCheckOut);
 }

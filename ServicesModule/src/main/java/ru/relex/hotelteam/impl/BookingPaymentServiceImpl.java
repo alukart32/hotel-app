@@ -4,11 +4,12 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import ru.relex.hotelteam.IBookingPaymentService;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.domain.BookingPayment;
 import ru.relex.hotelteam.db.mapper.IBookingPaymentMapper;
-import ru.relex.hotelteam.IBookingPaymentService;
 import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
+import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 import ru.relex.hotelteam.service.mapstruct.IBookingPaymentMapstruct;
 
 /**
@@ -44,7 +45,7 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
   @Override
   public BookingPaymentDto findById(int id) {
     return mapstruct.toDto(mapper.getPaymentById(id)
-        .orElseThrow());
+        .orElseThrow(() -> new EntityNotFoundException("Payment", id)));
   }
 
   @Override

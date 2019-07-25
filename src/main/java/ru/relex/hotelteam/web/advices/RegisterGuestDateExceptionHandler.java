@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
+import ru.relex.hotelteam.exceptions.RegisterGuestException;
 
 /**
  * Created by Tarasov Ivan on 22/07/2019.
@@ -18,7 +18,7 @@ import ru.relex.hotelteam.shared.exception.service.RegisterGuestDateException;
 @ControllerAdvice
 public class RegisterGuestDateExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(RegisterGuestDateException.class)
+  @ExceptionHandler(RegisterGuestException.class)
   protected ResponseEntity<Object> handleException(RuntimeException ex, WebRequest request) {
     String bodyOfResponse = "Registration date is out of booking dates";
     return handleExceptionInternal(ex, bodyOfResponse,

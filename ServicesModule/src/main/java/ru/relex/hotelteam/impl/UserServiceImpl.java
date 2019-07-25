@@ -1,16 +1,16 @@
 package ru.relex.hotelteam.impl;
 
 import java.util.List;
-import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
+import ru.relex.hotelteam.IUserService;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
+import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 import ru.relex.hotelteam.mapstruct.IUserMapstruct;
-import ru.relex.hotelteam.IUserService;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -30,8 +30,9 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public UserBaseDto findById(final int id) {
-    return mapstruct.toBaseDto(mapper.getUserById(id).orElseThrow());
+  public UserBaseDto findById(final int id) throws EntityNotFoundException {
+    return mapstruct.toBaseDto(mapper.getUserById(id)
+        .orElseThrow(() -> new EntityNotFoundException("User", id)));
   }
 
   @Override
@@ -46,9 +47,8 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public void update(int id, UserUpdateDto updatedUser) {
-
     User user = mapper.getUserById(id).
-        orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
+        orElseThrow(() -> new EntityNotFoundException("User", id));
 
     user.setFirstName(updatedUser.getFirstName());
     user.setLastName(updatedUser.getLastName());
@@ -60,18 +60,14 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public void updateSecurityInfo(int id, UserSecurityDto updatedSecurity) {
-    User user = mapper.getUserById(id).
-        orElseThrow(notFound("No user [ id = " + id + " ] was found!"));
+    User user = mapper.getUserById(id)
+        .orElseThrow(() -> new EntityNotFoundException("User", id));
 
     user.setLogin(updatedSecurity.getLogin());
     user.setEmail(updatedSecurity.getEmail());
     user.setPassword(updatedSecurity.getPassword());
 
     mapper.updateUserSecurityInfo(user);
-  }
-
-  private Supplier<RuntimeException> notFound(String s) {
-    return () -> new RuntimeException(s);
   }
 }
 
