@@ -13,74 +13,75 @@
     <result property="authority" column="authority_id"/>
   </resultMap>
 
-  <select id="createUser" resultType="User">
-        INSERT INTO inprog.users(authority_id, first_name, last_name, login,
-         password, middle_name, email, birth_date)
-        VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName}, #{email}, #{birthDate})
-        RETURNING user_id as id,
-                  first_name,
-                  last_name,
-                  middle_name,
-                  authority_id as authority,
-                  login,
-                  email,
-                  birth_date as birthDate
-    </select>
+  <delete id="deleteUser">
+    DELETE
+    FROM inprog.users
+    WHERE user_id = #{id}
+  </delete>
 
   <select id="getUserById" resultMap="userMap">
-        SELECT
-               user_id,
-               first_name,
-               last_name,
-               middle_name,
-               email,
-               birth_date,
-               authority_id,
-               login,
-               password
+    SELECT user_id,
+           first_name,
+           last_name,
+           middle_name,
+           email,
+           birth_date,
+           authority_id,
+           login,
+           password
 
-        FROM inprog.users
-        WHERE user_id = #{id}
-    </select>
+    FROM inprog.users
+    WHERE user_id = #{id}
+  </select>
 
   <select id="listUsers" resultMap="userMap">
-        SELECT
-               user_id,
-               first_name,
-               last_name,
-               middle_name,
-               email,
-               birth_date,
-               authority_id,
-               login
+    SELECT user_id,
+           first_name,
+           last_name,
+           middle_name,
+           email,
+           birth_date,
+           authority_id,
+           login
 
-        FROM inprog.users
-    </select>
+    FROM inprog.users
+  </select>
 
   <update id="updateUser" parameterType="User">
-        update inprog.users
-        set
-          first_name = #{firstName},
-          last_name = #{lastName},
-          middle_name = #{middleName},
-          email = #{email},
-          birth_date = #{birthDate}
+    UPDATE inprog.users
+    <set>
+      <if test="firstName != null">first_name = #{firstName},</if>
+      <if test="lastName != null">last_name = #{lastName},</if>
+      <if test="middleName != null">middle_name = #{middleName},</if>
+      <if test="email != null">email = #{email},</if>
+      <if test="birthDate != null">birth_date = #{birthDate}</if>
+    </set>
 
-        where user_id = #{id}
-    </update>
+    WHERE user_id = #{id}
+  </update>
 
   <update id="updateUserSecurityInfo" parameterType="User">
-        update inprog.users
-        set
-          login = #{login},
-          email = #{email},
-          password = #{password}
-        where user_id = #{id}
-    </update>
+    UPDATE inprog.users
+    <set>
+      <if test="login != null">login = #{login},</if>
+      <if test="email != null">email = #{email},</if>
+      <if test="password != null">password = #{password}</if>
+    </set>
 
-  <delete id="deleteUser">
-        DELETE
-        FROM inprog.users
-        WHERE user_id = #{id}
-    </delete>
+    WHERE user_id = #{id}
+  </update>
+
+  <select id="createUser" resultType="User">
+    INSERT INTO inprog.users(authority_id, first_name, last_name, login,
+                             password, middle_name, email, birth_date)
+    VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName}, #{email},
+            #{birthDate}) RETURNING user_id as id,
+                          first_name,
+                          last_name,
+                          middle_name,
+                          authority_id as authority,
+                          login,
+                          email,
+                          birth_date as birthDate
+  </select>
 </mapper>

@@ -16,48 +16,49 @@ buildscript {
 }
 
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.1.6.RELEASE'
+  id 'java'
+  id 'org.springframework.boot' version '2.1.6.RELEASE'
 }
 
 allprojects {
-    ext {
-        springboot_ver = "2.1.6.RELEASE"
-    }
-    version '1.0-SNAPSHOT'
-    group 'ru.relex'
+  ext {
+    springboot_ver = "2.1.6.RELEASE"
+  }
+  version '1.0-SNAPSHOT'
+  group 'ru.relex'
 
-    sourceCompatibility = JavaVersion.VERSION_11
+  sourceCompatibility = JavaVersion.VERSION_11
 
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
 }
 
 subprojects {
-    apply plugin: "java-library"
+  apply plugin: "java-library"
 }
 
-subprojects.each { proj ->
-    if (proj.name != "CommonsModule") {
-        proj.dependencies {
-            implementation project(":CommonsModule") 
-        }
+allprojects.each { proj ->
+  if (proj.name != "CommonsModule") {
+    proj.dependencies {
+      implementation project(":CommonsModule")
+      testImplementation "org.springframework.boot:spring-boot-starter-test:$springboot_ver"
+   
     }
+  }
 }
 
 apply from: 'checks.gradle'
 
 dependencies {
 
-    implementation project(":ServicesModule")
-    implementation project(":CommonsModule")
-    implementation "org.springframework.boot:spring-boot-starter-web:$springboot_ver"
-    
-    // Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+  implementation project(":ServicesModule")
+  implementation "org.springframework.boot:spring-boot-starter-web:$springboot_ver"
 
-    //testCompile group: 'junit', name: 'junit', version: '4.12'
+  // Lombok
+  compileOnly 'org.projectlombok:lombok:1.18.8'
+  annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+  testImplementation "org.springframework.boot:spring-boot-starter-test:$springboot_ver"
 }

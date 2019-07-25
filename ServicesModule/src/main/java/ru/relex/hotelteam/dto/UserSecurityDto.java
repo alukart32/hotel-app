@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto;
+package ru.relex.hotelteam.dto;
 
 /**
  * Created by Tarasov Ivan on 19/07/2019.
