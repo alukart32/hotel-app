@@ -34,6 +34,21 @@
     WHERE user_id = #{id}
   </select>
 
+  <select id="getUserByLogin" resultMap="userMap">
+        SELECT
+               user_id,
+               first_name,
+               last_name,
+               middle_name,
+               email,
+               birth_date,
+               authority_id,
+               login,
+               password
+        FROM inprog.users
+        WHERE login = #{login}
+    </select>
+
   <select id="listUsers" resultMap="userMap">
     SELECT user_id,
            first_name,

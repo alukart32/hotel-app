@@ -14,6 +14,8 @@ public interface IUserMapper {
 
   Optional<User> getUserById(int id);
 
+  Optional<User> getUserByLogin(@Param("login") String login);
+
   List<User> listUsers();
 
   void deleteUser(@Param("id") int id);
