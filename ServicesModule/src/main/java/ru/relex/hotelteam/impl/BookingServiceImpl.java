@@ -1,17 +1,16 @@
-package ru.relex.hotelteam.service.impl;
+package ru.relex.hotelteam.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.mapper.IBookingMapper;
-import ru.relex.hotelteam.service.IBookingService;
-import ru.relex.hotelteam.service.dto.BookingCheckOutDto;
-import ru.relex.hotelteam.service.dto.BookingCreateDto;
-import ru.relex.hotelteam.service.dto.BookingDto;
-import ru.relex.hotelteam.service.dto.BookingPaymentDto;
-import ru.relex.hotelteam.service.dto.BookingRegisterDto;
-import ru.relex.hotelteam.service.dto.BookingUpdateDateDto;
+import ru.relex.hotelteam.IBookingService;
+import ru.relex.hotelteam.dto.bookings.BookingCreateDto;
+import ru.relex.hotelteam.dto.bookings.BookingDto;
+import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
+import ru.relex.hotelteam.dto.bookings.BookingRegisterDto;
+import ru.relex.hotelteam.dto.bookings.BookingUpdateDateDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
 import ru.relex.hotelteam.shared.exception.service.BookingNotFoundException;
 import ru.relex.hotelteam.shared.exception.service.CreateBookingException;

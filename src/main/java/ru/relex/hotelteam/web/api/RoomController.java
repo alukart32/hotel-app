@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.dto.RoomBaseDto;
 import ru.relex.hotelteam.dto.RoomWithIdDto;
-import ru.relex.hotelteam.services.IRoomService;
+import ru.relex.hotelteam.IRoomService;
 
 @RestController
 @RequestMapping(path = "/rooms", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

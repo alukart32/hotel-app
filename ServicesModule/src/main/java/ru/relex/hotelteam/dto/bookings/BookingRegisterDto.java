@@ -1,15 +1,15 @@
-package ru.relex.hotelteam.service.dto;
+package ru.relex.hotelteam.dto.bookings;
 
 import java.time.LocalDateTime;
 
 /**
- * Created by Tarasov Ivan on 20/07/2019.
+ * Created by Tarasov Ivan on 21/07/2019 Time: 20:28.
  */
-public class BookingCheckOutDto {
+public class BookingRegisterDto {
 
   private int userId;
   private int bookingId;
-  private LocalDateTime checkOutDate;
+  private LocalDateTime checkInDate;
 
   public int getUserId() {
     return userId;
@@ -27,11 +27,11 @@ public class BookingCheckOutDto {
     this.bookingId = bookingId;
   }
 
-  public LocalDateTime getCheckOutDate() {
-    return checkOutDate;
+  public LocalDateTime getCheckInDate() {
+    return checkInDate;
   }
 
-  public void setCheckOutDate(LocalDateTime checkOutDate) {
-    this.checkOutDate = checkOutDate;
+  public void setCheckInDate(LocalDateTime checkInDate) {
+    this.checkInDate = checkInDate;
   }
 }

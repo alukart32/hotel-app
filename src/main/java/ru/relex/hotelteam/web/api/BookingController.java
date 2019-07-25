@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.service.IBookingService;
-import ru.relex.hotelteam.service.dto.BookingCheckOutDto;
-import ru.relex.hotelteam.service.dto.BookingCreateDto;
-import ru.relex.hotelteam.service.dto.BookingDto;
-import ru.relex.hotelteam.service.dto.BookingRegisterDto;
+import ru.relex.hotelteam.dto.bookings.BookingCreateDto;
+import ru.relex.hotelteam.dto.bookings.BookingDto;
+import ru.relex.hotelteam.dto.bookings.BookingRegisterDto;
 
 @RestController
 @RequestMapping(path = "/bookings",

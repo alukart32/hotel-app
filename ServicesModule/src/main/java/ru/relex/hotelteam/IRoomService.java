@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.services;
+package ru.relex.hotelteam;
 
 import java.sql.SQLException;
 import java.util.List;

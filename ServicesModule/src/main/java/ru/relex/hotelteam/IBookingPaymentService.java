@@ -1,10 +1,10 @@
-package ru.relex.hotelteam.service;
+package ru.relex.hotelteam;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.domain.BookingPayment;
-import ru.relex.hotelteam.service.dto.BookingPaymentDto;
+import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
 
 public interface IBookingPaymentService {
 

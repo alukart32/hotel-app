@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.services.impl;
+package ru.relex.hotelteam.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +11,7 @@ import ru.relex.hotelteam.dto.RoomBaseDto;
 import ru.relex.hotelteam.dto.RoomWithIdDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 import ru.relex.hotelteam.mapstruct.IRoomMapstruct;
-import ru.relex.hotelteam.services.IRoomService;
+import ru.relex.hotelteam.IRoomService;
 
 @Service
 public class RoomServiceImpl implements IRoomService {

@@ -16,7 +16,7 @@ import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
-import ru.relex.hotelteam.services.IUserService;
+import ru.relex.hotelteam.IUserService;
 
 @RestController
 @RequestMapping(path = "/users",

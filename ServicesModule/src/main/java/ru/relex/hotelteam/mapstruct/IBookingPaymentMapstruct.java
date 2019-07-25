@@ -3,7 +3,7 @@ package ru.relex.hotelteam.service.mapstruct;
 import java.util.List;
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.BookingPayment;
-import ru.relex.hotelteam.service.dto.BookingPaymentDto;
+import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
 
 @Mapper(componentModel = "spring")
 public interface IBookingPaymentMapstruct {

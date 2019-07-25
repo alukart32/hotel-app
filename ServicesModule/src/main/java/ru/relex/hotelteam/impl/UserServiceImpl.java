@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.services.impl;
+package ru.relex.hotelteam.impl;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -10,7 +10,7 @@ import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
 import ru.relex.hotelteam.mapstruct.IUserMapstruct;
-import ru.relex.hotelteam.services.IUserService;
+import ru.relex.hotelteam.IUserService;
 
 @Service
 public class UserServiceImpl implements IUserService {

@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto;
+package ru.relex.hotelteam.dto.bookings;
 
 import java.time.LocalDateTime;
 

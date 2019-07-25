@@ -3,9 +3,9 @@ package ru.relex.hotelteam.service.mapstruct;
 import java.util.List;
 import org.mapstruct.Mapper;
 import ru.relex.hotelteam.db.domain.Booking;
-import ru.relex.hotelteam.service.dto.BookingCreateDto;
-import ru.relex.hotelteam.service.dto.BookingDto;
-import ru.relex.hotelteam.service.dto.BookingUpdateDto;
+import ru.relex.hotelteam.dto.bookings.BookingCreateDto;
+import ru.relex.hotelteam.dto.bookings.BookingDto;
+import ru.relex.hotelteam.dto.bookings.BookingUpdateDto;
 
 @Mapper(componentModel = "spring")
 public interface IBookingMapstruct {

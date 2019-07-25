@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.impl;
+package ru.relex.hotelteam.impl;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.domain.BookingPayment;
 import ru.relex.hotelteam.db.mapper.IBookingPaymentMapper;
-import ru.relex.hotelteam.service.IBookingPaymentService;
-import ru.relex.hotelteam.service.dto.BookingPaymentDto;
+import ru.relex.hotelteam.IBookingPaymentService;
+import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
 import ru.relex.hotelteam.service.mapstruct.IBookingPaymentMapstruct;
 
 /**
