@@ -15,6 +15,8 @@ public interface IUserMapstruct {
 
   User fromDto(UserDto dto);
 
+  List<User> fromDto(List<UserBaseDto> userDtoList);
+
   UserDto toDto(User user);
 
   @Mapping(target = "password", ignore = true)
@@ -43,5 +45,5 @@ public interface IUserMapstruct {
 
   List<UserBaseDto> toDto(List<User> users);
 
-  List<User> fromDto(List<UserBaseDto> userDtoList);
+
 }
