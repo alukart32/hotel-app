@@ -44,7 +44,7 @@ allprojects.each { proj ->
     proj.dependencies {
       implementation project(":CommonsModule")
       testImplementation "org.springframework.boot:spring-boot-starter-test:$springboot_ver"
-   
+
     }
   }
 }

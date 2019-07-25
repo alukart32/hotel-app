@@ -1,17 +1,18 @@
 package ru.relex.hotelteam.db.handlers;
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import ru.relex.hotelteam.shared.model.Authority;
-
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import ru.relex.hotelteam.shared.model.Authority;
 
 public class AuthorityHandler extends BaseTypeHandler<Authority> {
+
   @Override
-  public void setNonNullParameter(PreparedStatement ps, int i, Authority parameter, JdbcType jdbcType) throws SQLException {
+  public void setNonNullParameter(PreparedStatement ps, int i, Authority parameter, JdbcType jdbcType)
+      throws SQLException {
     ps.setInt(i, parameter.getId());
   }
 

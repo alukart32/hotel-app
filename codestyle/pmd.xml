@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    name="Custom ruleset"
-    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-    xsi:noNamespaceSchemaLocation="http://pmd.sourceforge.net/ruleset_xml_schema.xsd"
-    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_xml_schema.xsd">
+  name="Custom ruleset"
+  xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+  xsi:noNamespaceSchemaLocation="http://pmd.sourceforge.net/ruleset_xml_schema.xsd"
+  xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_xml_schema.xsd">
   <description>
     AIM rulesets
   </description>
@@ -73,7 +73,8 @@
 
   <rule ref="category/java/documentation.xml"/>
   <rule ref="category/java/multithreading.xml">
-    <exclude name="UseConcurrentHashMap"/> <!-- Do not usually need. If you want to include this consider of lowering priority (default: 3) -->
+    <exclude
+      name="UseConcurrentHashMap"/> <!-- Do not usually need. If you want to include this consider of lowering priority (default: 3) -->
   </rule>
 
   <rule ref="category/java/documentation.xml/CommentSize">

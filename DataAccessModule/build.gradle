@@ -1,19 +1,19 @@
 dependencies {
 
-    implementation project(":CommonsModule")
+  implementation project(":CommonsModule")
 
-    //SPRING
-    implementation "org.springframework.data:spring-data-commons:2.1.9.RELEASE"
-    implementation "org.springframework.boot:spring-boot-starter-jdbc:2.1.6.RELEASE"
+  //SPRING
+  implementation "org.springframework.data:spring-data-commons:2.1.9.RELEASE"
+  implementation "org.springframework.boot:spring-boot-starter-jdbc:2.1.6.RELEASE"
 
-    //Liquibase
-    implementation "org.yaml:snakeyaml:1.24"
-    implementation "org.liquibase:liquibase-core:3.6.3"
+  //Liquibase
+  implementation "org.yaml:snakeyaml:1.24"
+  implementation "org.liquibase:liquibase-core:3.6.3"
 
-    //Mybatis
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
-    testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.0"
-    
-    //Driver
-    runtimeOnly "org.postgresql:postgresql:42.2.6"
+  //Mybatis
+  implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+  testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.0"
+
+  //Driver
+  runtimeOnly "org.postgresql:postgresql:42.2.6"
 }
