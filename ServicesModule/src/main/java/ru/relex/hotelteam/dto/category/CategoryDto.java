@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto.category;
+package ru.relex.hotelteam.dto.category;
 
 import java.math.BigDecimal;
 

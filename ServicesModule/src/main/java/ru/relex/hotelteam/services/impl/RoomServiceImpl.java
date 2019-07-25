@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.impl;
+package ru.relex.hotelteam.services.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.Room;
 import ru.relex.hotelteam.db.mapper.IRoomMapper;
+import ru.relex.hotelteam.dto.RoomBaseDto;
+import ru.relex.hotelteam.dto.RoomWithIdDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
-import ru.relex.hotelteam.service.dto.RoomBaseDto;
-import ru.relex.hotelteam.service.dto.RoomWithIdDto;
-import ru.relex.hotelteam.service.mapstruct.IRoomMapstruct;
-import ru.relex.hotelteam.service.services.IRoomService;
+import ru.relex.hotelteam.mapstruct.IRoomMapstruct;
+import ru.relex.hotelteam.services.IRoomService;
 
 @Service
 public class RoomServiceImpl implements IRoomService {

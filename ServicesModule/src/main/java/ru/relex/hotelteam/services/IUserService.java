@@ -1,10 +1,10 @@
-package ru.relex.hotelteam.service;
+package ru.relex.hotelteam.services;
 
 import java.util.List;
-import ru.relex.hotelteam.service.dto.UserBaseDto;
-import ru.relex.hotelteam.service.dto.UserDto;
-import ru.relex.hotelteam.service.dto.UserSecurityDto;
-import ru.relex.hotelteam.service.dto.UserUpdateDto;
+import ru.relex.hotelteam.dto.UserBaseDto;
+import ru.relex.hotelteam.dto.UserDto;
+import ru.relex.hotelteam.dto.UserSecurityDto;
+import ru.relex.hotelteam.dto.UserUpdateDto;
 
 public interface IUserService {
 

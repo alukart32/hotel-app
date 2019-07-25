@@ -1,16 +1,16 @@
-package ru.relex.hotelteam.service.impl;
+package ru.relex.hotelteam.services.impl;
 
 import java.util.List;
 import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
-import ru.relex.hotelteam.service.IUserService;
-import ru.relex.hotelteam.service.dto.UserBaseDto;
-import ru.relex.hotelteam.service.dto.UserDto;
-import ru.relex.hotelteam.service.dto.UserSecurityDto;
-import ru.relex.hotelteam.service.dto.UserUpdateDto;
-import ru.relex.hotelteam.service.mapstruct.IUserMapstruct;
+import ru.relex.hotelteam.dto.UserBaseDto;
+import ru.relex.hotelteam.dto.UserDto;
+import ru.relex.hotelteam.dto.UserSecurityDto;
+import ru.relex.hotelteam.dto.UserUpdateDto;
+import ru.relex.hotelteam.mapstruct.IUserMapstruct;
+import ru.relex.hotelteam.services.IUserService;
 
 @Service
 public class UserServiceImpl implements IUserService {

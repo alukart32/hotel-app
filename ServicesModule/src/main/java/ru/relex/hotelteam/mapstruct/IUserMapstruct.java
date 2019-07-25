@@ -1,13 +1,14 @@
-package ru.relex.hotelteam.service.mapstruct;
+package ru.relex.hotelteam.mapstruct;
 
 
 import java.util.List;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.relex.hotelteam.db.domain.User;
-import ru.relex.hotelteam.service.dto.UserBaseDto;
-import ru.relex.hotelteam.service.dto.UserDto;
-import ru.relex.hotelteam.service.dto.UserSecurityDto;
-import ru.relex.hotelteam.service.dto.UserUpdateDto;
+import ru.relex.hotelteam.dto.UserBaseDto;
+import ru.relex.hotelteam.dto.UserDto;
+import ru.relex.hotelteam.dto.UserSecurityDto;
+import ru.relex.hotelteam.dto.UserUpdateDto;
 
 @Mapper(componentModel = "spring")
 public interface IUserMapstruct {
