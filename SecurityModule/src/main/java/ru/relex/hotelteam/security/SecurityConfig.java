@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import ru.relex.hotelteam.security.filter.HotelAppAuthFilter;
+import ru.relex.hotelteam.security.filter.JwtAccessFilter;
 
 
 /**
@@ -87,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
-    var filter = new ShowcaseAuthFilter(successHandler, authenticationManager());
+    var filter = new HotelAppAuthFilter(successHandler, authenticationManager());
     http
         .csrf().disable()// отключаем csrf и cors - они нам на текущем этапе не нужны
         .cors().disable()
@@ -105,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          */
         .addFilter(filter) // добавляем фильтр который будет авторизировать пользователя в окне логина
         .addFilterBefore(new JwtAccessFilter(),
-            ShowcaseAuthFilter.class)
+            HotelAppAuthFilter.class)
     ;
 
   }
