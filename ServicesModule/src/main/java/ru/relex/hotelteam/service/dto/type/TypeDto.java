@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto.CTFwithPrice;
+package ru.relex.hotelteam.service.dto.type;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto.CTFwithoutPrice;
+package ru.relex.hotelteam.service.dto.category;
 
 public class CategoryDtoWithNoPricemult {
 

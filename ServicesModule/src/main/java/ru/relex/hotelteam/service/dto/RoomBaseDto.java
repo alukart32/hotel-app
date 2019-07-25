@@ -2,9 +2,9 @@ package ru.relex.hotelteam.service.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import ru.relex.hotelteam.service.dto.CTFwithoutPrice.CategoryDtoWithNoPricemult;
-import ru.relex.hotelteam.service.dto.CTFwithoutPrice.FacilityDtoWithNoPrice;
-import ru.relex.hotelteam.service.dto.CTFwithoutPrice.TypeDtoWithNoPrice;
+import ru.relex.hotelteam.service.dto.category.CategoryDtoWithNoPricemult;
+import ru.relex.hotelteam.service.dto.facility.FacilityDtoWithNoPrice;
+import ru.relex.hotelteam.service.dto.type.TypeDtoWithNoPrice;
 
 /**
  * Author: Yakimov Date: 20.07.2019 Time: 21:04
