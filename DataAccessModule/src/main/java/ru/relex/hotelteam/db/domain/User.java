@@ -63,14 +63,6 @@ public class User {
     this.middleName = middleName;
   }
 
-  public Authority getAuthority() {
-    return authority;
-  }
-
-  public void setAuthority(Authority authority) {
-    this.authority = authority;
-  }
-
   public Date getBirthDate() {
     return birthDate;
   }
@@ -85,6 +77,14 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public Authority getAuthority() {
+    return authority;
+  }
+
+  public void setAuthority(Authority authority) {
+    this.authority = authority;
   }
 }
 

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.hotelteam.db.mapper.IBookingMapper">
+
+  <resultMap id="bookingMap" type="Booking">
+    <id property="id" column="booking_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="roomId" column="room_id"/>
+    <result property="checkInDate" column="check_in"/>
+    <result property="checkOutDate" column="check_out"/>
+    <result property="realCheckInDate" column="real_check_in"/>
+    <result property="realCheckOutDate" column="real_check_out"/>
+  </resultMap>
+
+  <select id="createBooking" resultType="Booking">
+    INSERT INTO inprog.bookings(user_id, check_in, check_out, room_id)
+    VALUES (#{userId}, #{checkInDate}, #{checkOutDate}, #{roomId})
+    RETURNING
+      booking_id as id,
+      user_id as userId,
+      room_id as roomId,
+      check_in as checkInDate,
+      check_out as checkOutDate
+  </select>
+
+  <select id="getBookingById" resultMap="bookingMap">
+        SELECT
+               booking_id,
+               user_id,
+               room_id,
+               check_in,
+               check_out,
+               real_check_in,
+               real_check_out
+        FROM inprog.bookings
+        WHERE booking_id = #{id}
+    </select>
+
+  <select id="getBookingByRoomIdBetweenDates" resultMap="bookingMap">
+    SELECT
+          booking_id,
+          user_id,
+          room_id,
+          check_in,
+          check_out,
+          real_check_in,
+          real_check_out
+    FROM inprog.bookings
+    WHERE room_id = #{roomId} AND inprog.is_free(#{roomId}, #{from}, #{to})
+  </select>
+
+  <select id="listBookingsByUserId" resultMap="bookingMap">
+        SELECT
+               booking_id,
+               room_id,
+               user_id,
+               check_in,
+               check_out,
+               real_check_in,
+               real_check_out
+        FROM inprog.bookings
+        WHERE user_id = #{userId}
+    </select>
+
+  <select id="listBookingsByRoomId" resultMap="bookingMap">
+        SELECT
+               booking_id,
+               user_id,
+               check_in,
+               check_out,
+               real_check_in,
+               real_check_out
+        FROM inprog.bookings
+        WHERE user_id = #{userId}
+    </select>
+
+  <select id="listBookings" resultMap="bookingMap">
+        SELECT
+               booking_id,
+               user_id,
+               room_id,
+               check_in,
+               check_out,
+               real_check_in,
+               real_check_out
+        FROM inprog.bookings
+    </select>
+
+  <update id="updateBooking" parameterType="Booking">
+    UPDATE inprog.bookings
+    <set>
+      <if test="roomId != null and not roomId == 0">room_id = #{roomId},</if>
+      <if test="userId != null and not userId == 0">user_id = #{userId},</if>
+      <if test="checkInDate != null">check_in = #{checkInDate},</if>
+      <if test="checkOutDate != null">check_out = #{checkOutDate},</if>
+      <if test="realCheckInDate != null">real_check_in = #{realCheckInDate},</if>
+      <if test="realCheckOutDate != null">real_check_out = #{realCheckOutDate}</if>
+    </set>
+    WHERE booking_id = #{id}
+  </update>
+
+  <update id="updateRealCheckDate" parameterType="Booking">
+    UPDATE inprog.bookings
+    <set>
+      <if test="realCheckIn != null">real_check_in = #{realCheckIn},</if>
+      <if test="realCheckOut != null">real_check_out = #{realCheckOut}</if>
+    </set>
+    WHERE booking_id = #{id}
+  </update>
+
+  <delete id="deleteBooking">
+        DELETE
+        FROM inprog.bookings
+        WHERE booking_id = #{id}
+  </delete>
+</mapper>

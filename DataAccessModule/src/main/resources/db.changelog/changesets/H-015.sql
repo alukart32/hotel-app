@@ -1,0 +1,1 @@
+ALTER TABLE inprog.payments ADD COLUMN paid BOOLEAN DEFAULT FALSE ;

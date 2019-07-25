@@ -1,0 +1,1 @@
+ALTER TABLE inprog.payments ALTER COLUMN date DROP NOT NULL;

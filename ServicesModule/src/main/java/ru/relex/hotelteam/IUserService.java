@@ -1,16 +1,17 @@
-package ru.relex.hotelteam.services;
+package ru.relex.hotelteam;
 
 import java.util.List;
 import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
+import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 
 public interface IUserService {
 
   UserBaseDto createUser(UserDto user);
 
-  UserBaseDto findById(int id);
+  UserBaseDto findById(int id) throws EntityNotFoundException;
 
   List<UserBaseDto> listUsers();
 
