@@ -8,14 +8,11 @@ import ru.relex.hotelteam.db.domain.Room;
 import ru.relex.hotelteam.dto.RoomBaseDto;
 import ru.relex.hotelteam.dto.RoomWithIdDto;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = IFacilityMapstruct.class)
 public interface IRoomMapstruct {
 
   @Mapping(target = "type", ignore = true)
   @Mapping(target = "category", ignore = true)
-  @Mapping(source = "facilities", target = "facilities",
-      nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-      nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
   @Mapping(source = "typeId", target = "type.id")
   @Mapping(source = "places", target = "type.places")
   @Mapping(source = "twinBed", target = "type.twinbed")
