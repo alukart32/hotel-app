@@ -20,244 +20,246 @@
 
 <xsl:transform version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:key match="/BugCollection/BugInstance" name="lbc-code-key" use="concat(@category,@abbrev)"/>
+   <xsl:key match="/BugCollection/BugInstance" name="lbc-code-key" use="concat(@category,@abbrev)"/>
 
-  <xsl:key match="/BugCollection/BugInstance" name="lbc-bug-key" use="concat(@category,@abbrev,@type)"/>
-  <xsl:key match="/BugCollection/BugInstance" name="lbp-class-b-t" use="concat(Class/@classname,@type)"/>
-  <xsl:output
-    doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-    encoding="UTF-8"
-    indent="yes"
-    method="xml"/>
-  <xsl:template match="/">
+   <xsl:key match="/BugCollection/BugInstance" name="lbc-bug-key" use="concat(@category,@abbrev,@type)"/>
+   <xsl:key match="/BugCollection/BugInstance" name="lbp-class-b-t" use="concat(Class/@classname,@type)"/>
+   <xsl:output
+     doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+     doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+     encoding="UTF-8"
+     indent="yes"
+     method="xml"/>
+   <xsl:template match="/">
 
-    <html>
-      <body>
-        <div style='' id='menuWrapper'>
-          <div id="navcontainer">
+      <html>
+         <body>
+            <div style='' id='menuWrapper'>
+               <div id="navcontainer">
             <ul id="navlist">
-              <li>
-                <a class="current" href="#" id='summary' onclick="selectMenu('summary'); return false;">Summary</a>
-              </li>
-              <li>
-                <a class="none" href="#" id='history' onclick="selectMenu('history'); return false;">History</a>
-              </li>
-              <li>
-                <a class="none" href="#" id='listByCategories' onclick="selectMenu('listByCategories'); return false;">
-                  Browse By Categories
-                </a>
-              </li>
-              <li>
-                <a class="none" href="#" id='listByPackages' onclick="selectMenu('listByPackages'); return false;">
-                  Browse by Packages
-                </a>
-              </li>
-              <li>
-                <a class="none" href="#" id='info' onclick="selectMenu('info'); return false;">Info</a>
-              </li>
+               <li>
+                  <a class="current" href="#" id='summary' onclick="selectMenu('summary'); return false;">Summary</a>
+               </li>
+               <li>
+                  <a class="none" href="#" id='history' onclick="selectMenu('history'); return false;">History</a>
+               </li>
+               <li>
+                  <a class="none" href="#" id='listByCategories'
+                    onclick="selectMenu('listByCategories'); return false;">Browse By Categories
+                  </a>
+               </li>
+               <li>
+                  <a class="none" href="#" id='listByPackages' onclick="selectMenu('listByPackages'); return false;">
+                     Browse by Packages
+                  </a>
+               </li>
+               <li>
+                  <a class="none" href="#" id='info' onclick="selectMenu('info'); return false;">Info</a>
+               </li>
             </ul>
-          </div>
-        </div>
-
-        <div id='displayWrapper'>
-
-          <div style='height:25px;'>
-            <div style='float:right;' id='messageContainer'>
-              Computing data...
+               </div>
             </div>
-            <div style='display:none;' id='filterWrapper'>
-              <form name='findbugsForm'>
-                <div id='filterContainer'>
+
+            <div id='displayWrapper'>
+
+               <div style='height:25px;'>
+                  <div style='float:right;' id='messageContainer'>
+                     Computing data...
+                  </div>
+                  <div style='display:none;' id='filterWrapper'>
+                     <form name='findbugsForm'>
+                        <div id='filterContainer'>
                   <select name='versions' onchange='filter()'>
-                    <option value="loading">Loading filter...</option>
+                     <option value="loading">Loading filter...</option>
                   </select>
                   <select name='priorities' onchange='filter()'>
-                    <option value="loading">Loading filter...</option>
+                     <option value="loading">Loading filter...</option>
                   </select>
-                </div>
-              </form>
-            </div>
-            <div style='display:none;' id='historyControlWrapper'>
-              <form name="findbugsHistoryControlForm">
-                <div id='historyControlContainer'>
-                  <input alt='Include fixed introduced bugs.' name='includeFixedIntroducedBugs'
-                    onclick='includeFixedIntroducedBugsInHistory()' type='checkbox'
-                    value='checked'/>
-                  Include counts of introduced bugs that were fixed in later releases.
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class='displayContainer' id='summaryContainer'>
+                        </div>
+                     </form>
+                  </div>
+                  <div style='display:none;' id='historyControlWrapper'>
+                     <form name="findbugsHistoryControlForm">
+                        <div id='historyControlContainer'>
+                           <input alt='Include fixed introduced bugs.' name='includeFixedIntroducedBugs'
+                             onclick='includeFixedIntroducedBugsInHistory()' type='checkbox'
+                             value='checked'/>
+                           Include counts of introduced bugs that were fixed in later releases.
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <div class='displayContainer' id='summaryContainer'>
             <h3>Package Summary</h3>
             <table>
-              <tr>
-                <th>Package</th>
-                <th>Code Size</th>
-                <th>Bugs</th>
-                <th>Bugs p1</th>
-                <th>Bugs p2</th>
-                <th>Bugs p3</th>
-                <th>Bugs Exp.</th>
-              </tr>
-              <tr>
-                <td class='summary-name'>
-                  Overall
-                  (<xsl:value-of select="/BugCollection/FindBugsSummary/@num_packages"/> packages),
-                  (<xsl:value-of select="/BugCollection/FindBugsSummary/@total_classes"/> classes)
-                </td>
-                <td class='summary-size'>
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@total_size"/>
-                </td>
-                <td class='summary-priority-all'>
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@total_bugs"/>
-                </td>
-                <td class='summary-priority-1'>
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_1"/>
-                </td>
-                <td class='summary-priority-2'>
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_2"/>
-                </td>
-                <td class='summary-priority-3'>
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_3"/>
-                </td>
-                <td class='summary-priority-4'>
-                  <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_4"/>
-                </td>
-              </tr>
-              <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats">
-                <xsl:if test="@total_bugs!='0'">
-                  <tr>
-                    <td class='summary-name'>
-                      <xsl:value-of select="@package"/>
-                    </td>
-                    <td class='summary-size'>
-                      <xsl:value-of select="@total_size"/>
-                    </td>
-                    <td class='summary-priority-all'>
-                      <xsl:value-of select="@total_bugs"/>
-                    </td>
-                    <td class='summary-priority-1'>
-                      <xsl:value-of select="@priority_1"/>
-                    </td>
-                    <td class='summary-priority-2'>
-                      <xsl:value-of select="@priority_2"/>
-                    </td>
-                    <td class='summary-priority-3'>
-                      <xsl:value-of select="@priority_3"/>
-                    </td>
-                    <td class='summary-priority-4'>
-                      <xsl:value-of select="@priority_4"/>
-                    </td>
-                  </tr>
-                </xsl:if>
-                <xsl:sort order="ascending" select="@package"/>
-              </xsl:for-each>
+               <tr>
+                  <th>Package</th>
+                  <th>Code Size</th>
+                  <th>Bugs</th>
+                  <th>Bugs p1</th>
+                  <th>Bugs p2</th>
+                  <th>Bugs p3</th>
+                  <th>Bugs Exp.</th>
+               </tr>
+               <tr>
+                  <td class='summary-name'>
+                     Overall
+                     (<xsl:value-of select="/BugCollection/FindBugsSummary/@num_packages"/> packages),
+                     (<xsl:value-of select="/BugCollection/FindBugsSummary/@total_classes"/> classes)
+                  </td>
+                  <td class='summary-size'>
+                     <xsl:value-of select="/BugCollection/FindBugsSummary/@total_size"/>
+                  </td>
+                  <td class='summary-priority-all'>
+                     <xsl:value-of select="/BugCollection/FindBugsSummary/@total_bugs"/>
+                  </td>
+                  <td class='summary-priority-1'>
+                     <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_1"/>
+                  </td>
+                  <td class='summary-priority-2'>
+                     <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_2"/>
+                  </td>
+                  <td class='summary-priority-3'>
+                     <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_3"/>
+                  </td>
+                  <td class='summary-priority-4'>
+                     <xsl:value-of select="/BugCollection/FindBugsSummary/@priority_4"/>
+                  </td>
+               </tr>
+               <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats">
+                  <xsl:if test="@total_bugs!='0'">
+                     <tr>
+                        <td class='summary-name'>
+                           <xsl:value-of select="@package"/>
+                        </td>
+                        <td class='summary-size'>
+                           <xsl:value-of select="@total_size"/>
+                        </td>
+                        <td class='summary-priority-all'>
+                           <xsl:value-of select="@total_bugs"/>
+                        </td>
+                        <td class='summary-priority-1'>
+                           <xsl:value-of select="@priority_1"/>
+                        </td>
+                        <td class='summary-priority-2'>
+                           <xsl:value-of select="@priority_2"/>
+                        </td>
+                        <td class='summary-priority-3'>
+                           <xsl:value-of select="@priority_3"/>
+                        </td>
+                        <td class='summary-priority-4'>
+                           <xsl:value-of select="@priority_4"/>
+                        </td>
+                     </tr>
+                  </xsl:if>
+                  <xsl:sort order="ascending" select="@package"/>
+               </xsl:for-each>
             </table>
-          </div>
+               </div>
 
-          <div class='displayContainer' id='infoContainer'>
+               <div class='displayContainer' id='infoContainer'>
             <div id='analyzed-files'>
-              <h3>Analyzed Files:</h3>
-              <ul>
-                <xsl:for-each select="/BugCollection/Project/Jar">
-                  <li>
-                    <xsl:apply-templates/>
-                  </li>
-                </xsl:for-each>
-              </ul>
+               <h3>Analyzed Files:</h3>
+               <ul>
+                  <xsl:for-each select="/BugCollection/Project/Jar">
+                     <li>
+                        <xsl:apply-templates/>
+                     </li>
+                  </xsl:for-each>
+               </ul>
             </div>
             <div id='used-libraries'>
-              <h3>Used Libraries:</h3>
-              <ul>
-                <xsl:for-each select="/BugCollection/Project/AuxClasspathEntry">
-                  <li>
-                    <xsl:apply-templates/>
-                  </li>
-                </xsl:for-each>
-                <xsl:if test="count(/BugCollection/Project/AuxClasspathEntry)=0">
-                  <li>None</li>
-                </xsl:if>
-              </ul>
+               <h3>Used Libraries:</h3>
+               <ul>
+                  <xsl:for-each select="/BugCollection/Project/AuxClasspathEntry">
+                     <li>
+                        <xsl:apply-templates/>
+                     </li>
+                  </xsl:for-each>
+                  <xsl:if test="count(/BugCollection/Project/AuxClasspathEntry)=0">
+                     <li>None</li>
+                  </xsl:if>
+               </ul>
             </div>
             <div id='analysis-error'>
-              <h3>Analysis Errors:</h3>
-              <ul>
-                <xsl:if test="$error-count=0">
-                  <li>None</li>
-                </xsl:if>
-                <xsl:if test="$error-count>0">
-                  <li>Missing ref classes for analysis:
-                    <ul>
-                      <xsl:for-each select="/BugCollection/Errors/MissingClass">
-                        <li>
-                          <xsl:apply-templates/>
-                        </li>
-                      </xsl:for-each>
-                    </ul>
-                  </li>
-                </xsl:if>
-                <xsl:variable name="error-count"
-                  select="count(/BugCollection/Errors/MissingClass)"/>
-              </ul>
+               <h3>Analysis Errors:</h3>
+               <ul>
+                  <xsl:if test="$error-count=0">
+                     <li>None</li>
+                  </xsl:if>
+                  <xsl:if test="$error-count>0">
+                     <li>Missing ref classes for analysis:
+                        <ul>
+                           <xsl:for-each select="/BugCollection/Errors/MissingClass">
+                              <li>
+                                 <xsl:apply-templates/>
+                              </li>
+                           </xsl:for-each>
+                        </ul>
+                     </li>
+                  </xsl:if>
+                  <xsl:variable name="error-count"
+                    select="count(/BugCollection/Errors/MissingClass)"/>
+               </ul>
             </div>
-          </div>
-          <div class='displayContainer' id='historyContainer'>Loading...</div>
-          <div class='displayContainer' id='listByCategoriesContainer'>Loading...</div>
-          <div class='displayContainer' id='listByPackagesContainer'>Loading...</div>
-        </div>
-
-        <div style='display:none;' id='bug-collection'>
-          <!-- advanced tooltips -->
-          <xsl:for-each select="/BugCollection/BugPattern">
-            <div>
-              <xsl:attribute name="id">tip-<xsl:value-of select="$b-t"/>
-              </xsl:attribute>
-              <xsl:attribute name="class">tip</xsl:attribute>
-              <xsl:value-of disable-output-escaping="yes" select="/BugCollection/BugPattern[@type=$b-t]/Details"/>
+               </div>
+               <div class='displayContainer' id='historyContainer'>Loading...</div>
+               <div class='displayContainer' id='listByCategoriesContainer'>Loading...</div>
+               <div class='displayContainer' id='listByPackagesContainer'>Loading...</div>
             </div>
-            <xsl:variable name="b-t">
-              <xsl:value-of select="@type"/>
-            </xsl:variable>
-          </xsl:for-each>
 
-          <!-- bug descriptions - hidden -->
-          <xsl:for-each select="/BugCollection/BugInstance[not(@last)]">
+            <div style='display:none;' id='bug-collection'>
+               <!-- advanced tooltips -->
+               <xsl:for-each select="/BugCollection/BugPattern">
+                  <div>
+                     <xsl:attribute name="id">tip-<xsl:value-of select="$b-t"/>
+                     </xsl:attribute>
+                     <xsl:attribute name="class">tip</xsl:attribute>
+                     <xsl:value-of disable-output-escaping="yes"
+                       select="/BugCollection/BugPattern[@type=$b-t]/Details"/>
+                  </div>
+                  <xsl:variable name="b-t">
+                     <xsl:value-of select="@type"/>
+                  </xsl:variable>
+               </xsl:for-each>
+
+               <!-- bug descriptions - hidden -->
+               <xsl:for-each select="/BugCollection/BugInstance[not(@last)]">
             <div style="display:none;" class='bug'>
-              <div class="b-d">
-                <xsl:value-of disable-output-escaping="no" select="LongMessage"/>
-              </div>
-              <xsl:attribute name="id">b-uid-<xsl:value-of select="@instanceHash"/>-<xsl:value-of
-                select="@instanceOccurrenceNum"/>
-              </xsl:attribute>
-              <xsl:for-each select="*/Message">
-                <div class="b-r">
-                  <xsl:apply-templates/>
-                </div>
-              </xsl:for-each>
+               <div class="b-d">
+                  <xsl:value-of disable-output-escaping="no" select="LongMessage"/>
+               </div>
+               <xsl:attribute name="id">b-uid-<xsl:value-of select="@instanceHash"/>-<xsl:value-of
+                 select="@instanceOccurrenceNum"/>
+               </xsl:attribute>
+               <xsl:for-each select="*/Message">
+                  <div class="b-r">
+                     <xsl:apply-templates/>
+                  </div>
+               </xsl:for-each>
             </div>
-          </xsl:for-each>
-        </div>
+               </xsl:for-each>
+            </div>
 
-        <h3>
-          <a href="https://spotbugs.github.io">SpotBugs</a>
-          (
-          <xsl:choose>
-            <xsl:otherwise>
-              <xsl:value-of select="/BugCollection/Project/@filename"/>
-            </xsl:otherwise>
-            <xsl:when test='string-length(/BugCollection/Project/@projectName)>0'>
-              <xsl:value-of select="/BugCollection/Project/@projectName"/>
-            </xsl:when>
-          </xsl:choose>
-          )
-          Analysis for
-          <xsl:value-of select="/BugCollection/@version"/>
-        </h3>
-      </body>
-      <head>
-        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-        <script type='text/javascript'><xsl:text disable-output-escaping='yes'><![CDATA[
+            <h3>
+               <a href="https://spotbugs.github.io">SpotBugs</a>
+               (
+               <xsl:choose>
+                  <xsl:otherwise>
+                     <xsl:value-of select="/BugCollection/Project/@filename"/>
+                  </xsl:otherwise>
+                  <xsl:when test='string-length(/BugCollection/Project/@projectName)>0'>
+                     <xsl:value-of select="/BugCollection/Project/@projectName"/>
+                  </xsl:when>
+               </xsl:choose>
+               )
+               Analysis for
+               <xsl:value-of select="/BugCollection/@version"/>
+            </h3>
+         </body>
+         <head>
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+            <script type='text/javascript'><xsl:text disable-output-escaping='yes'><![CDATA[
          var menus            = new Array('summary','info','history','listByCategories','listByPackages');
          var selectedMenuId   = "summary";
          var selectedVersion  = -1;
@@ -997,304 +999,302 @@
             init();
          };
       ]]></xsl:text>
-        </script>
-        <script type='text/javascript'>
-          // versions fields: release id, release label
-          var versions = new Array(
-          <xsl:for-each select="/BugCollection/History/AppVersion">
-            [ "<xsl:value-of select="@sequence"/>", "<xsl:value-of select="@release"/>" ],
-          </xsl:for-each>
-          [ "
-          <xsl:for-each select="/BugCollection/BugCategory">
-            <xsl:sort order="ascending" select="@category"/>
-            [ "<xsl:value-of select="@category"/>", "<xsl:value-of select="Description"/>" ],
-          </xsl:for-each>
-          ", "
-          <xsl:for-each select="/BugCollection/BugCode">
-            <xsl:sort order="ascending" select="@abbrev"/>
-            [ "<xsl:value-of select="@abbrev"/>", "<xsl:value-of select="Description"/>" ],
-          </xsl:for-each>
-          " ]
-          );
+            </script>
+            <script type='text/javascript'>
+               // versions fields: release id, release label
+               var versions = new Array(
+               <xsl:for-each select="/BugCollection/History/AppVersion">
+                  [ "<xsl:value-of select="@sequence"/>", "<xsl:value-of select="@release"/>" ],
+               </xsl:for-each>
+               [ "
+               <xsl:for-each select="/BugCollection/BugCategory">
+                  <xsl:sort order="ascending" select="@category"/>
+                  [ "<xsl:value-of select="@category"/>", "<xsl:value-of select="Description"/>" ],
+               </xsl:for-each>
+               ", "
+               <xsl:for-each select="/BugCollection/BugCode">
+                  <xsl:sort order="ascending" select="@abbrev"/>
+                  [ "<xsl:value-of select="@abbrev"/>", "<xsl:value-of select="Description"/>" ],
+               </xsl:for-each>
+               " ]
+               );
 
-          // categories fields: category id, category label
-          var categories = new Array(
-          <xsl:for-each select="/BugCollection/BugPattern">
-            <xsl:sort order="ascending" select="@type"/>
-            [ "<xsl:value-of select="@category"/>", "<xsl:value-of select="@abbrev"/>", "<xsl:value-of select="@type"/>",
-            "<xsl:value-of select="translate(ShortDescription, '&quot;', $apos)"/>" ],
+               // categories fields: category id, category label
+               var categories = new Array(
+               <xsl:for-each select="/BugCollection/BugPattern">
+                  <xsl:sort order="ascending" select="@type"/>
+                  [ "<xsl:value-of select="@category"/>", "<xsl:value-of select="@abbrev"/>", "<xsl:value-of
+                 select="@type"/>", "<xsl:value-of select="translate(ShortDescription, '&quot;', $apos)"/>" ],
 
-          </xsl:for-each>
-          [ "", "" ]
-          );
+               </xsl:for-each>
+               [ "", "" ]
+               );
 
-          // codes fields: code id, code label
-          var codes = new Array(
-          <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats/ClassStats">
-            <xsl:sort order="ascending" select="@class"/>
-            [ "<xsl:value-of select="@class"/>", "<xsl:value-of select="../@package"/>", "<xsl:value-of
-            select="@interface"/>", "<xsl:value-of select="@bugs"/>", "<xsl:value-of select="@priority_1"/>",
-            "<xsl:value-of select="@priority_2"/>", "<xsl:value-of select="@priority_3"/>", "<xsl:value-of
-            select="@priority_4"/>" ],
-          </xsl:for-each>
-          [ "", "" ]
-          );
+               // codes fields: code id, code label
+               var codes = new Array(
+               <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats/ClassStats">
+                  <xsl:sort order="ascending" select="@class"/>
+                  [ "<xsl:value-of select="@class"/>", "<xsl:value-of select="../@package"/>", "<xsl:value-of
+                 select="@interface"/>", "<xsl:value-of select="@bugs"/>", "<xsl:value-of select="@priority_1"/>",
+                  "<xsl:value-of select="@priority_2"/>", "<xsl:value-of select="@priority_3"/>", "<xsl:value-of
+                 select="@priority_4"/>" ],
+               </xsl:for-each>
+               [ "", "" ]
+               );
 
-          // patterns fields: category id, code id, pattern id, pattern label
-          var patterns = new Array(
-          <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats">
-            <xsl:sort order="ascending" select="@package"/>
-            [ "<xsl:value-of select="@package"/>", "<xsl:value-of select="@total_bugs"/>", "<xsl:value-of
-            select="@priority_1"/>", "<xsl:value-of select="@priority_2"/>", "<xsl:value-of select="@priority_3"/>",
-            "<xsl:value-of select="@priority_4"/>" ],
-          </xsl:for-each>
-          [ "", "", "", "" ]
-          );
+               // patterns fields: category id, code id, pattern id, pattern label
+               var patterns = new Array(
+               <xsl:for-each select="/BugCollection/FindBugsSummary/PackageStats">
+                  <xsl:sort order="ascending" select="@package"/>
+                  [ "<xsl:value-of select="@package"/>", "<xsl:value-of select="@total_bugs"/>", "<xsl:value-of
+                 select="@priority_1"/>", "<xsl:value-of select="@priority_2"/>", "<xsl:value-of select="@priority_3"/>",
+                  "<xsl:value-of select="@priority_4"/>" ],
+               </xsl:for-each>
+               [ "", "", "", "" ]
+               );
 
-          // class stats fields: class name, package name, isInterface, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
-          var classStats = new Array(
-          <xsl:for-each select="/BugCollection/BugInstance[string-length(@last)=0]">
+               // class stats fields: class name, package name, isInterface, total bugs, bugs p1, bugs p2, bugs p3, bugs
+               p4
+               var classStats = new Array(
+               <xsl:for-each select="/BugCollection/BugInstance[string-length(@last)=0]">
 
-            [ "
-            <xsl:choose>
-              <xsl:otherwise>
-                <xsl:value-of select="@first"/>
-              </xsl:otherwise>
-              <xsl:when test='string-length(@first)=0'>0</xsl:when>
-            </xsl:choose>
-            -<xsl:value-of select="@instanceOccurrenceNum"/>",
-            "<xsl:value-of select="@category"/>",
-            "<xsl:value-of select="@abbrev"/>",
-            "<xsl:value-of select="@type"/>",
-            <xsl:value-of select="@priority"/>,
-            <xsl:value-of select="@instanceHash"/>
-            ,
-            "<xsl:value-of select="Class/@classname"/>",
-            ""],
-          </xsl:for-each>
-          [ "", "", "", "", "", "", "", "" ]
-          );
+                  [ "
+                  <xsl:choose>
+                     <xsl:otherwise>
+                        <xsl:value-of select="@first"/>
+                     </xsl:otherwise>
+                     <xsl:when test='string-length(@first)=0'>0</xsl:when>
+                  </xsl:choose>
+                  -<xsl:value-of select="@instanceOccurrenceNum"/>",
+                  "<xsl:value-of select="@category"/>",
+                  "<xsl:value-of select="@abbrev"/>",
+                  "<xsl:value-of select="@type"/>",
+                  <xsl:value-of select="@priority"/>,
+                  <xsl:value-of select="@instanceHash"/>,
+                  "<xsl:value-of select="Class/@classname"/>",
+                  ""],
+               </xsl:for-each>
+               [ "", "", "", "", "", "", "", "" ]
+               );
 
-          // package stats fields: package name, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
-          var packageStats = new Array(
-          <xsl:for-each select="/BugCollection/BugInstance[string-length(@last)>0]">
+               // package stats fields: package name, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
+               var packageStats = new Array(
+               <xsl:for-each select="/BugCollection/BugInstance[string-length(@last)>0]">
 
-            [ "
-            <xsl:choose>
-              <xsl:otherwise>
-                <xsl:value-of select="@first"/>
-              </xsl:otherwise>
-              <xsl:when test='string-length(@first)=0'>0</xsl:when>
-            </xsl:choose>
-            -
-            <xsl:choose>
-              <xsl:otherwise>-42</xsl:otherwise>
-              <xsl:when test='string-length(@last)>0'>
-                <xsl:value-of select="@last"/>
-              </xsl:when>
-            </xsl:choose>
-            ",
-            "<xsl:value-of select="@category"/>",
-            "<xsl:value-of select="@abbrev"/>",
-            "<xsl:value-of select="@type"/>",
-            <xsl:value-of select="@priority"/>,
-            <xsl:value-of select="@instanceHash"/>
-            ,
-            <xsl:value-of select="@instanceOccurrenceNum"/>
-            ,
-            "<xsl:value-of select="Class/@classname"/>" ],
-          </xsl:for-each>
-          [ "", "", "", "", "", "" ]
-          );
+                  [ "
+                  <xsl:choose>
+                     <xsl:otherwise>
+                        <xsl:value-of select="@first"/>
+                     </xsl:otherwise>
+                     <xsl:when test='string-length(@first)=0'>0</xsl:when>
+                  </xsl:choose>
+                  -
+                  <xsl:choose>
+                     <xsl:otherwise>-42</xsl:otherwise>
+                     <xsl:when test='string-length(@last)>0'>
+                        <xsl:value-of select="@last"/>
+                     </xsl:when>
+                  </xsl:choose>
+                  ",
+                  "<xsl:value-of select="@category"/>",
+                  "<xsl:value-of select="@abbrev"/>",
+                  "<xsl:value-of select="@type"/>",
+                  <xsl:value-of select="@priority"/>,
+                  <xsl:value-of select="@instanceHash"/>,
+                  <xsl:value-of select="@instanceOccurrenceNum"/>,
+                  "<xsl:value-of select="Class/@classname"/>" ],
+               </xsl:for-each>
+               [ "", "", "", "", "", "" ]
+               );
 
 
-          // bugs fields: bug id, category id, code id, pattern id, priority, release id, class name, packagename
-          (populated by javascript)
-          var bugs = new Array(
-          <xsl:value-of select="/BugCollection/@sequence"/>
-          [ "", "", "", "", 0, 0, "", "" ]
-          );
+               // bugs fields: bug id, category id, code id, pattern id, priority, release id, class name, packagename
+               (populated by javascript)
+               var bugs = new Array(
+               <xsl:value-of select="/BugCollection/@sequence"/>
+               [ "", "", "", "", 0, 0, "", "" ]
+               );
 
-          // bugs fields: bug id, category id, code id, pattern id, priority, first release id, fixed release id, class
-          name
-          var fixedBugs = new Array(
-          <xsl:value-of select="/BugCollection/@release"/>
-          [ "", "", "", "", 0, 0, 0, "" ]
-          );
+               // bugs fields: bug id, category id, code id, pattern id, priority, first release id, fixed release id,
+               class name
+               var fixedBugs = new Array(
+               <xsl:value-of select="/BugCollection/@release"/>
+               [ "", "", "", "", 0, 0, 0, "" ]
+               );
 
-        </script>
-        <style type="text/css">
-          html, body, div, form {
-          margin:0px;
-          padding:0px;
-          }
-          body {
-          padding:3px;
-          }
-          a, a:link , a:active, a:visited, a:hover {
-          text-decoration: none; color: black;
-          }
-          #navlist {
-          padding: 3px 0;
-          margin-left: 0;
-          border-bottom: 1px solid #778;
-          font: bold 12px Verdana, sans-serif;
-          }
-          #navlist li {
-          list-style: none;
-          margin: 0;
-          display: inline;
-          }
-          #navlist li a {
-          padding: 3px 0.5em;
-          margin-left: 3px;
-          border: 1px solid #778;
-          border-bottom: none;
-          background: #DDE;
-          text-decoration: none;
-          }
-          #navlist li a:link { color: #448; }
-          #navlist li a:visited { color: #667; }
-          #navlist li a:hover {
-          color: #000;
-          background: #AAE;
-          border-color: #227;
-          }
-          #navlist li a.current {
-          background: white;
-          border-bottom: 1px solid white;
-          }
-          #filterWrapper {
-          margin-bottom:5px;
-          }
-          #displayWrapper {
-          margin-top:5px;
-          }
-          .message {
-          background:#BBBBBB;
-          border: 1px solid #778;
-          }
-          .displayContainer {
-          border:1px solid #555555;
-          margin-top:3px;
-          padding: 3px;
-          display:none;
-          }
-          #summaryContainer table,
-          #historyContainer table {
-          border:1px solid black;
-          }
-          #summaryContainer th,
-          #historyContainer th {
-          background: #aaaaaa;
-          color: white;
-          }
-          #summaryContainer th, #summaryContainer td,
-          #historyContainer th, #historyContainer td {
-          padding: 2px 4px 2px 4px;
-          }
-          .summary-name {
-          background: #eeeeee;
-          text-align:left;
-          }
-          .summary-size {
-          background: #eeeeee;
-          text-align:center;
-          }
-          .summary-priority-all {
-          background: #dddddd;
-          text-align:center;
-          }
-          .summary-priority-1 {
-          background: red;
-          text-align:center;
-          }
-          .summary-priority-2 {
-          background: orange;
-          text-align:center;
-          }
-          .summary-priority-3 {
-          background: green;
-          text-align:center;
-          }
-          .summary-priority-4 {
-          background: blue;
-          text-align:center;
-          }
+            </script>
+            <style type="text/css">
+               html, body, div, form {
+               margin:0px;
+               padding:0px;
+               }
+               body {
+               padding:3px;
+               }
+               a, a:link , a:active, a:visited, a:hover {
+               text-decoration: none; color: black;
+               }
+               #navlist {
+               padding: 3px 0;
+               margin-left: 0;
+               border-bottom: 1px solid #778;
+               font: bold 12px Verdana, sans-serif;
+               }
+               #navlist li {
+               list-style: none;
+               margin: 0;
+               display: inline;
+               }
+               #navlist li a {
+               padding: 3px 0.5em;
+               margin-left: 3px;
+               border: 1px solid #778;
+               border-bottom: none;
+               background: #DDE;
+               text-decoration: none;
+               }
+               #navlist li a:link { color: #448; }
+               #navlist li a:visited { color: #667; }
+               #navlist li a:hover {
+               color: #000;
+               background: #AAE;
+               border-color: #227;
+               }
+               #navlist li a.current {
+               background: white;
+               border-bottom: 1px solid white;
+               }
+               #filterWrapper {
+               margin-bottom:5px;
+               }
+               #displayWrapper {
+               margin-top:5px;
+               }
+               .message {
+               background:#BBBBBB;
+               border: 1px solid #778;
+               }
+               .displayContainer {
+               border:1px solid #555555;
+               margin-top:3px;
+               padding: 3px;
+               display:none;
+               }
+               #summaryContainer table,
+               #historyContainer table {
+               border:1px solid black;
+               }
+               #summaryContainer th,
+               #historyContainer th {
+               background: #aaaaaa;
+               color: white;
+               }
+               #summaryContainer th, #summaryContainer td,
+               #historyContainer th, #historyContainer td {
+               padding: 2px 4px 2px 4px;
+               }
+               .summary-name {
+               background: #eeeeee;
+               text-align:left;
+               }
+               .summary-size {
+               background: #eeeeee;
+               text-align:center;
+               }
+               .summary-priority-all {
+               background: #dddddd;
+               text-align:center;
+               }
+               .summary-priority-1 {
+               background: red;
+               text-align:center;
+               }
+               .summary-priority-2 {
+               background: orange;
+               text-align:center;
+               }
+               .summary-priority-3 {
+               background: green;
+               text-align:center;
+               }
+               .summary-priority-4 {
+               background: blue;
+               text-align:center;
+               }
 
-          .bugList-level1 {
-          margin-bottom:5px;
-          }
-          .bugList-level1, .bugList-level2, .bugList-level3, .bugList-level4 {
-          background-color: #ffffff;
-          margin-left:15px;
-          padding-left:10px;
-          }
-          .bugList-level1-label, .bugList-level2-label, .bugList-level3-label, .bugList-level4-label {
-          background-color: #bbbbbb;
-          border: 1px solid black;
-          padding: 1px 3px 1px 3px;;
-          }
-          .bugList-level2-label, .bugList-level3-label, .bugList-level4-label {
-          border-width: 0px 1px 1px 1px;
-          }
-          .bugList-level4-label {
-          background-color: #ffffff;
-          border: 0px 0px 1px 0px;
-          }
-          .bugList-level4 {
-          border: 0px 1px 1px 1px;
-          }
+               .bugList-level1 {
+               margin-bottom:5px;
+               }
+               .bugList-level1, .bugList-level2, .bugList-level3, .bugList-level4 {
+               background-color: #ffffff;
+               margin-left:15px;
+               padding-left:10px;
+               }
+               .bugList-level1-label, .bugList-level2-label, .bugList-level3-label, .bugList-level4-label {
+               background-color: #bbbbbb;
+               border: 1px solid black;
+               padding: 1px 3px 1px 3px;;
+               }
+               .bugList-level2-label, .bugList-level3-label, .bugList-level4-label {
+               border-width: 0px 1px 1px 1px;
+               }
+               .bugList-level4-label {
+               background-color: #ffffff;
+               border: 0px 0px 1px 0px;
+               }
+               .bugList-level4 {
+               border: 0px 1px 1px 1px;
+               }
 
-          .bugList-level4-inner {
-          border-style: solid;
-          border-color: black;
-          border-width: 0px 1px 1px 1px;
-          }
-          .b-r {
-          font-size: 10pt; font-weight: bold; padding: 0 0 0 60px;
-          }
-          .b-d {
-          font-weight: normal; background: #ccccc0;
-          padding: 0 5px 0 5px; margin: 0px;
-          }
-          .b-1 {
-          background: red; height: 0.5em; width: 1em;
-          margin-right: 0.5em;
-          }
-          .b-2 {
-          background: orange; height: 0.5em; width: 1em;
-          margin-right: 0.5em;
-          }
-          .b-3 {
-          background: green; height: 0.5em; width: 1em;
-          margin-right: 0.5em;
-          }
-          .b-4 {
-          background: blue; height: 0.5em; width: 1em;
-          margin-right: 0.5em;
-          }
+               .bugList-level4-inner {
+               border-style: solid;
+               border-color: black;
+               border-width: 0px 1px 1px 1px;
+               }
+               .b-r {
+               font-size: 10pt; font-weight: bold; padding: 0 0 0 60px;
+               }
+               .b-d {
+               font-weight: normal; background: #ccccc0;
+               padding: 0 5px 0 5px; margin: 0px;
+               }
+               .b-1 {
+               background: red; height: 0.5em; width: 1em;
+               margin-right: 0.5em;
+               }
+               .b-2 {
+               background: orange; height: 0.5em; width: 1em;
+               margin-right: 0.5em;
+               }
+               .b-3 {
+               background: green; height: 0.5em; width: 1em;
+               margin-right: 0.5em;
+               }
+               .b-4 {
+               background: blue; height: 0.5em; width: 1em;
+               margin-right: 0.5em;
+               }
 
-        </style>
-        <title>
-          SpotBugs (
-          <xsl:choose>
-            <xsl:otherwise>
-              <xsl:value-of select="/BugCollection/Project/@filename"/>
-            </xsl:otherwise>
-            <xsl:when test='string-length(/BugCollection/Project/@projectName)>0'>
-              <xsl:value-of select="/BugCollection/Project/@projectName"/>
-            </xsl:when>
-          </xsl:choose>
-          )
-          Analysis for
-          <xsl:value-of select="/BugCollection/@version"/>
-        </title>
-      </head>
-    </html>
-  </xsl:template>
+            </style>
+            <title>
+               SpotBugs (
+               <xsl:choose>
+                  <xsl:otherwise>
+                     <xsl:value-of select="/BugCollection/Project/@filename"/>
+                  </xsl:otherwise>
+                  <xsl:when test='string-length(/BugCollection/Project/@projectName)>0'>
+                     <xsl:value-of select="/BugCollection/Project/@projectName"/>
+                  </xsl:when>
+               </xsl:choose>
+               )
+               Analysis for
+               <xsl:value-of select="/BugCollection/@version"/>
+            </title>
+         </head>
+      </html>
+   </xsl:template>
 
-  <xsl:variable name="apos" select="&quot;'&quot;"/>
+   <xsl:variable name="apos" select="&quot;'&quot;"/>
 
 
 </xsl:transform>
