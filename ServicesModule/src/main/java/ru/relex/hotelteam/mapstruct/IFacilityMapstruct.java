@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.mapstruct;
+package ru.relex.hotelteam.mapstruct;
 
 //import ru.relex.hotelteam.db.domain.Facility;
 //import ru.relex.hotelteam.service.dto.FacilityDTO;

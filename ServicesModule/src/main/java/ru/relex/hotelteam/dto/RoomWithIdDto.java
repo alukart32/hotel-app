@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto;
+package ru.relex.hotelteam.dto;
 
 public class RoomWithIdDto extends RoomBaseDto {
 

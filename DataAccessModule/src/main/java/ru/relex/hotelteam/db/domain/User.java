@@ -1,8 +1,7 @@
 package ru.relex.hotelteam.db.domain;
 
-import ru.relex.hotelteam.shared.model.Authority;
-
 import java.util.Date;
+import ru.relex.hotelteam.shared.model.Authority;
 
 public class User {
 

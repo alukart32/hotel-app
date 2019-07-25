@@ -107,22 +107,6 @@ public class Room {
   }
 
   @Override
-  public String toString() {
-    return "Room{" +
-        "id=" + id +
-        ", number=" + number +
-        ", floor=" + floor +
-        ", categoryId=" + categoryId +
-        ", categoryName='" + categoryName + '\'' +
-        ", typeId=" + typeId +
-        ", places=" + places +
-        ", twinBed=" + twinBed +
-        ", facilities=" + facilities.toString() +
-        ", dailyPrice=" + dailyPrice +
-        '}';
-  }
-
-  @Override
   public int hashCode() {
     return Objects.hash(getId());
   }
@@ -142,5 +126,5 @@ public class Room {
   public void setDailyPrice(BigDecimal dailyPrice) {
     this.dailyPrice = dailyPrice;
   }
-  
+
 }

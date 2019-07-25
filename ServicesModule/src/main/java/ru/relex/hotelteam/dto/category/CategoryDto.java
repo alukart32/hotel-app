@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.dto.CTFwithPrice;
+package ru.relex.hotelteam.dto.category;
 
 import java.math.BigDecimal;
 
@@ -6,7 +6,7 @@ public class CategoryDto {
 
   private int id;
   private String name;
-  private BigDecimal price_multiplier;
+  private BigDecimal priceMultiplier;
 
   public int getId() {
     return id;
@@ -24,11 +24,11 @@ public class CategoryDto {
     this.name = name;
   }
 
-  public BigDecimal getPrice_multiplier() {
-    return price_multiplier;
+  public BigDecimal getPriceMultiplier() {
+    return priceMultiplier;
   }
 
-  public void setPrice_multiplier(BigDecimal price_multiplier) {
-    this.price_multiplier = price_multiplier;
+  public void setPriceMultiplier(BigDecimal priceMultiplier) {
+    this.priceMultiplier = priceMultiplier;
   }
 }

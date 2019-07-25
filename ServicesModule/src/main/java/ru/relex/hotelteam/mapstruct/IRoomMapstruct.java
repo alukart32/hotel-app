@@ -1,12 +1,12 @@
-package ru.relex.hotelteam.service.mapstruct;
+package ru.relex.hotelteam.mapstruct;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.relex.hotelteam.db.domain.Room;
-import ru.relex.hotelteam.service.dto.RoomBaseDto;
-import ru.relex.hotelteam.service.dto.RoomWithIdDto;
+import ru.relex.hotelteam.dto.RoomBaseDto;
+import ru.relex.hotelteam.dto.RoomWithIdDto;
 
 @Mapper(componentModel = "spring")
 public interface IRoomMapstruct {

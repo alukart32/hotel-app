@@ -1,10 +1,10 @@
-package ru.relex.hotelteam.service.services;
+package ru.relex.hotelteam.services;
 
 import java.sql.SQLException;
 import java.util.List;
+import ru.relex.hotelteam.dto.RoomBaseDto;
+import ru.relex.hotelteam.dto.RoomWithIdDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
-import ru.relex.hotelteam.service.dto.RoomBaseDto;
-import ru.relex.hotelteam.service.dto.RoomWithIdDto;
 
 /**
  * Author: Yakimov Date: 20.07.2019 Time: 21:04
