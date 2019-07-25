@@ -38,7 +38,6 @@ public interface IUserMapstruct {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "firstName", ignore = true)
   @Mapping(target = "birthDate", ignore = true)
-  @Mapping(target = "birthDate", ignore = true)
   @Mapping(target = "authority", ignore = true)
   User fromSecurityDto(UserSecurityDto userSecurityDto);
 
