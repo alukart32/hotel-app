@@ -2,7 +2,9 @@ package ru.relex.hotelteam.service.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import ru.relex.hotelteam.db.domain.Facility;
+import ru.relex.hotelteam.service.dto.CTFwithoutPrice.CategoryDtoWithNoPricemult;
+import ru.relex.hotelteam.service.dto.CTFwithoutPrice.FacilityDtoWithNoPrice;
+import ru.relex.hotelteam.service.dto.CTFwithoutPrice.TypeDtoWithNoPrice;
 
 /**
  * Author: Yakimov Date: 20.07.2019 Time: 21:04
@@ -12,8 +14,11 @@ public class RoomBaseDto {
   private int number;
   private int floor;
 
-  private BigDecimal dailyPrice;
+  private TypeDtoWithNoPrice type;
 
+  private CategoryDtoWithNoPricemult category;
+
+  private BigDecimal dailyPrice;
 
   private List<FacilityDtoWithNoPrice> facilities;
 
