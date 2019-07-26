@@ -5,12 +5,18 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ITokenServiceImpl implements ITokenService {
 
   private static final Key SIGNING_KEY;
+  private static final Integer EXPIRATION_TIME = 15;
 
   // Этот ключ генерируется каждый раз при запуске приложения, что значит что токены после перезапуска
   // будут невалидными.
@@ -36,11 +42,21 @@ public class ITokenServiceImpl implements ITokenService {
   }
 
   @Override
-  public String generateToken(final String username) {
+  public String generateToken(final UserDetails user) {
+    var now = Instant.now();
+    Date dateId = Date.from(now);
+
+    var expiration = now.plus(Duration.ofMinutes(EXPIRATION_TIME));
+    Date expirationDate = Date.from(expiration);
+
+    String authority = user.getAuthorities().stream().findFirst().orElseThrow( () -> new BadCredentialsException("Can`t get authorities for user " + user.getUsername())).getAuthority();
     return Jwts
         .builder()
         .signWith(SIGNING_KEY)
-        .setSubject(username)
+        .setSubject(user.getUsername())
+        .claim("authority", authority)
+        .setIssuedAt(dateId)
+        .setExpiration(expirationDate)
         .compact();
   }
 }

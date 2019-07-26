@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
+import ru.relex.hotelteam.security.mapstruct.IUserDetailsMapstruct;
 
 /**
  * Вызывается когда пользователь успешно авторизуется через страницу логина.
@@ -26,7 +27,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
   private final ITokenService tokenService;
 
-  public JwtAuthenticationSuccessHandler(final ITokenService tokenService) {
+  public JwtAuthenticationSuccessHandler(ITokenService tokenService) {
     this.tokenService = tokenService;
   }
 
@@ -36,7 +37,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
       final Authentication authentication) throws IOException, ServletException {
     Object principal = authentication.getPrincipal(); // сюда приходят UserDetails после логина
     if (principal instanceof UserDetails) {
-      String token = tokenService.generateToken(((UserDetails)principal).getUsername());
+      String token = tokenService.generateToken((UserDetails)principal);
       response.setStatus(HttpServletResponse.SC_OK);
       response.getWriter().println(token);
     }
