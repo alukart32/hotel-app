@@ -32,9 +32,9 @@ public class BookingServiceImpl implements IBookingService {
 
   @Override
   public BookingDto createBooking(BookingCreateDto bookingDto) throws CreateBookingException {
-    Booking booking = mapper.getBookingByRoomIdBetweenDates(bookingDto.getRoomId()
+    List<Booking> booking = mapper.getBookingByRoomIdBetweenDates(bookingDto.getRoomId()
         , bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
-    if (booking == null) {
+    if (booking.isEmpty()) {
 
       Booking newBooking = mapper.createBooking(mapstruct.fromCreateDto(bookingDto));
       paymentService.createPayment(newBooking);

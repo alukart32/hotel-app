@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.IRoomService;
 import ru.relex.hotelteam.dto.RoomBaseDto;
 import ru.relex.hotelteam.dto.RoomWithIdDto;
+import ru.relex.hotelteam.dto.bookings.BookingIntervalDto;
 
 @RestController
 @RequestMapping(path = "/rooms", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -33,6 +34,11 @@ public class RoomController {
   @GetMapping
   public List<RoomWithIdDto> getAllRooms() {
     return service.getAllRooms();
+  }
+
+  @GetMapping("/vacancies")
+  public List<RoomWithIdDto> getVacancies(@RequestBody BookingIntervalDto dto) {
+    return service.getVacancies(dto);
   }
 
   @PostMapping
