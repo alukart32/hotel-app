@@ -16,11 +16,11 @@ import ru.relex.hotelteam.security.model.LoginInfo;
 /**
  * Отвечает за авторизацию пользователя при логине в систему
  */
-public class HotelAppAuthFilter extends UsernamePasswordAuthenticationFilter {
+public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
   private final ObjectMapper mapper = new ObjectMapper();
 
-  public HotelAppAuthFilter(AuthenticationSuccessHandler successHandler,
+  public AuthenticationFilter(AuthenticationSuccessHandler successHandler,
       AuthenticationManager authManager) {
 
     super();
@@ -30,7 +30,7 @@ public class HotelAppAuthFilter extends UsernamePasswordAuthenticationFilter {
     использует всё что настроено в DaoAuthenticationProvider
      */
     this.setAuthenticationManager(authManager);
-    this.setFilterProcessesUrl("/login"); // всё что не логин этим фильтром игнорируется
+    this.setFilterProcessesUrl("/login/"); // всё что не логин этим фильтром игнорируется
     this.setAuthenticationSuccessHandler(successHandler); // в случае успешной аутентификации будет вызнан этот хэндлер
   }
 

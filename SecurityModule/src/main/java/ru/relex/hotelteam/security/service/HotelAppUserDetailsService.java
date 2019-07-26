@@ -11,6 +11,8 @@ import ru.relex.hotelteam.security.mapstruct.IUserDetailsMapstruct;
 /**
  * Используется чтобы сообщить менеджеру аутентификации, что за пользователь пришёл на авторизацию.
  */
+
+
 @Service
 public class HotelAppUserDetailsService implements UserDetailsService {
 

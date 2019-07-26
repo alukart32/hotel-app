@@ -2,6 +2,7 @@ package ru.relex.hotelteam.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,8 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import ru.relex.hotelteam.security.filter.HotelAppAuthFilter;
-import ru.relex.hotelteam.security.filter.JwtAccessFilter;
+import ru.relex.hotelteam.security.filter.AuthenticationFilter;
+import ru.relex.hotelteam.security.filter.JwtAuthorizationFilter;
+import ru.relex.hotelteam.security.service.ITokenService;
 
 
 /**
@@ -47,11 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserDetailsService userDetailsService;
   private final AuthenticationSuccessHandler successHandler;
+  private final ITokenService tokenService;
 
   public SecurityConfig(UserDetailsService userDetailsService,
-      AuthenticationSuccessHandler successHandler) {
+      AuthenticationSuccessHandler successHandler, ITokenService tokenService) {
     this.userDetailsService = userDetailsService;
     this.successHandler = successHandler;
+    this.tokenService = tokenService;
   }
 
   /**
@@ -89,14 +93,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
-    var filter = new HotelAppAuthFilter(successHandler, authenticationManager());
+    var filter = new AuthenticationFilter(successHandler, authenticationManager());
     http
         .csrf().disable()// отключаем csrf и cors - они нам на текущем этапе не нужны
         .cors().disable()
         .authorizeRequests() // настраиваем авторизацию
-        .antMatchers("/login").permitAll() // на адрес /login может отправить запрос любой пользователь.
+        .antMatchers("/login/").permitAll() // на адрес /login может отправить запрос любой пользователь.
+        .antMatchers(HttpMethod.POST,"/users/").permitAll() // на адрес /login может отправить запрос любой пользователь.
         //Еще можно писать, например "/auth/**" - что значит что вообще любой запрос будет обрабатываться данным блоком
-        .anyRequest().permitAll() //все остальные (что не описаны выше) запросы должны быть аутентифицированы
+        .anyRequest().authenticated() //все остальные (что не описаны выше) запросы должны быть аутентифицированы
         .and() // затем настраиваем непосредственно фильтры
         /*
           .formLogin()
@@ -106,9 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
          */
         .addFilter(filter) // добавляем фильтр который будет авторизировать пользователя в окне логина
-        .addFilterBefore(new JwtAccessFilter(),
-            HotelAppAuthFilter.class)
-    ;
-
+        .addFilterBefore(new JwtAuthorizationFilter(authenticationManager(), tokenService),
+            AuthenticationFilter.class);
   }
 }
