@@ -38,7 +38,7 @@
         WHERE booking_id = #{id}
     </select>
 
-  <select id="getBookingByRoomIdBetweenDates" resultMap="bookingMap">
+  <select id="getBookingBetweenDates" resultMap="bookingMap">
     SELECT
           booking_id,
           user_id,
@@ -48,7 +48,12 @@
           real_check_in,
           real_check_out
     FROM inprog.bookings
-    WHERE room_id = #{roomId} AND inprog.is_free(#{roomId}, #{from}, #{to})
+    WHERE
+      room_id = #{roomId}
+        AND NOT
+      inprog.is_free(#{roomId}, #{from}, #{to})
+        AND
+      extract(year from #{from}) = extract(year from check_in)
   </select>
 
   <select id="listBookingsByUserId" resultMap="bookingMap">
@@ -91,8 +96,8 @@
   <update id="updateBooking" parameterType="Booking">
     UPDATE inprog.bookings
     <set>
-      <if test="roomId != null and not roomId == 0">room_id = #{roomId},</if>
-      <if test="userId != null and not userId == 0">user_id = #{userId},</if>
+      <if test="roomId != null and not roomId = 0">room_id = #{roomId},</if>
+      <if test="userId != null and not userId = 0">user_id = #{userId},</if>
       <if test="checkInDate != null">check_in = #{checkInDate},</if>
       <if test="checkOutDate != null">check_out = #{checkOutDate},</if>
       <if test="realCheckInDate != null">real_check_in = #{realCheckInDate},</if>
