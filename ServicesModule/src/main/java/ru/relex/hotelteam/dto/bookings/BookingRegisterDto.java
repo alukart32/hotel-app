@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
  */
 public class BookingRegisterDto {
 
+  // ненадобностью удалить
   private int userId;
+
   private int bookingId;
   private LocalDateTime checkInDate;
 

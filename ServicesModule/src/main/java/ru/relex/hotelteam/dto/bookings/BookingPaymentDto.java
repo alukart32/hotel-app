@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
  */
 public class BookingPaymentDto {
 
+  // ненадобностью удалить
   private int userId;
+
   private int bookingId;
   private int roomId;
   private int amountOfDays;
