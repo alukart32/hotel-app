@@ -32,13 +32,15 @@ public class BookingServiceImpl implements IBookingService {
 
   @Override
   public BookingDto createBooking(BookingCreateDto bookingDto) throws CreateBookingException {
-    Booking booking = mapper.getBookingByRoomIdBetweenDates(bookingDto.getRoomId()
+    // Определим есть ли уже брони на данный период времени (даты из dto)
+    List<Booking> booking = mapper.getBookingBetweenDates(bookingDto.getRoomId()
         , bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
-    if (booking == null) {
 
+    if (booking.isEmpty()) {
+      // их нету, зеачит можно создать новую бронь
       Booking newBooking = mapper.createBooking(mapstruct.fromCreateDto(bookingDto));
+      // теперь создадим предварительную оплату
       paymentService.createPayment(newBooking);
-
       return mapstruct.toDto(newBooking);
     } else {
       throw new CreateBookingException();
@@ -72,13 +74,17 @@ public class BookingServiceImpl implements IBookingService {
       throws RegisterGuestException, EntityNotFoundException {
 
     Booking booking = mapper.getBookingById(registerDto.getBookingId())
-        .orElseThrow(() -> new EntityNotFoundException("User", registerDto.getBookingId()));
+        .orElseThrow(() -> new EntityNotFoundException("Booking", registerDto.getBookingId()));
 
+    // нам необходим знать, а была ли регистрация данной брони (или другая логика проверки)
     if (booking.getRealCheckInDate() == null) {
+
       BookingUpdateDateDto dates = new BookingUpdateDateDto();
       dates.setRealCheckInDate(LocalDateTime.now());
 
+      //обновим время (время заезда)
       updateRealCheckDate(booking.getId(), dates);
+      // обновим время (оплата брони)
       paymentService.updatePaymentForCheckIn(booking.getId(), LocalDateTime.now());
     }
   }
@@ -86,6 +92,7 @@ public class BookingServiceImpl implements IBookingService {
   @Override
   public void checkOut(int id)
       throws EntityNotFoundException {
+
     Booking booking = mapper.getBookingById(id)
         .orElseThrow(() -> new EntityNotFoundException("User", id));
 
@@ -97,6 +104,7 @@ public class BookingServiceImpl implements IBookingService {
 
   @Override
   public void cancel(int id) {
+
     Booking booking = mapper.getBookingById(id)
         .orElseThrow(() -> new EntityNotFoundException("User", id));
     BookingPaymentDto payment = paymentService.getPaymentByBookingId(id);
@@ -107,6 +115,7 @@ public class BookingServiceImpl implements IBookingService {
 
   @Override
   public void delete(int id) {
+    // пытаемся найти бронь (проверка на наличие)
     BookingDto booking = findById(id);
 
     paymentService.deletePaymentByBookingId(id);

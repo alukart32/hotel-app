@@ -10,6 +10,7 @@ import ru.relex.hotelteam.db.domain.Room;
 import ru.relex.hotelteam.db.mapper.IRoomMapper;
 import ru.relex.hotelteam.dto.RoomBaseDto;
 import ru.relex.hotelteam.dto.RoomWithIdDto;
+import ru.relex.hotelteam.dto.bookings.BookingIntervalDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 import ru.relex.hotelteam.mapstruct.IRoomMapstruct;
 
@@ -35,6 +36,13 @@ public class RoomServiceImpl implements IRoomService {
   @Override
   public List<RoomWithIdDto> getAllRooms() {
     var rooms = mapper.getAllRooms();
+    rooms.forEach(room -> room.setFacilities(mapper.getFacilitiesForRoom(room.getId())));
+    return rooms.stream().map(room -> mapstruct.toRoomWithIdDto(room)).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<RoomWithIdDto> getVacancies(BookingIntervalDto dto) {
+    var rooms = mapper.getVacancies(dto.getCheckInDate(), dto.getCheckOutDate());
     rooms.forEach(room -> room.setFacilities(mapper.getFacilitiesForRoom(room.getId())));
     return rooms.stream().map(room -> mapstruct.toRoomWithIdDto(room)).collect(Collectors.toList());
   }

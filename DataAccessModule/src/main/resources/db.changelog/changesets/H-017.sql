@@ -5,25 +5,25 @@ DECLARE
     room_id_param ALIAS FOR room_id;
     fromDate ALIAS FOR check_in;
     toDate ALIAS FOR check_out;
-    rooms NUMERIC DEFAULT 0;
+	  occupied NUMERIC DEFAULT 0;
 BEGIN
     IF room_id_param ISNULL THEN
         RAISE EXCEPTION 'Param |room_id| can`t be NULL';
     END IF;
 
-    SELECT COUNT(*) INTO rooms
+    IF fromDate > toDate THEN
+      RAISE EXCEPTION 'Param |check_in| can`t be greater than param |check_out|';
+    END IF;
+
+    SELECT COUNT(*) INTO occupied
     FROM inprog.bookings AS B
     WHERE
-        B.room_id = room_id_param
-      AND (
-        ((fromDate <= B.check_in::date) AND (toDate >= B.check_out::date))
-          OR
-        ((fromDate >= B.check_in::date) AND (fromDate <= B.check_out::date))
-          OR
-        ((toDate >= B.check_in::date) AND (toDate <= B.check_out::date))
-        );
+	    B.room_id = room_id_param
+		    AND
+	    (B.check_in, B.check_out) overlaps (fromDate, toDate)
+	  ;
 
-    IF rooms > 0 THEN
+    IF occupied > 0 THEN
       RETURN FALSE ;
     ELSE
       RETURN TRUE ;

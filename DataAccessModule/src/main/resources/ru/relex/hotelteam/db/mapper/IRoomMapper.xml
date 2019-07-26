@@ -118,6 +118,26 @@
     <include refid="selectAllRooms"/>
   </select>
 
+  <select id="getVacancies" resultSets="rooms" resultType="ru.relex.hotelteam.db.domain.Room">
+    SELECT DISTINCT *
+    FROM
+      (
+       SELECT
+              v.room_id  as id,
+              number as number,
+              floor,
+              category_id,
+              category_name,
+              type_id,
+              twin_bed,
+              places,
+              daily_price,
+              inprog.is_free(v.room_id, #{checkIn}, #{checkOut}) as free
+              FROM inprog.rooms_view as v
+      ) as vacancies
+    WHERE vacancies.free = true
+  </select>
+
   <sql id="selectAllRooms">
     SELECT room_id  as id,
            "number" as number,

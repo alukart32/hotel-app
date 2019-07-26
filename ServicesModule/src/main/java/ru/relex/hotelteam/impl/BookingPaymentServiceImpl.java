@@ -29,12 +29,15 @@ public class BookingPaymentServiceImpl implements IBookingPaymentService {
 
   @Override
   public BookingPaymentDto createPayment(Booking booking) {
+
     BookingPayment payment = new BookingPayment();
 
+    // заполняем данными
     payment.setBookingId(booking.getId());
     payment.setRoomId(booking.getRoomId());
     payment.setUserId(booking.getUserId());
 
+    // считаем насколько дней делается бронь (заезд - выезд + 1)
     long days = ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate());
 
     payment.setAmountOfDays((int) days + 1);
