@@ -1,36 +1,25 @@
 package ru.relex.hotelteam.security.service;
 
+import static ru.relex.hotelteam.security.utils.SecurityConstraints.AUTH_EXPIRATION_TIME;
+import static ru.relex.hotelteam.security.utils.SecurityConstraints.REFRESH_EXPIRATION_TIME;
+import static ru.relex.hotelteam.security.utils.SecurityConstraints.SIGNING_KEY;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import java.security.Key;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import ru.relex.hotelteam.db.mapper.IUserMapper;
+import ru.relex.hotelteam.security.model.TokenPair;
 
 @Service
 public class ITokenServiceImpl implements ITokenService {
 
-  private static final Key SIGNING_KEY;
-  private static final Integer EXPIRATION_TIME = 15;
+  private IUserMapper mapper;
 
-  // Этот ключ генерируется каждый раз при запуске приложения, что значит что токены после перезапуска
-  // будут невалидными.
-  static {
-//    final SecureRandom secureRandom = new SecureRandom();
-//
-//    final byte[] bytes = new byte[512 / 8];
-//    secureRandom.nextBytes(bytes);
-
-    String SECRET = "д!lаїiЎ\n"
-        + "#mщ\u007Fа\n"
-        + "rЩс¦1'іMЮ1=7рgя\u0013\u0014ћdaеiCµG\u0006МРa\\Ж:“»YўnW¤\u001DЗ»DЛІ>¦\u0003м{";
-
-    SIGNING_KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
+  public ITokenServiceImpl(IUserMapper mapper) {
+    this.mapper = mapper;
   }
 
   @Override
@@ -42,21 +31,34 @@ public class ITokenServiceImpl implements ITokenService {
   }
 
   @Override
-  public String generateToken(final UserDetails user) {
+  public TokenPair generateToken(final String username) {
     var now = Instant.now();
+
     Date dateId = Date.from(now);
 
-    var expiration = now.plus(Duration.ofMinutes(EXPIRATION_TIME));
-    Date expirationDate = Date.from(expiration);
+    var authExpiration = now.plus(AUTH_EXPIRATION_TIME);
+    Date authExpirationDate = Date.from(authExpiration);
 
-    String authority = user.getAuthorities().stream().findFirst().orElseThrow( () -> new BadCredentialsException("Can`t get authorities for user " + user.getUsername())).getAuthority();
-    return Jwts
+    var authToken = Jwts
         .builder()
         .signWith(SIGNING_KEY)
-        .setSubject(user.getUsername())
-        .claim("authority", authority)
+        .setSubject(username)
         .setIssuedAt(dateId)
-        .setExpiration(expirationDate)
+        .setExpiration(authExpirationDate)
         .compact();
+
+    var refreshExpiration = now.plus(REFRESH_EXPIRATION_TIME);
+    Date refreshExpirationDate = Date.from(refreshExpiration);
+
+    var refreshToken = Jwts
+        .builder()
+        .signWith(SIGNING_KEY)
+        .setSubject(username)
+        .claim("refresh", "true")
+        .setIssuedAt(dateId)
+        .setExpiration(refreshExpirationDate)
+        .compact();
+
+    return new TokenPair(authToken, refreshToken);
   }
 }

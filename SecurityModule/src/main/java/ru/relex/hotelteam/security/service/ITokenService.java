@@ -2,11 +2,11 @@ package ru.relex.hotelteam.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import org.springframework.security.core.userdetails.UserDetails;
+import ru.relex.hotelteam.security.model.TokenPair;
 
 public interface ITokenService {
 
   Jws<Claims> parseJws(String jwtToken);
 
-  String generateToken(final UserDetails user);
+  TokenPair generateToken(final String username);
 }

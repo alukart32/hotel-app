@@ -1,5 +1,6 @@
 package ru.relex.hotelteam.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,12 +10,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import ru.relex.hotelteam.security.filter.AuthenticationFilter;
 import ru.relex.hotelteam.security.filter.JwtAuthorizationFilter;
+import ru.relex.hotelteam.security.filter.JwtRefreshFilter;
 import ru.relex.hotelteam.security.service.ITokenService;
 
 
@@ -50,12 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final UserDetailsService userDetailsService;
   private final AuthenticationSuccessHandler successHandler;
   private final ITokenService tokenService;
+  private final ObjectMapper mapper;
 
   public SecurityConfig(UserDetailsService userDetailsService,
-      AuthenticationSuccessHandler successHandler, ITokenService tokenService) {
+      AuthenticationSuccessHandler successHandler, ITokenService tokenService,
+      ObjectMapper mapper) {
     this.userDetailsService = userDetailsService;
     this.successHandler = successHandler;
     this.tokenService = tokenService;
+    this.mapper = mapper;
   }
 
   /**
@@ -111,7 +117,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
          */
         .addFilter(filter) // добавляем фильтр который будет авторизировать пользователя в окне логина
-        .addFilterBefore(new JwtAuthorizationFilter(authenticationManager(), tokenService),
-            AuthenticationFilter.class);
+        .addFilterAfter(new JwtAuthorizationFilter(authenticationManager(), tokenService, mapper),
+            AuthenticationFilter.class)
+        .addFilterBefore(new JwtRefreshFilter(authenticationManager(), tokenService, mapper),
+            JwtAuthorizationFilter.class)
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
   }
 }

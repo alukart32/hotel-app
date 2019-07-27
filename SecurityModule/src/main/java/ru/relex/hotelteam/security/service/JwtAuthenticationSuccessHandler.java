@@ -1,10 +1,7 @@
 package ru.relex.hotelteam.security.service;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.security.Key;
-import java.security.SecureRandom;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
-import ru.relex.hotelteam.security.mapstruct.IUserDetailsMapstruct;
+import ru.relex.hotelteam.security.model.TokenPair;
 
 /**
  * Вызывается когда пользователь успешно авторизуется через страницу логина.
@@ -20,15 +17,12 @@ import ru.relex.hotelteam.security.mapstruct.IUserDetailsMapstruct;
 @Service
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-  private static final String BEARER = "Bearer ";
-  private static final String AUTHORIZATION = "Authorization";
-  private static final int ACCESS_TIME = 5;
-  private static final int REFRESH_TIME = 30;
-
   private final ITokenService tokenService;
+  private final ObjectMapper mapper;
 
-  public JwtAuthenticationSuccessHandler(ITokenService tokenService) {
+  public JwtAuthenticationSuccessHandler(ITokenService tokenService, ObjectMapper mapper) {
     this.tokenService = tokenService;
+    this.mapper = mapper;
   }
 
   @Override
@@ -37,9 +31,11 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
       final Authentication authentication) throws IOException, ServletException {
     Object principal = authentication.getPrincipal(); // сюда приходят UserDetails после логина
     if (principal instanceof UserDetails) {
-      String token = tokenService.generateToken((UserDetails)principal);
+      TokenPair tokens = tokenService.generateToken(((UserDetails) principal).getUsername());
+      try (var writer = response.getWriter()) {
+        mapper.writeValue(writer, tokens);
+      }
       response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().println(token);
     }
   }
 
