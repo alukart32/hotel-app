@@ -14,16 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.IRoomService;
 import ru.relex.hotelteam.dto.RoomBaseDto;
 import ru.relex.hotelteam.dto.RoomWithIdDto;
+import ru.relex.hotelteam.shared.model.CurrentUser;
 
 @RestController
 @RequestMapping(path = "/rooms", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class RoomController {
 
   private IRoomService service;
+  private final CurrentUser currentUser;
 
-  public RoomController(IRoomService service) {
+  public RoomController(IRoomService service, CurrentUser currentUser) {
     this.service = service;
+    this.currentUser = currentUser;
   }
+
 
   @GetMapping("/{id}")
   public RoomBaseDto getRoomById(@PathVariable int id) {

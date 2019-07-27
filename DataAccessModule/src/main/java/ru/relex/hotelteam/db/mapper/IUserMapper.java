@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import ru.relex.hotelteam.db.domain.User;
+import ru.relex.hotelteam.shared.model.CurrentUser;
 
 @Mapper
 public interface IUserMapper {
@@ -23,4 +24,6 @@ public interface IUserMapper {
   void updateUser(User user);
 
   void updateUserSecurityInfo(User user);
+
+  Optional<CurrentUser> getCurrentUser(String principal);
 }
