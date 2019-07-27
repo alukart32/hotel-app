@@ -20,17 +20,15 @@ public class SecurityConstraints {
   private static final Boolean KEY_GENERATION = false;
 
   static {
-    String SECRET;
+    byte[] bytes;
     if (KEY_GENERATION) {
       final SecureRandom secureRandom = new SecureRandom();
-      final byte[] bytes = new byte[512 / 8];
+      bytes = new byte[512 / 8];
       secureRandom.nextBytes(bytes);
-      SECRET = new String(bytes);
+    } else {
+      bytes = new byte[512 / 8];
     }
-    SECRET = "д!lаїiЎ\n"
-        + "#mщ\u007Fа\n"
-        + "rЩс¦1'іMЮ1=7рgя\u0013\u0014ћdaеiCµG\u0006МРa\\Ж:“»YўnW¤\u001DЗ»DЛІ>¦\u0003м{";
 
-    SIGNING_KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
+    SIGNING_KEY = Keys.hmacShaKeyFor(bytes);
   }
 }
