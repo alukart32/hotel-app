@@ -19,7 +19,7 @@
     <result column="authority_id" property="authority"/>
   </resultMap>
 
-  <resultMap id="currentUserMap" type="ru.relex.hotelteam.shared.model.CurrentUser" autoMapping="true">
+  <resultMap autoMapping="true" id="currentUserMap" type="ru.relex.hotelteam.shared.model.CurrentUser">
     <id column="user_id" property="id"/>
   </resultMap>
 
@@ -86,6 +86,12 @@
     FROM inprog.users
     WHERE login = #{principal}
 
+  </select>
+
+  <select id="getAuthoritiesForUser" resultType="ru.relex.hotelteam.shared.model.Authority">
+    SELECT authority_id as authority
+    FROM inprog.users
+    WHERE login = #{login}
   </select>
 
   <update id="updateUser" parameterType="User">

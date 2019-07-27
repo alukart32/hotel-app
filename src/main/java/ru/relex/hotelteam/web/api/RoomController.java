@@ -2,6 +2,7 @@ package ru.relex.hotelteam.web.api;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,7 @@ public class RoomController {
     return service.updateRoom(id, room);
   }
 
+  @RolesAllowed("ROLE_OWNER")
   @DeleteMapping("/{id}")
   public void deleteRoom(@PathVariable("id") int id) {
     service.deleteRoom(id);

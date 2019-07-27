@@ -1,8 +1,5 @@
 package ru.relex.hotelteam.security.filter;
 
-import static ru.relex.hotelteam.security.utils.SecurityConstraints.LOGIN_API;
-import static ru.relex.hotelteam.security.utils.SecurityConstraints.REGISTRATION_API;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -18,39 +15,52 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import ru.relex.hotelteam.db.mapper.IUserMapper;
+import ru.relex.hotelteam.security.mapstruct.IAuthorityMapstruct;
 import ru.relex.hotelteam.security.service.ITokenService;
+import ru.relex.hotelteam.shared.model.Authority;
 
 public class JwtAuthorizationFilter extends AbstractJwtAuthorizationFilter {
 
-  private static String[] ignoredPaths = {
-      LOGIN_API,
-      REGISTRATION_API
-  };
+  private final IUserMapper mapper;
+  private final IAuthorityMapstruct mapstruct;
 
   public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-      ITokenService tokenService, ObjectMapper mapper) {
+      ITokenService tokenService, ObjectMapper mapper, IUserMapper mapper1,
+      IAuthorityMapstruct mapstruct) {
     super(authenticationManager, tokenService, mapper);
+    this.mapper = mapper1;
+    this.mapstruct = mapstruct;
   }
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-
     try {
       Jws<Claims> parsedToken = extractTokenFromRequest(request);
 
+      String login = parsedToken.getBody().getSubject();
+
       assertThatNotRefreshToken(parsedToken);
 
-      var authenticationToken = new UsernamePasswordAuthenticationToken(
-          parsedToken.getBody().getSubject(), null, Set.of());
+      Authentication authentication = createAuthentication(login);
 
-      onSuccessfulAuthentication(request, response, authenticationToken);
+      onSuccessfulAuthentication(request, response, authentication);
+
       chain.doFilter(request, response);
     } catch (BadCredentialsException e) {
       onUnsuccessfulAuthentication(request, response, e);
     } catch (ExpiredJwtException | DecodingException | SignatureException e) {
       onUnsuccessfulAuthentication(request, response, new BadCredentialsException(e.getMessage()));
     }
+  }
+
+  private Authentication createAuthentication(String login) {
+    Authority authority = mapper.getAuthoritiesForUser(login);
+    GrantedAuthority grantedAuthority = mapstruct.toGrantedAuthority(authority);
+    return new UsernamePasswordAuthenticationToken(login, null, Set.of(grantedAuthority));
   }
 
   private void assertThatNotRefreshToken(Jws<Claims> parsedToken) {

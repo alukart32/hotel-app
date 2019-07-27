@@ -15,9 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.security.filter.AuthenticationFilter;
 import ru.relex.hotelteam.security.filter.JwtAuthorizationFilter;
 import ru.relex.hotelteam.security.filter.JwtRefreshFilter;
+import ru.relex.hotelteam.security.mapstruct.IAuthorityMapstruct;
 import ru.relex.hotelteam.security.service.ITokenService;
 
 
@@ -53,15 +55,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final UserDetailsService userDetailsService;
   private final AuthenticationSuccessHandler successHandler;
   private final ITokenService tokenService;
-  private final ObjectMapper mapper;
+  private final ObjectMapper objectMapper;
+  private final IAuthorityMapstruct authorityMapstruct;
+  private final IUserMapper userMapper;
 
   public SecurityConfig(UserDetailsService userDetailsService,
       AuthenticationSuccessHandler successHandler, ITokenService tokenService,
-      ObjectMapper mapper) {
+      ObjectMapper objectMapper, IAuthorityMapstruct authorityMapstruct,
+      IUserMapper userMapper) {
     this.userDetailsService = userDetailsService;
     this.successHandler = successHandler;
     this.tokenService = tokenService;
-    this.mapper = mapper;
+    this.objectMapper = objectMapper;
+    this.authorityMapstruct = authorityMapstruct;
+    this.userMapper = userMapper;
   }
 
   /**
@@ -117,9 +124,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
          */
         .addFilter(filter) // добавляем фильтр который будет авторизировать пользователя в окне логина
-        .addFilterAfter(new JwtAuthorizationFilter(authenticationManager(), tokenService, mapper),
+        .addFilterAfter(new JwtAuthorizationFilter(authenticationManager(), tokenService, objectMapper, userMapper,
+                authorityMapstruct),
             AuthenticationFilter.class)
-        .addFilterBefore(new JwtRefreshFilter(authenticationManager(), tokenService, mapper),
+        .addFilterBefore(new JwtRefreshFilter(authenticationManager(), tokenService, objectMapper),
             JwtAuthorizationFilter.class)
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
   }
