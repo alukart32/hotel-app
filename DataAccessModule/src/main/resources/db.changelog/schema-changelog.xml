@@ -105,4 +105,10 @@
     </comment>
     <sqlFile path="changesets/H-017.sql" relativeToChangelogFile="true" splitStatements="false"/>
   </changeSet>
+  <changeSet author="itarasov" id="18">
+    <comment>
+      Change password type to varchar(96)
+    </comment>
+    <sqlFile path="changesets/H-018.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>

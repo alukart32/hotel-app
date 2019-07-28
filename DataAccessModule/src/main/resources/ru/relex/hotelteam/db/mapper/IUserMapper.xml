@@ -4,20 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.relex.hotelteam.db.mapper.IUserMapper">
 
-  <resultMap id="userMap" type="User">
-    <id property="id" column="user_id"/>
-    <result property="firstName" column="first_name"/>
-    <result property="lastName" column="last_name"/>
-    <result property="middleName" column="middle_name"/>
-    <result property="birthDate" column="birth_date"/>
-    <result property="authority" column="authority_id"/>
-  </resultMap>
-
   <delete id="deleteUser">
     DELETE
     FROM inprog.users
     WHERE user_id = #{id}
   </delete>
+
+  <resultMap id="userMap" type="User">
+    <id column="user_id" property="id"/>
+    <result column="first_name" property="firstName"/>
+    <result column="last_name" property="lastName"/>
+    <result column="middle_name" property="middleName"/>
+    <result column="birth_date" property="birthDate"/>
+    <result column="authority_id" property="authority"/>
+  </resultMap>
+
+  <resultMap autoMapping="true" id="currentUserMap" type="ru.relex.hotelteam.shared.model.CurrentUser">
+    <id column="user_id" property="id"/>
+  </resultMap>
 
   <select id="getUserById" resultMap="userMap">
     SELECT user_id,
@@ -34,6 +38,20 @@
     WHERE user_id = #{id}
   </select>
 
+  <select id="getUserByLogin" resultMap="userMap">
+    SELECT user_id,
+           first_name,
+           last_name,
+           middle_name,
+           email,
+           birth_date,
+           authority_id,
+           login,
+           password
+    FROM inprog.users
+    WHERE login = #{login}
+  </select>
+
   <select id="listUsers" resultMap="userMap">
     SELECT user_id,
            first_name,
@@ -45,6 +63,35 @@
            login
 
     FROM inprog.users
+  </select>
+
+  <select id="createUser" resultType="User">
+    INSERT INTO inprog.users(authority_id, first_name, last_name, login,
+                             password, middle_name, email, birth_date)
+    VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName}, #{email},
+            #{birthDate}) RETURNING user_id as id,
+                          first_name,
+                          last_name,
+                          middle_name,
+                          authority_id as authority,
+                          login,
+                          email,
+                          birth_date as birthDate
+  </select>
+
+  <select id="getCurrentUser" resultType="ru.relex.hotelteam.shared.model.CurrentUser">
+    SELECT user_id,
+           login,
+           authority_id as authority
+    FROM inprog.users
+    WHERE login = #{principal}
+
+  </select>
+
+  <select id="getAuthoritiesForUser" resultType="ru.relex.hotelteam.shared.model.Authority">
+    SELECT authority_id as authority
+    FROM inprog.users
+    WHERE login = #{login}
   </select>
 
   <update id="updateUser" parameterType="User">
@@ -70,18 +117,4 @@
 
     WHERE user_id = #{id}
   </update>
-
-  <select id="createUser" resultType="User">
-    INSERT INTO inprog.users(authority_id, first_name, last_name, login,
-                             password, middle_name, email, birth_date)
-    VALUES (#{authority}, #{firstName}, #{lastName}, #{login}, #{password}, #{middleName}, #{email},
-            #{birthDate}) RETURNING user_id as id,
-                          first_name,
-                          last_name,
-                          middle_name,
-                          authority_id as authority,
-                          login,
-                          email,
-                          birth_date as birthDate
-  </select>
 </mapper>

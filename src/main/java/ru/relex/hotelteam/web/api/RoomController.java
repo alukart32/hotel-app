@@ -2,6 +2,7 @@ package ru.relex.hotelteam.web.api;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +52,12 @@ public class RoomController {
     return service.updateRoom(id, room);
   }
 
+  /*
+    Чтобы "защитить" метод от постороннеого доступа следует добавить аннотацию @RolesAllowed()
+    и перечислить в ней те роли, которые могут получать доступ к метода контроллера
+    Для всех остальных ролей в качестве ответа будет передана ошибка 403 Access denied
+   */
+  @RolesAllowed("ROLE_OWNER")
   @DeleteMapping("/{id}")
   public void deleteRoom(@PathVariable("id") int id) {
     service.deleteRoom(id);

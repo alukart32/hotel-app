@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import ru.relex.hotelteam.db.domain.User;
+import ru.relex.hotelteam.shared.model.Authority;
+import ru.relex.hotelteam.shared.model.CurrentUser;
 
 @Mapper
 public interface IUserMapper {
@@ -14,6 +16,8 @@ public interface IUserMapper {
 
   Optional<User> getUserById(int id);
 
+  Optional<User> getUserByLogin(@Param("login") String login);
+
   List<User> listUsers();
 
   void deleteUser(@Param("id") int id);
@@ -21,4 +25,8 @@ public interface IUserMapper {
   void updateUser(User user);
 
   void updateUserSecurityInfo(User user);
+
+  Optional<CurrentUser> getCurrentUser(String principal);
+
+  Authority getAuthoritiesForUser(String login);
 }

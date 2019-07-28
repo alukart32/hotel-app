@@ -26,7 +26,8 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public UserBaseDto createUser(final UserDto user) {
-    return mapstruct.toBaseDto(mapper.createUser(mapstruct.fromDto(user)));
+    User u = mapstruct.toDomain(user);
+    return mapstruct.toBaseDto(mapper.createUser(u));
   }
 
   @Override
@@ -37,7 +38,7 @@ public class UserServiceImpl implements IUserService {
 
   @Override
   public List<UserBaseDto> listUsers() {
-    return mapstruct.toDto(mapper.listUsers());
+    return mapstruct.fromDomain(mapper.listUsers());
   }
 
   @Override

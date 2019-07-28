@@ -4,6 +4,8 @@ package ru.relex.hotelteam.mapstruct;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.relex.hotelteam.db.domain.User;
 import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
@@ -11,29 +13,45 @@ import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
 
 @Mapper(componentModel = "spring")
-public interface IUserMapstruct {
+public abstract class IUserMapstruct {
 
-  User fromDto(UserDto dto);
+  private PasswordEncoder passwordEncoder;
 
-  List<User> fromDto(List<UserBaseDto> userDtoList);
+  @Autowired
+  public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    this.passwordEncoder = passwordEncoder;
+  }
 
-  UserDto toDto(User user);
+  String mapPassword(UserDto dto) {
+    return passwordEncoder.encode(dto.getPassword());
+  }
+
+  abstract List<User> fromDto(List<UserBaseDto> userDtoList);
+
+  abstract UserDto toDto(User user);
+
+  @Mapping(target = "password", expression = "java(mapPassword(dto))")
+  public abstract User toDomain(UserDto dto);
+
+  public abstract List<UserBaseDto> fromDomain(List<User> users);
+
+  public abstract List<User> toDomain(List<UserDto> userDtos);
 
   @Mapping(target = "password", ignore = true)
-  User fromBaseDto(UserBaseDto dto);
+  public abstract User fromBaseDto(UserBaseDto dto);
 
-  UserBaseDto toBaseDto(User user);
+  public abstract UserBaseDto toBaseDto(User user);
 
-  UserUpdateDto toUpdateDto(User user);
+  public abstract UserUpdateDto toUpdateDto(User user);
 
   @Mapping(target = "password", ignore = true)
   @Mapping(target = "login", ignore = true)
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "email", ignore = true)
   @Mapping(target = "authority", ignore = true)
-  User fromUpdateDto(UserUpdateDto userUpdateDto);
+  public abstract User fromUpdateDto(UserUpdateDto userUpdateDto);
 
-  UserSecurityDto toSecurityDto(User user);
+  public abstract UserSecurityDto toSecurityDto(User user);
 
   @Mapping(target = "middleName", ignore = true)
   @Mapping(target = "lastName", ignore = true)
@@ -41,9 +59,6 @@ public interface IUserMapstruct {
   @Mapping(target = "firstName", ignore = true)
   @Mapping(target = "birthDate", ignore = true)
   @Mapping(target = "authority", ignore = true)
-  User fromSecurityDto(UserSecurityDto userSecurityDto);
-
-  List<UserBaseDto> toDto(List<User> users);
-
+  public abstract User fromSecurityDto(UserSecurityDto userSecurityDto);
 
 }
