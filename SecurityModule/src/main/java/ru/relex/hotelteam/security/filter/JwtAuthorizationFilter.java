@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
 import ru.relex.hotelteam.security.mapstruct.IAuthorityMapstruct;
 import ru.relex.hotelteam.security.service.ITokenService;
+import ru.relex.hotelteam.security.utils.SecurityConstraints;
 import ru.relex.hotelteam.shared.model.Authority;
 
 public class JwtAuthorizationFilter extends AbstractJwtAuthorizationFilter {
@@ -39,6 +40,11 @@ public class JwtAuthorizationFilter extends AbstractJwtAuthorizationFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws IOException, ServletException {
     try {
+      String requestPath = getRelativePathFromRequest(request);
+      if (isIgnoredPath(requestPath)) {
+        chain.doFilter(request, response);
+        return;
+      }
       Jws<Claims> parsedToken = extractTokenFromRequest(request);
 
       String login = parsedToken.getBody().getSubject();
@@ -55,6 +61,11 @@ public class JwtAuthorizationFilter extends AbstractJwtAuthorizationFilter {
     } catch (ExpiredJwtException | DecodingException | SignatureException e) {
       onUnsuccessfulAuthentication(request, response, new BadCredentialsException(e.getMessage()));
     }
+  }
+
+  private boolean isIgnoredPath(String requestPath) {
+    return requestPath.equalsIgnoreCase(SecurityConstraints.REGISTRATION_API)
+        || requestPath.equalsIgnoreCase((SecurityConstraints.LOGIN_API));
   }
 
   private Authentication createAuthentication(String login) {
