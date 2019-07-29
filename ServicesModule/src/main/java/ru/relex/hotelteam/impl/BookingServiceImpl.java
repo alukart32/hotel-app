@@ -8,13 +8,14 @@ import ru.relex.hotelteam.db.domain.Booking;
 import ru.relex.hotelteam.db.mapper.IBookingMapper;
 import ru.relex.hotelteam.dto.bookings.BookingCreateDto;
 import ru.relex.hotelteam.dto.bookings.BookingDto;
+import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
 import ru.relex.hotelteam.dto.bookings.BookingRegisterDto;
 import ru.relex.hotelteam.dto.bookings.BookingUpdateDateDto;
 import ru.relex.hotelteam.exceptions.CreateBookingException;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 import ru.relex.hotelteam.exceptions.RegisterGuestException;
-import ru.relex.hotelteam.service.mapstruct.IBookingMapstruct;
+import ru.relex.hotelteam.mapstruct.IBookingMapstruct;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
@@ -33,7 +34,7 @@ public class BookingServiceImpl implements IBookingService {
   @Override
   public BookingDto createBooking(BookingCreateDto bookingDto) throws CreateBookingException {
     // Определим есть ли уже брони на данный период времени (даты из dto)
-    List<Booking> booking = mapper.getBookingBetweenDates(bookingDto.getRoomId()
+    List<Booking> booking = mapper.getBookingsBetweenDates(bookingDto.getRoomId()
         , bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
 
     if (booking.isEmpty()) {
@@ -72,6 +73,11 @@ public class BookingServiceImpl implements IBookingService {
   @Override
   public List<BookingDto> listActiveBookingsForUser(int userId) {
     return mapstruct.toDto(mapper.listActiveBookingsForUser(userId));
+  }
+
+  @Override
+  public List<BookingFullDto> getBookingHistoryForUser(int userId) {
+    return mapstruct.toFullDto(mapper.getBookingHistoryForUser(userId));
   }
 
   /**
