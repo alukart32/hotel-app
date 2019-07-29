@@ -16,17 +16,23 @@ public interface IBookingMapper {
 
   List<Booking> listBookings();
 
+  List<Booking> listActiveBookings();
+
+  List<Booking> listActiveBookingsForUser(@Param("userId") int userId);
+
   List<Booking> listBookingsByUserId(@Param("userId") int userId);
 
-  List<Booking> listBookingsByRoomId(int roomId);
+  List<Booking> listBookingsByRoomId(@Param("roomId") int roomId);
 
   void deleteBooking(@Param("id") int id);
 
   void updateBooking(Booking booking);
 
-  List<Booking> getBookingBetweenDates(@Param("roomId") int roomId
+  List<Booking> getBookingsBetweenDates(@Param("roomId") int roomId
       , @Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
 
   void updateRealCheckDate(@Param("id") int id, @Param("realCheckIn") LocalDateTime realCheckIn
       , @Param("realCheckOut") LocalDateTime realCheckOut);
+
+  List<BookingFull> getBookingHistoryForUser(@Param("userId") int userId);
 }
