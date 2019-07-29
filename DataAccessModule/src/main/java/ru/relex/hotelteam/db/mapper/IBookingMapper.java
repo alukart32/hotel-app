@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import ru.relex.hotelteam.db.domain.Booking;
+import ru.relex.hotelteam.db.domain.BookingFull;
 
 @Mapper
 public interface IBookingMapper {

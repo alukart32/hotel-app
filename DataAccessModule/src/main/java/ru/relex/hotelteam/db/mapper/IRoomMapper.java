@@ -34,6 +34,6 @@ public interface IRoomMapper {
 
   void saveFacilitiesForRoom(@Param("id") int id, @Param("facilities") List<Facility> facilities);
 
-  void updateFacilitiesForRoom(@Param("id") int id, @Param("facilities") List<Facility> facilities)
+  void updateFacilitiesForRoom(@Param("id") int id, @Param("facilities") List<Facility> facilities);
 
 }

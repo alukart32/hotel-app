@@ -94,6 +94,26 @@
     WHERE login = #{login}
   </select>
 
+  <sql id="getAllCurrentGuests">
+      SELECT
+           users.user_id,
+           first_name,
+           last_name,
+           middle_name,
+           email,
+           birth_date,
+           authority_id,
+           login
+      FROM inprog.users as users
+      JOIN inprog.reservations_history_view as reservation_history_view
+      ON users.user_id = reservation_history_view.user_id
+      WHERE reservation_history_view.real_check_in IS NOT NULL AND reservation_history_view.real_check_out IS NULL
+  </sql>
+
+  <select id="getCurrentGuests" resultMap="userMap">
+    <include refid="getAllCurrentGuests"/>
+  </select>
+
   <update id="updateUser" parameterType="User">
     UPDATE inprog.users
     <set>

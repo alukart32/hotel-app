@@ -20,6 +20,8 @@ public interface IUserMapper {
 
   List<User> listUsers();
 
+  List<User> getCurrentGuests();
+
   void deleteUser(@Param("id") int id);
 
   void updateUser(User user);
