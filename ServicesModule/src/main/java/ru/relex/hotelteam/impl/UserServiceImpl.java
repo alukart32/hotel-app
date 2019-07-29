@@ -70,5 +70,10 @@ public class UserServiceImpl implements IUserService {
 
     mapper.updateUserSecurityInfo(user);
   }
+
+  @Override
+  public List<UserBaseDto> getCurrentGuests() {
+    return mapstruct.fromDomain(mapper.getCurrentGuests());
+  }
 }
 

@@ -62,4 +62,8 @@ public class UserController {
     userService.updateSecurityInfo(id, dto);
   }
 
+  @GetMapping("/current-guests")
+  public List<UserBaseDto> getCurrentGuests() {
+    return userService.getCurrentGuests();
+  }
 }

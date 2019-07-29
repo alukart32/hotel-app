@@ -20,4 +20,6 @@ public interface IUserService {
   void update(int id, UserUpdateDto updatedUser);
 
   void updateSecurityInfo(int id, UserSecurityDto updatedSecurityInfo);
+
+  List<UserBaseDto> getCurrentGuests();
 }
