@@ -64,6 +64,16 @@ public class BookingServiceImpl implements IBookingService {
     return mapstruct.toDto(mapper.listBookingsByUserId(userId));
   }
 
+  @Override
+  public List<BookingDto> listActiveBookings() {
+    return mapstruct.toDto(mapper.listActiveBookings());
+  }
+
+  @Override
+  public List<BookingDto> listActiveBookingsForUser(int userId) {
+    return mapstruct.toDto(mapper.listActiveBookingsForUser(userId));
+  }
+
   /**
    * Register a guest means that it needs to update a realCheckInDate field and create payment.
    *
