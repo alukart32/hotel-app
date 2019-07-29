@@ -111,4 +111,10 @@
     </comment>
     <sqlFile path="changesets/H-018.sql" relativeToChangelogFile="true"/>
   </changeSet>
+  <changeSet author="itarasov" id="19">
+    <comment>
+      Add view reservations_history_view
+    </comment>
+    <sqlFile path="changesets/H-019.sql" relativeToChangelogFile="true"/>
+  </changeSet>
 </databaseChangeLog>
