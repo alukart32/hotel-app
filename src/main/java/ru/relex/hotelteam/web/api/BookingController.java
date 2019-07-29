@@ -68,14 +68,24 @@ public class BookingController {
     bookingService.delete(id);
   }
 
-/*
+  /*
 
-  @PutMapping("/{id}")
-  @ResponseStatus(HttpStatus.OK)
-  public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto){
-    bookingService.update(id, dto);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateBooking(@PathVariable("id") int id, @RequestBody BookingUpdateDto dto){
+      bookingService.update(id, dto);
+    }
+  */
+  @GetMapping("/active")
+  public List<BookingDto> listActiveBookings() {
+    return bookingService.listActiveBookings();
   }
-*/
+
+  @GetMapping("/active/guests/{id}")
+  public List<BookingDto> listActiveBookingsForUser(@PathVariable("id") int userId) {
+    return bookingService.listActiveBookingsForUser(userId);
+  }
+
 
   @PutMapping("/cancel/{id}")
   @ResponseStatus(HttpStatus.OK)
