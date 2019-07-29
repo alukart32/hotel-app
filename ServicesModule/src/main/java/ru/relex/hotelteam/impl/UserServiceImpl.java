@@ -2,14 +2,19 @@ package ru.relex.hotelteam.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import ru.relex.hotelteam.IBookingService;
 import ru.relex.hotelteam.IUserService;
 import ru.relex.hotelteam.db.domain.User;
+import ru.relex.hotelteam.db.mapper.IRoomMapper;
 import ru.relex.hotelteam.db.mapper.IUserMapper;
+import ru.relex.hotelteam.dto.RoomWithIdDto;
 import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
+import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
+import ru.relex.hotelteam.mapstruct.IFacilityMapstruct;
 import ru.relex.hotelteam.mapstruct.IUserMapstruct;
 
 @Service
@@ -18,11 +23,21 @@ public class UserServiceImpl implements IUserService {
   private final IUserMapper mapper;
   private final IUserMapstruct mapstruct;
 
+  private final IRoomMapper roomMapper;
+  private final IFacilityMapstruct facilityMapstruct;
+  private final IBookingService bookingService;
+
   public UserServiceImpl(final IUserMapper mapper,
-      final IUserMapstruct mapstruct) {
+      final IUserMapstruct mapstruct, IRoomMapper roomMapper,
+      IFacilityMapstruct facilityMapstruct,
+      IBookingService bookingService) {
     this.mapper = mapper;
     this.mapstruct = mapstruct;
+    this.roomMapper = roomMapper;
+    this.facilityMapstruct = facilityMapstruct;
+    this.bookingService = bookingService;
   }
+
 
   @Override
   public UserBaseDto createUser(final UserDto user) {
@@ -74,6 +89,17 @@ public class UserServiceImpl implements IUserService {
   @Override
   public List<UserBaseDto> getCurrentGuests() {
     return mapstruct.fromDomain(mapper.getCurrentGuests());
+  }
+
+  @Override
+  public List<BookingFullDto> getBookingHistoryForUser(int id) {
+    var bookings = bookingService.getBookingHistoryForUser(id);
+    for (BookingFullDto b : bookings) {
+      RoomWithIdDto room = b.getRoom();
+      room.setFacilities(facilityMapstruct.toDto(roomMapper.getFacilitiesForRoom(room.getId())));
+      b.setRoom(room);
+    }
+    return bookings;
   }
 }
 

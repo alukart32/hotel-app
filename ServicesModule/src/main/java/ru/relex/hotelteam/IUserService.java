@@ -5,6 +5,7 @@ import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
+import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 
 public interface IUserService {
@@ -22,4 +23,6 @@ public interface IUserService {
   void updateSecurityInfo(int id, UserSecurityDto updatedSecurityInfo);
 
   List<UserBaseDto> getCurrentGuests();
+
+  List<BookingFullDto> getBookingHistoryForUser(int id);
 }
