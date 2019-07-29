@@ -21,8 +21,10 @@ public interface IRoomMapper {
 
   List<Room> getAllRooms();
 
-  List<Room> getVacancies(@Param("checkIn")LocalDateTime checkInDate
-  ,@Param("checkOut")LocalDateTime checkOutDate);
+  List<Room> getAllRoomsReservationHistoryForUser(@Param("userId") int userId);
+
+  List<Room> getVacancies(@Param("checkIn") LocalDateTime checkInDate
+      , @Param("checkOut") LocalDateTime checkOutDate);
 
   void deleteRoom(@Param("id") int id);
 
@@ -32,5 +34,6 @@ public interface IRoomMapper {
 
   void saveFacilitiesForRoom(@Param("id") int id, @Param("facilities") List<Facility> facilities);
 
-  void updateFacilitiesForRoom(@Param("id") int id, @Param("facilities") List<Facility> facilities);
+  void updateFacilitiesForRoom(@Param("id") int id, @Param("facilities") List<Facility> facilities)
+
 }

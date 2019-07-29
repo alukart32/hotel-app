@@ -118,6 +118,19 @@
     <include refid="selectAllRooms"/>
   </select>
 
+  <select id="getAllRoomsReservationHistoryForUser" resultType="ru.relex.hotelteam.db.domain.Room">
+    SELECT room_id  as id,
+           number,
+           floor,
+           category_name,
+           type_id,
+           twin_bed,
+           places,
+           daily_price
+    FROM inprog.reservations_history_view
+    WHERE user_id = #{userId}
+  </select>
+
   <select id="getVacancies" resultSets="rooms" resultType="ru.relex.hotelteam.db.domain.Room">
     SELECT DISTINCT *
     FROM
@@ -157,6 +170,7 @@
            INNER JOIN inprog.rooms_facilities AS RF ON F.facility_id = RF.facility_id
     WHERE room_id = #{id}
   </select>
+
 
 
 </mapper>
