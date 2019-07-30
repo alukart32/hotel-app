@@ -1,6 +1,8 @@
 package ru.relex.hotelteam.web.api;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import org.springframework.http.MediaType;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.IRoomService;
 import ru.relex.hotelteam.dto.RoomBaseDto;
@@ -38,8 +41,15 @@ public class RoomController {
   }
 
   @GetMapping("/vacancies")
-  public List<RoomWithIdDto> getVacancies(@RequestBody BookingIntervalDto dto) {
-    return service.getVacancies(dto);
+  public List<RoomWithIdDto> getVacancies(@RequestParam("checkIn") String checkIn,
+      @RequestParam("checkOut") String checkOut)
+      throws ParseException {
+    BookingIntervalDto interval = new BookingIntervalDto();
+    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
+    interval.setCheckInDate(format.parse(checkIn));
+    interval.setCheckOutDate(format.parse(checkOut));
+    return service.getVacancies(interval);
   }
 
   @PostMapping
