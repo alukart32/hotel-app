@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.relex.hotelteam.IUserService;
+import ru.relex.hotelteam.dto.UserAuthDto;
 import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
 import ru.relex.hotelteam.dto.bookings.BookingFullDto;
+import ru.relex.hotelteam.shared.model.Authority;
 
 @RestController
 @RequestMapping(path = "/users",
@@ -56,6 +58,12 @@ public class UserController {
   @PutMapping("/{id}")
   public void updateUser(@PathVariable("id") int id, @RequestBody UserUpdateDto dto) {
     userService.update(id, dto);
+  }
+
+  // валидация: id = число, dto.authority != null
+  @PutMapping("/security/authority/{id}")
+  public void updateUserAuthority(@PathVariable("id") int id, @RequestBody UserAuthDto dto) {
+    userService.updateUserAuthority(id, dto.getAuthority());
   }
 
   @PutMapping("/security/{id}")
