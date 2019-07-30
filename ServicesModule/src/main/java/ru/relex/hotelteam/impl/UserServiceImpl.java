@@ -91,11 +91,12 @@ public class UserServiceImpl implements IUserService {
   /**
    * Created by tarasov Ivan.
    *
+   * @param userId      updating user
    * @param authority   concrete security authority for user (OWNER, ADMIN, GUEST)
    */
   @Override
-  public void updateUserAuthority(Authority authority) {
-    mapper.updateUserAuthority(authority);
+  public void updateUserAuthority(int userId, Authority authority) {
+    mapper.updateUserAuthority(userId, authority);
   }
 
   @Override

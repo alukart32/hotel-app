@@ -127,6 +127,14 @@
     WHERE user_id = #{id}
   </update>
 
+  <update id="updateUserAuthority" parameterType="User">
+    UPDATE inprog.users
+    <set>
+      <if test="authority != null">authority = #{authority}</if>
+    </set>
+    WHERE user_id = #{id}
+  </update>
+
   <update id="updateUserSecurityInfo" parameterType="User">
     UPDATE inprog.users
     <set>

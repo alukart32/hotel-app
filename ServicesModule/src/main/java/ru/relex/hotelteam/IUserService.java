@@ -23,7 +23,7 @@ public interface IUserService {
 
   void updateSecurityInfo(int id, UserSecurityDto updatedSecurityInfo);
 
-  void updateUserAuthority(Authority authority);
+  void updateUserAuthority(int userId, Authority authority);
 
   List<UserBaseDto> getCurrentGuests();
 
