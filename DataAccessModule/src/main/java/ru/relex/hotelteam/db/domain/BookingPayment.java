@@ -14,7 +14,7 @@ public class BookingPayment {
   private int roomId;
   private boolean paid;
   private int amountOfDays;
-  private LocalDateTime timePayment;
+  private LocalDateTime date;
   private BigDecimal total;
 
   public int getId() {
@@ -49,12 +49,12 @@ public class BookingPayment {
     this.paid = paid;
   }
 
-  public LocalDateTime getTimePayment() {
-    return timePayment;
+  public LocalDateTime getDate() {
+    return date;
   }
 
-  public void setTimePayment(LocalDateTime timePayment) {
-    this.timePayment = timePayment;
+  public void setDate(LocalDateTime date) {
+    this.date = date;
   }
 
   public int getBookingId() {
