@@ -16,6 +16,7 @@ import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
 import ru.relex.hotelteam.mapstruct.IFacilityMapstruct;
 import ru.relex.hotelteam.mapstruct.IUserMapstruct;
+import ru.relex.hotelteam.shared.model.Authority;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -42,6 +43,7 @@ public class UserServiceImpl implements IUserService {
   @Override
   public UserBaseDto createUser(final UserDto user) {
     User u = mapstruct.toDomain(user);
+    u.setAuthority(Authority.GUEST);
     return mapstruct.toBaseDto(mapper.createUser(u));
   }
 
@@ -84,6 +86,17 @@ public class UserServiceImpl implements IUserService {
     user.setPassword(updatedSecurity.getPassword());
 
     mapper.updateUserSecurityInfo(user);
+  }
+
+  /**
+   * Created by tarasov Ivan.
+   *
+   * @param userId      updating user
+   * @param authority   concrete security authority for user (OWNER, ADMIN, GUEST)
+   */
+  @Override
+  public void updateUserAuthority(int userId, Authority authority) {
+    mapper.updateUserAuthority(userId, authority);
   }
 
   @Override

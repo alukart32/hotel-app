@@ -7,6 +7,7 @@ import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
 import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
+import ru.relex.hotelteam.shared.model.Authority;
 
 public interface IUserService {
 
@@ -21,6 +22,8 @@ public interface IUserService {
   void update(int id, UserUpdateDto updatedUser);
 
   void updateSecurityInfo(int id, UserSecurityDto updatedSecurityInfo);
+
+  void updateUserAuthority(int userId, Authority authority);
 
   List<UserBaseDto> getCurrentGuests();
 

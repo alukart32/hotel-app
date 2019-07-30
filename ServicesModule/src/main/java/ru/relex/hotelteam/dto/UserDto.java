@@ -14,7 +14,6 @@ public class UserDto {
   private String middleName;
   private String email;
   private Date birthDate;
-  private Authority authority;
 
   public int getId() {
     return id;
@@ -80,11 +79,4 @@ public class UserDto {
     this.middleName = middleName;
   }
 
-  public Authority getAuthority() {
-    return authority;
-  }
-
-  public void setAuthority(Authority authority) {
-    this.authority = authority;
-  }
 }
