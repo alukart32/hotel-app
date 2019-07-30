@@ -28,6 +28,8 @@ public interface IUserMapper {
 
   void updateUserSecurityInfo(User user);
 
+  void updateUserAuthority(Authority authority);
+
   Optional<CurrentUser> getCurrentUser(String principal);
 
   Authority getAuthoritiesForUser(String login);

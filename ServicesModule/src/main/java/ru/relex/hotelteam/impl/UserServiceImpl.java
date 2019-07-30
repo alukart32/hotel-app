@@ -88,6 +88,16 @@ public class UserServiceImpl implements IUserService {
     mapper.updateUserSecurityInfo(user);
   }
 
+  /**
+   * Created by tarasov Ivan.
+   *
+   * @param authority   concrete security authority for user (OWNER, ADMIN, GUEST)
+   */
+  @Override
+  public void updateUserAuthority(Authority authority) {
+    mapper.updateUserAuthority(authority);
+  }
+
   @Override
   public List<UserBaseDto> getCurrentGuests() {
     return mapstruct.fromDomain(mapper.getCurrentGuests());
