@@ -10,7 +10,7 @@ import ru.relex.hotelteam.db.domain.BookingPayment;
 import ru.relex.hotelteam.db.mapper.IBookingPaymentMapper;
 import ru.relex.hotelteam.dto.bookings.BookingPaymentDto;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
-import ru.relex.hotelteam.service.mapstruct.IBookingPaymentMapstruct;
+import ru.relex.hotelteam.mapstruct.IBookingPaymentMapstruct;
 
 /**
  * Created by Tarasov Ivan on 20/07/2019 Time: 19:54.

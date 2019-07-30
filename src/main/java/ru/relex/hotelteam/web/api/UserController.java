@@ -17,6 +17,7 @@ import ru.relex.hotelteam.dto.UserBaseDto;
 import ru.relex.hotelteam.dto.UserDto;
 import ru.relex.hotelteam.dto.UserSecurityDto;
 import ru.relex.hotelteam.dto.UserUpdateDto;
+import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 
 @RestController
 @RequestMapping(path = "/users",
@@ -62,4 +63,13 @@ public class UserController {
     userService.updateSecurityInfo(id, dto);
   }
 
+  @GetMapping("/current-guests")
+  public List<UserBaseDto> getCurrentGuests() {
+    return userService.getCurrentGuests();
+  }
+
+  @GetMapping("/{id}/booking-history")
+  public List<BookingFullDto> getBookingHistory(@PathVariable("id") int id) {
+    return userService.getBookingHistoryForUser(id);
+  }
 }

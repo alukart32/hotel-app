@@ -14,6 +14,49 @@
     <result property="realCheckOutDate" column="real_check_out"/>
   </resultMap>
 
+  <resultMap id="bookingFullMap" type="BookingFull">
+    <result property="roomId" column="room_id"/>
+    <result property="categoryName" column="category_name"/>
+    <result property="dailyPrice" column="daily_Price"/>
+    <result property="typeId" column="type_id"/>
+    <result property="twinBed" column="twin_bed"/>
+    <result property="bookingId" column="booking_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="checkInDate" column="check_in"/>
+    <result property="checkOutDate" column="check_out"/>
+    <result property="realCheckInDate" column="real_check_in"/>
+    <result property="realCheckOutDate" column="real_check_out"/>
+    <collection autoMapping="true" ofType="ru.relex.hotelteam.db.domain.Facility"
+      property="facilities" resultSet="facilities">
+      <id column="facility_id" property="id"/>
+      <result column="name" property="name"/>
+    </collection>
+  </resultMap>
+
+  <sql id="getAllBookings">
+      SELECT
+            booking_id,
+            user_id,
+            room_id,
+            check_in,
+            check_out,
+            real_check_in,
+            real_check_out
+      FROM inprog.bookings
+  </sql>
+
+  <sql id="getActiveBookings">
+      SELECT
+            booking_id,
+            user_id,
+            room_id,
+            check_in,
+            check_out,
+            real_check_in,
+            real_check_out
+      FROM inprog.reservations_history_view
+  </sql>
+
   <select id="createBooking" resultType="Booking">
     INSERT INTO inprog.bookings(user_id, check_in, check_out, room_id)
     VALUES (#{userId}, #{checkInDate}, #{checkOutDate}, #{roomId})
@@ -26,72 +69,49 @@
   </select>
 
   <select id="getBookingById" resultMap="bookingMap">
-        SELECT
-               booking_id,
-               user_id,
-               room_id,
-               check_in,
-               check_out,
-               real_check_in,
-               real_check_out
-        FROM inprog.bookings
-        WHERE booking_id = #{id}
-    </select>
+    <include refid="getAllBookings"/>
+    WHERE booking_id = #{id}
+  </select>
 
-  <select id="getBookingBetweenDates" resultMap="bookingMap">
-    SELECT
-          booking_id,
-          user_id,
-          room_id,
-          check_in,
-          check_out,
-          real_check_in,
-          real_check_out
-    FROM inprog.bookings
+  <select id="getBookingsBetweenDates" resultMap="bookingMap">
+    <include refid="getAllBookings"/>
     WHERE
-      room_id = #{roomId}
-        AND NOT
-      inprog.is_free(#{roomId}, #{from}, #{to})
-        AND
-      extract(year from #{from}) = extract(year from check_in)
+    room_id = #{roomId}
+    AND NOT
+    inprog.is_free(#{roomId}, #{from}, #{to})
+    AND
+    extract(year from #{from}) = extract(year from check_in)
   </select>
 
   <select id="listBookingsByUserId" resultMap="bookingMap">
-        SELECT
-               booking_id,
-               room_id,
-               user_id,
-               check_in,
-               check_out,
-               real_check_in,
-               real_check_out
-        FROM inprog.bookings
-        WHERE user_id = #{userId}
-    </select>
+    <include refid="getAllBookings"/>
+    WHERE user_id = #{userId}
+  </select>
 
   <select id="listBookingsByRoomId" resultMap="bookingMap">
-        SELECT
-               booking_id,
-               user_id,
-               check_in,
-               check_out,
-               real_check_in,
-               real_check_out
-        FROM inprog.bookings
-        WHERE user_id = #{userId}
-    </select>
+    <include refid="getAllBookings"/>
+    WHERE room_id = #{roomId}
+  </select>
 
   <select id="listBookings" resultMap="bookingMap">
-        SELECT
-               booking_id,
-               user_id,
-               room_id,
-               check_in,
-               check_out,
-               real_check_in,
-               real_check_out
-        FROM inprog.bookings
-    </select>
+    <include refid="getAllBookings"/>
+  </select>
+
+  <select id="listActiveBookings" resultMap="bookingMap">
+    <include refid="getAllBookings"/>
+    WHERE real_check_in IS NULL AND real_check_out IS NULL
+  </select>
+
+  <select id="listActiveBookingsForUser" resultMap="bookingMap">
+    <include refid="getActiveBookings"/>
+    WHERE user_id = #{userId} and real_check_in IS NULL AND real_check_out IS NULL
+  </select>
+
+  <select id="getBookingHistoryForUser" resultMap="bookingFullMap">
+    SELECT *
+	  FROM inprog.reservations_history_view
+	  WHERE user_id = #{userId}
+  </select>
 
   <update id="updateBooking" parameterType="Booking">
     UPDATE inprog.bookings
@@ -120,4 +140,5 @@
         FROM inprog.bookings
         WHERE booking_id = #{id}
   </delete>
+
 </mapper>

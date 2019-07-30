@@ -1,4 +1,4 @@
-package ru.relex.hotelteam.service.mapstruct;
+package ru.relex.hotelteam.mapstruct;
 
 import java.util.List;
 import org.mapstruct.Mapper;

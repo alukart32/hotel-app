@@ -111,8 +111,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()// отключаем csrf и cors - они нам на текущем этапе не нужны
         .cors().disable()
         .authorizeRequests() // настраиваем авторизацию
-        .antMatchers("/login/").permitAll() // на адрес /login может отправить запрос любой пользователь.
-        .antMatchers(HttpMethod.POST,"/users/").permitAll() // на адрес /login может отправить запрос любой пользователь.
+        .antMatchers("/login").permitAll() // на адрес /login может отправить запрос любой пользователь.
+        .antMatchers(HttpMethod.POST,"/users").permitAll() // на адрес /login может отправить запрос любой пользователь.
         //Еще можно писать, например "/auth/**" - что значит что вообще любой запрос будет обрабатываться данным блоком
         .anyRequest().authenticated() //все остальные (что не описаны выше) запросы должны быть аутентифицированы
         .and() // затем настраиваем непосредственно фильтры

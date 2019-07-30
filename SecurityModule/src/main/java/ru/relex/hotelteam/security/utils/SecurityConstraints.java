@@ -7,9 +7,9 @@ import java.time.Duration;
 
 public class SecurityConstraints {
 
-  public static final String LOGIN_API = "/login/";
-  public static final String REGISTRATION_API = "/users/";
-  public static final String REFRESH_API = "/refresh/";
+  public static final String LOGIN_API = "/login";
+  public static final String REGISTRATION_API = "/users";
+  public static final String REFRESH_API = "/refresh";
   public static final String AUTH_HEADER = "Authorization";
   public static final String BEARER = "Bearer ";
 

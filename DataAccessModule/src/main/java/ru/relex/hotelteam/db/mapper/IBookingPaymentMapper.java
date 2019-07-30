@@ -16,6 +16,8 @@ public interface IBookingPaymentMapper {
 
   List<BookingPayment> listPayments();
 
+  List<BookingPayment> listPaymentsReservationHistoryForUser(int userId);
+
   List<BookingPayment> listPaymentsByUserId(@Param("userId") int userId);
 
   BookingPayment getPaymentByBookingId(@Param("bookingId") int bookingId);
@@ -28,4 +30,5 @@ public interface IBookingPaymentMapper {
 
   void updatePaymentDateByBookingId(@Param("bookingId") int bookingId
       , @Param("date") LocalDateTime date);
+
 }

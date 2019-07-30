@@ -3,6 +3,7 @@ package ru.relex.hotelteam;
 import java.util.List;
 import ru.relex.hotelteam.dto.bookings.BookingCreateDto;
 import ru.relex.hotelteam.dto.bookings.BookingDto;
+import ru.relex.hotelteam.dto.bookings.BookingFullDto;
 import ru.relex.hotelteam.dto.bookings.BookingRegisterDto;
 import ru.relex.hotelteam.exceptions.CreateBookingException;
 import ru.relex.hotelteam.exceptions.EntityNotFoundException;
@@ -18,6 +19,12 @@ public interface IBookingService {
 
   List<BookingDto> listBookingsByUserId(int userId);
 
+  List<BookingDto> listActiveBookings();
+
+  List<BookingDto> listActiveBookingsForUser(int userId);
+
+  List<BookingFullDto> getBookingHistoryForUser(int userId);
+
   void registration(BookingRegisterDto registerDto)
       throws RegisterGuestException, EntityNotFoundException;
 
@@ -27,4 +34,5 @@ public interface IBookingService {
   void cancel(int id);
 
   void delete(int id);
+
 }

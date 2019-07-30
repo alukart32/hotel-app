@@ -4,11 +4,44 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.relex.hotelteam.db.mapper.IBookingPaymentMapper">
 
-  <resultMap id="bookingPaymentMap" type="BookingPayment">
+    <resultMap id="bookingPaymentMap" type="BookingPayment">
     <id property="id" column="payment_id"/>
     <result property="userId" column="user_id"/>
     <result property="bookingId" column="booking_id"/>
   </resultMap>
+
+  <sql id="getPayments">
+     SELECT
+            user_id,
+            booking_id,
+            date,
+            total
+      FROM inprog.payments
+  </sql>
+
+  <sql id="getPaymentsWithoutId">
+     SELECT
+            user_id,
+            date,
+            total
+      FROM inprog.payments
+  </sql>
+
+  <sql id="getPaymentsWithoutUserId">
+     SELECT
+            booking_id,
+            date,
+            total
+      FROM inprog.payments
+  </sql>
+
+  <sql id="getPaymentsForReservationHistory">
+    SELECT
+          booking_id,
+          date,
+          total
+    FROM inprog.reservations_history_view
+  </sql>
 
   <select id="createPayment" resultType="BookingPayment">
     INSERT INTO inprog.payments(user_id, booking_id, total)
@@ -22,43 +55,29 @@
   </select>
 
   <select id="getPaymentById" resultMap="bookingPaymentMap">
-        SELECT
-               user_id,
-               booking_id,
-               date,
-               total
-
-        FROM inprog.payments
-        WHERE payment_id = #{id}
-    </select>
+    <include refid="getPayments"/>
+    WHERE payment_id = #{id}
+  </select>
 
   <select id="listPayments" resultMap="bookingPaymentMap">
-        SELECT
-               user_id,
-               booking_id,
-               date,
-               total
-        FROM inprog.payments
-        WHERE booking_id = #{bookingId}
-    </select>
+    <include refid="getPayments"/>
+    WHERE booking_id = #{bookingId}
+  </select>
+
+  <select id="listPaymentsReservationHistoryForUser" resultMap="bookingPaymentMap">
+    <include refid="getPaymentsForReservationHistory"/>
+    WHERE user_id = #{userId}
+  </select>
 
   <select id="getPaymentByBookingId" resultMap="bookingPaymentMap">
-        SELECT
-               user_id,
-               date,
-               total
-        FROM inprog.payments
-        WHERE booking_id = #{bookingId}
-    </select>
+    <include refid="getPaymentsWithoutId"/>
+    WHERE booking_id = #{bookingId}
+  </select>
 
   <select id="listPaymentsByUserId" resultMap="bookingPaymentMap">
-        SELECT
-               booking_id,
-               date,
-               total
-        FROM inprog.payments
-        WHERE user_id = #{userId}
-    </select>
+    <include refid="getPaymentsWithoutUserId"/>
+    WHERE user_id = #{userId}
+  </select>
 
   <update id="updatePayment" parameterType="BookingPayment">
     UPDATE inprog.payments
@@ -93,4 +112,5 @@
         FROM inprog.payments
         WHERE booking_id = #{bookingId}
   </delete>
+
 </mapper>
