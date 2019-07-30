@@ -30,7 +30,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     использует всё что настроено в DaoAuthenticationProvider
      */
     this.setAuthenticationManager(authManager);
-    this.setFilterProcessesUrl("/login/"); // всё что не логин этим фильтром игнорируется
+    this.setFilterProcessesUrl("/login"); // всё что не логин этим фильтром игнорируется
     this.setAuthenticationSuccessHandler(successHandler); // в случае успешной аутентификации будет вызнан этот хэндлер
   }
 
