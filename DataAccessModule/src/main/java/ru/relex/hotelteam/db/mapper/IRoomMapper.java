@@ -1,6 +1,6 @@
 package ru.relex.hotelteam.db.mapper;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,8 +21,8 @@ public interface IRoomMapper {
 
   List<Room> getAllRooms();
 
-  List<Room> getVacancies(@Param("checkIn")LocalDateTime checkInDate
-  ,@Param("checkOut")LocalDateTime checkOutDate);
+  List<Room> getVacancies(@Param("checkIn") Date checkInDate
+      , @Param("checkOut") Date checkOutDate);
 
   void deleteRoom(@Param("id") int id);
 

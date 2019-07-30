@@ -1,28 +1,29 @@
 package ru.relex.hotelteam.dto.bookings;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Tarasov Ivan on 26/07/2019 Time: 8:01.
  */
 public class BookingIntervalDto {
 
-  private LocalDateTime checkInDate;
-  private LocalDateTime checkOutDate;
+  private Date checkInDate;
+  private Date checkOutDate;
 
-  public LocalDateTime getCheckInDate() {
+
+  public Date getCheckInDate() {
     return checkInDate;
   }
 
-  public void setCheckInDate(LocalDateTime checkInDate) {
+  public void setCheckInDate(Date checkInDate) {
     this.checkInDate = checkInDate;
   }
 
-  public LocalDateTime getCheckOutDate() {
+  public Date getCheckOutDate() {
     return checkOutDate;
   }
 
-  public void setCheckOutDate(LocalDateTime checkOutDate) {
+  public void setCheckOutDate(Date checkOutDate) {
     this.checkOutDate = checkOutDate;
   }
 }

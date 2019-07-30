@@ -14,8 +14,8 @@ public class SecurityConstraints {
   public static final String BEARER = "Bearer ";
 
 
-  public static final Duration REFRESH_EXPIRATION_TIME = Duration.ofDays(1);
-  public static final Duration AUTH_EXPIRATION_TIME = Duration.ofMinutes(5);
+  public static final Duration REFRESH_EXPIRATION_TIME = Duration.ofDays(10);
+  public static final Duration AUTH_EXPIRATION_TIME = Duration.ofDays(5);
   public static final Key SIGNING_KEY;
   private static final Boolean KEY_GENERATION = false;
 
