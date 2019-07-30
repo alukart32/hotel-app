@@ -28,7 +28,7 @@ public interface IUserMapper {
 
   void updateUserSecurityInfo(User user);
 
-  void updateUserAuthority(@Param("id") int id, Authority authority);
+  void updateUserAuthority(@Param("id") int id, @Param("authority") Authority authority);
 
   Optional<CurrentUser> getCurrentUser(String principal);
 
